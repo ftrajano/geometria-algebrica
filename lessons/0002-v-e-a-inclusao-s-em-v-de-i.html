@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lição 0002 · O operador V e a inclusão S ⊆ V(I(S))</title>
+<style>
+  :root{
+    --ink:#1a1a1a; --soft:#5b5b5b; --accent:#7a1f2b; --good:#1f6b3b; --bad:#9a2b2b;
+    --rule:#d8d2c4; --bg:#fcfbf7; --code:#f0ede3; --panel:#fff;
+  }
+  *{box-sizing:border-box}
+  html{font-size:18px}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    line-height:1.55; margin:0; padding:3rem 1.2rem 6rem;
+  }
+  .wrap{max-width:44rem; margin:0 auto}
+  .kicker{font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-family:ui-sans-serif,system-ui,sans-serif; margin:0 0 .4rem}
+  h1{font-size:2rem; line-height:1.15; margin:0 0 .35rem; font-weight:600}
+  .sub{color:var(--soft); font-style:italic; margin:0 0 1.6rem}
+  .meta{font-family:ui-sans-serif,system-ui,sans-serif; font-size:.74rem; color:var(--soft); letter-spacing:.03em; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:.55rem 0; margin:0 0 2rem; display:flex; gap:1.4rem; flex-wrap:wrap}
+  h2{font-size:1.3rem; margin:2.6rem 0 .5rem}
+  h2 .n{color:var(--accent); font-family:ui-sans-serif,system-ui,sans-serif; font-size:.8rem; letter-spacing:.1em; display:block; margin-bottom:.1rem}
+  p{margin:.65rem 0}
+  code,.mono{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; background:var(--code); padding:.05em .35em; border-radius:4px; font-size:.84em}
+  .accent{color:var(--accent)}
+  .box{background:var(--panel); border:1px solid var(--rule); border-radius:8px; padding:1.1rem 1.3rem; margin:1.2rem 0}
+  .def{border-left:4px solid var(--accent)}
+  .def h3{margin:0 0 .4rem; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; font-family:ui-sans-serif,system-ui,sans-serif; color:var(--accent)}
+  blockquote{margin:1.3rem 0; padding:.2rem 0 .2rem 1rem; border-left:3px solid var(--rule); color:var(--soft); font-style:italic}
+  .quiz{background:var(--panel); border:1px solid var(--rule); border-radius:8px; padding:1.1rem 1.3rem; margin:1.4rem 0}
+  .quiz .q{font-weight:600; margin:0 0 .8rem}
+  .opt{display:block; width:100%; text-align:left; background:#fbfaf5; border:1px solid var(--rule); border-radius:6px;
+       padding:.6rem .8rem; margin:.45rem 0; cursor:pointer; font:inherit; font-size:.92rem; transition:.12s}
+  .opt:hover{border-color:var(--accent)}
+  .opt.correct{border-color:var(--good); background:#eef7f0; color:var(--good)}
+  .opt.wrong{border-color:var(--bad); background:#faeded; color:var(--bad)}
+  .opt:disabled{cursor:default}
+  .fb{margin:.7rem 0 0; font-size:.88rem; min-height:1.2em}
+  .fb.show-good{color:var(--good)} .fb.show-bad{color:var(--bad)}
+  .reveal{margin:.6rem 0}
+  .reveal summary{cursor:pointer; font-family:ui-sans-serif,system-ui,sans-serif; font-size:.82rem; letter-spacing:.04em; color:var(--accent); padding:.5rem 0}
+  .proof{background:#fbfaf5; border:1px solid var(--rule); border-radius:8px; padding:1rem 1.2rem; margin:.6rem 0}
+  .qed{text-align:right; color:var(--accent)}
+  footer{margin-top:3.2rem; padding-top:1rem; border-top:1px solid var(--rule); font-size:.82rem; color:var(--soft); font-family:ui-sans-serif,system-ui,sans-serif}
+  a{color:var(--accent)}
+  .src{background:#f4f1e7; border:1px solid var(--rule); border-radius:8px; padding:1rem 1.2rem; font-size:.9rem}
+  .src h3{margin:.1rem 0 .5rem; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; font-family:ui-sans-serif,system-ui,sans-serif; color:var(--accent)}
+  .tag{display:inline-block; font-family:ui-sans-serif,system-ui,sans-serif; font-size:.68rem; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); border:1px solid var(--accent); border-radius:99px; padding:.1rem .55rem; margin-left:.3rem; vertical-align:.15em}
+  @media print{ body{background:#fff} .opt{display:none} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="kicker">Lição 0002 · Geometria Algébrica Computacional</p>
+  <h1>O operador <span class="accent">V</span><br>e a inclusão <span class="accent">S ⊆ V(I(S))</span></h1>
+  <p class="sub">Você já provou que I(S) é um ideal verificando axiomas. Hoje você aprende um <em>segundo</em> movimento de prova — demonstrar uma inclusão de conjuntos — e o usa para provar um dos fatos mais bonitos da área: que dar a volta pelo dicionário nunca te faz perder pontos.</p>
+  <div class="meta">
+    <span>⏱ ~30 min</span>
+    <span>🎯 Vitória: provar S ⊆ V(I(S))</span>
+    <span>📈 Novo movimento: provar A ⊆ B</span>
+  </div>
+
+  <h2><span class="n">RETOMADA · SPACING</span>O que ficou da Lição 0001</h2>
+  <p>Sem olhar a lição anterior: <span class="mono">I(S)</span> pega um conjunto de <em>pontos</em> <span class="mono">S</span> e devolve todos os polinômios que se anulam em todo ponto de <span class="mono">S</span>. Rápido teste de memória:</p>
+  <div class="quiz" id="q1">
+    <p class="q">"<span class="mono">f ∈ I(S)</span>" significa, por definição, exatamente:</p>
+    <button class="opt" data-ok="0">f se anula em algum ponto de S</button>
+    <button class="opt" data-ok="1">f se anula em todo ponto de S</button>
+    <button class="opt" data-ok="0">f é um dos pontos do conjunto S</button>
+    <p class="fb" id="fb1"></p>
+  </div>
+  <p>Essa tradução — <em>"pertence a I(S)" ⇔ "anula-se em todo ponto de S"</em> — é o motor de hoje também. Guarde-a na ponta da língua.</p>
+
+  <h2><span class="n">PASSO 1 · O OUTRO OPERADOR</span>V, com definição precisa</h2>
+  <p>Na Lição 0001 você viu <span class="mono">V</span> de relance. Agora a definição formal — a direção álgebra → geometria:</p>
+  <div class="box def">
+    <h3>Definição · V (variedade)</h3>
+    <p style="margin:.2rem 0">Dado um conjunto de polinômios <span class="mono">F ⊆ k[x₁,…,xₙ]</span>,</p>
+    <p style="margin:.2rem 0; text-align:center"><span class="mono">V(F) = { p ∈ kⁿ : f(p) = 0 para todo f ∈ F }.</span></p>
+    <p style="margin:.5rem 0 0; color:var(--soft); font-size:.9rem">Em palavras: <span class="mono">V(F)</span> é o conjunto dos <strong>pontos</strong> onde <em>todos</em> os polinômios de <span class="mono">F</span> se anulam simultaneamente.</p>
+  </div>
+  <p>Note a simetria perfeita com <span class="mono">I</span>:</p>
+  <div class="box">
+    <p style="margin:.2rem 0"><span class="mono">f ∈ I(S)</span> &nbsp;⇔&nbsp; <span class="mono">f</span> se anula em <strong>todo ponto</strong> de <span class="mono">S</span>. &nbsp;<span style="color:var(--soft)">(varre pontos, testa um polinômio)</span></p>
+    <p style="margin:.2rem 0"><span class="mono">p ∈ V(F)</span> &nbsp;⇔&nbsp; <strong>todo polinômio</strong> de <span class="mono">F</span> se anula em <span class="mono">p</span>. &nbsp;<span style="color:var(--soft)">(varre polinômios, testa um ponto)</span></p>
+  </div>
+  <p>São a mesma condição "tudo se anula", lida de dois ângulos. É essa simetria que vai fazer a prova de hoje sair quase sozinha.</p>
+
+  <h2><span class="n">PASSO 2 · O NOVO MOVIMENTO</span>Como se prova "A ⊆ B"</h2>
+  <p>Na Lição 0001 o objetivo era "X é um ideal" → verificar 3 axiomas. Hoje o objetivo tem outra forma: <strong>uma inclusão de conjuntos</strong>. E inclusão tem um movimento próprio, igualmente mecânico:</p>
+  <blockquote>Para provar <span class="mono">A ⊆ B</span>: tome um elemento <strong>arbitrário</strong> <span class="mono">x ∈ A</span> e mostre que <span class="mono">x ∈ B</span>. Só isso. Se todo elemento de A está em B, então A ⊆ B.</blockquote>
+  <p>É o mesmo espírito do "seja <span class="mono">p ∈ S</span> arbitrário" que você já usou — agora elevado a método geral. <span class="tag">guarde no reference</span></p>
+  <div class="quiz" id="q2">
+    <p class="q">Para provar <span class="mono">S ⊆ V(I(S))</span>, a primeira linha correta é:</p>
+    <button class="opt" data-ok="1">"Seja p ∈ S arbitrário; quero p ∈ V(I(S))."</button>
+    <button class="opt" data-ok="0">"Suponha que S não esteja em V(I(S))."</button>
+    <button class="opt" data-ok="0">"Seja f ∈ I(S) arbitrário; quero f = 0."</button>
+    <p class="fb" id="fb2"></p>
+  </div>
+
+  <h2><span class="n">PASSO 3 · A VITÓRIA</span>Provar que S ⊆ V(I(S))</h2>
+  <p>Primeiro, sinta <em>por que isso deveria ser verdade</em> antes de provar. Pegue um ponto <span class="mono">p</span> de <span class="mono">S</span>. Construímos <span class="mono">I(S)</span> justamente como os polinômios que morrem em <em>todo</em> <span class="mono">S</span> — então é claro que eles morrem em <span class="mono">p</span>. Logo <span class="mono">p</span> é um ponto onde todos os polinômios de <span class="mono">I(S)</span> se anulam — e isso é <em>exatamente</em> a definição de estar em <span class="mono">V(I(S))</span>. A prova só carimba isso com rigor.</p>
+  <p>Tente escrever as linhas você mesmo antes de abrir. O esforço de recuperação é o que fixa.</p>
+  <details class="reveal"><summary>▸ revelar a demonstração completa</summary>
+  <div class="proof">
+    <p><strong>Afirmação.</strong> Para todo conjunto de pontos <span class="mono">S ⊆ kⁿ</span>, vale <span class="mono">S ⊆ V(I(S))</span>.</p>
+    <p><strong>Prova.</strong> Seja <span class="mono">p ∈ S</span> arbitrário. Queremos mostrar que <span class="mono">p ∈ V(I(S))</span>.</p>
+    <p>Por definição de <span class="mono">V</span>, ter <span class="mono">p ∈ V(I(S))</span> significa: <em>todo</em> polinômio <span class="mono">f ∈ I(S)</span> satisfaz <span class="mono">f(p) = 0</span>. Então tomemos um <span class="mono">f ∈ I(S)</span> arbitrário e mostremos <span class="mono">f(p) = 0</span>.</p>
+    <p>Como <span class="mono">f ∈ I(S)</span>, por definição de <span class="mono">I</span> o polinômio <span class="mono">f</span> se anula em <em>todo</em> ponto de <span class="mono">S</span>. Mas <span class="mono">p ∈ S</span>. Logo <span class="mono">f(p) = 0</span>.</p>
+    <p>Como <span class="mono">f ∈ I(S)</span> era arbitrário, todo polinômio de <span class="mono">I(S)</span> se anula em <span class="mono">p</span>, isto é, <span class="mono">p ∈ V(I(S))</span>. E como <span class="mono">p ∈ S</span> era arbitrário, concluímos <span class="mono">S ⊆ V(I(S))</span>.</p>
+    <p class="qed">∎</p>
+  </div></details>
+  <p>Repare na estrutura: <strong>duas vezes</strong> "seja … arbitrário" aninhadas (um ponto, depois um polinômio), cada uma destravada por uma <em>definição</em>. Você não inventou nada — perseguiu definições. Esse aninhamento "para todo p, para todo f" é o padrão que vai reaparecer em quase toda prova de geometria algébrica.</p>
+
+  <h2><span class="n">PASSO 4 · O QUE ISSO ABRE</span>O quase-inverso e o Nullstellensatz</h2>
+  <p>Você provou que ir <span class="mono">S → I(S) → V(I(S))</span> <strong>nunca perde</strong> pontos de <span class="mono">S</span>. A pergunta natural: será que <span class="mono">V(I(S))</span> é <em>exatamente</em> <span class="mono">S</span>, ou pode ser maior?</p>
+  <p>Resposta curta: pode ser maior — <span class="mono">V(I(S))</span> é o "fecho" de <span class="mono">S</span>, a menor variedade que contém <span class="mono">S</span>. E a questão gêmea, <span class="mono">I(V(J))</span> versus o ideal <span class="mono">J</span>, é controlada pelo <strong>Nullstellensatz de Hilbert</strong> — um dos teoremas-pilares da sua missão. Estamos a poucas lições dele, e hoje você colocou a primeira metade da fundação.</p>
+
+  <h2><span class="n">PASSO 5 · PRATIQUE SOZINHO</span>Sua tarefa até a próxima</h2>
+  <div class="box def">
+    <h3>Exercício · inversão de inclusão</h3>
+    <p style="margin:.2rem 0">Prove, no mesmo estilo: <strong>se <span class="mono">S ⊆ T</span> então <span class="mono">I(T) ⊆ I(S)</span></strong>. (Sim — o operador <span class="mono">I</span> <em>inverte</em> inclusões. Mais pontos ⇒ menos polinômios sobrevivem.)</p>
+    <p style="margin:.5rem 0 0; color:var(--soft); font-size:.9rem">Dica de partida: "Seja <span class="mono">f ∈ I(T)</span> arbitrário; quero <span class="mono">f ∈ I(S)</span>…" — depois use que <span class="mono">S ⊆ T</span>. Me traga sua prova no chat e eu te dou feedback linha a linha.</p>
+  </div>
+
+  <div class="src" style="margin-top:1.6rem">
+    <h3>Leia a seguir (fonte primária)</h3>
+    <p><strong>Cox–Little–O'Shea, Cap. 1 §4</strong> — a discussão de <span class="mono">I</span>, <span class="mono">V</span> e suas composições, incluindo esta inclusão e a inversão de inclusões. <a href="https://link.springer.com/book/10.1007/978-3-031-91841-4">Springer</a>. Para a técnica de provar inclusões em geral: <a href="https://richardhammack.github.io/BookOfProof/">Hammack, <em>Book of Proof</em></a>, cap. 8 (Proofs Involving Sets).</p>
+  </div>
+
+  <blockquote style="margin-top:2rem">
+    <strong>Sou seu professor.</strong> Travou no exercício, ou alguma linha da prova de hoje não fechou? Me chame no chat — inclusive para revisar sua prova de <span class="mono">I(T) ⊆ I(S)</span> antes de seguir.
+  </blockquote>
+
+  <footer>
+    Lição 0002 · Missão: <a href="../MISSION.md">Álgebra Abstrata → Geometria Algébrica Computacional</a><br>
+    Anterior: <a href="0001-i-of-s-e-um-ideal.html">0001 — I(S) é um ideal</a> · Referência: <a href="../reference/proof-templates.html">Anatomia de uma demonstração</a> · Próxima: o ideal radical e o caminho até o Nullstellensatz.
+  </footer>
+</div>
+
+<script>
+(function(){
+  function wire(quizId, fbId){
+    var quiz = document.getElementById(quizId);
+    var fb = document.getElementById(fbId);
+    var opts = quiz.querySelectorAll('.opt');
+    opts.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var ok = btn.getAttribute('data-ok') === '1';
+        opts.forEach(function(b){ b.disabled = true; if(b.getAttribute('data-ok')==='1') b.classList.add('correct'); });
+        if(!ok) btn.classList.add('wrong');
+        fb.textContent = ok ? '✓ Isso mesmo.' : '✗ Quase — veja a opção em verde e o porquê.';
+        fb.className = 'fb ' + (ok ? 'show-good' : 'show-bad');
+      });
+    });
+  }
+  wire('q1','fb1'); wire('q2','fb2');
+})();
+</script>
+</body>
+</html>

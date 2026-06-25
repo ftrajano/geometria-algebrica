@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Geometria Algébrica Computacional · meu percurso</title>
+<style>
+  :root{
+    --ink:#1a1a1a; --soft:#5b5b5b; --accent:#7a1f2b; --rule:#d8d2c4; --bg:#fcfbf7; --code:#f0ede3; --panel:#fff;
+  }
+  *{box-sizing:border-box}
+  html{font-size:18px}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    line-height:1.55; margin:0; padding:3rem 1.2rem 6rem;
+  }
+  .wrap{max-width:44rem; margin:0 auto}
+  .kicker{font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-family:ui-sans-serif,system-ui,sans-serif; margin:0 0 .4rem}
+  h1{font-size:2.2rem; line-height:1.12; margin:0 0 .4rem; font-weight:600}
+  .sub{color:var(--soft); font-style:italic; margin:0 0 1.8rem; font-size:1.05rem}
+  h2{font-size:1.25rem; margin:2.6rem 0 .6rem; border-bottom:1px solid var(--rule); padding-bottom:.3rem}
+  p{margin:.65rem 0}
+  a{color:var(--accent)}
+  code,.mono{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; background:var(--code); padding:.05em .35em; border-radius:4px; font-size:.84em}
+  .mission{background:var(--panel); border:1px solid var(--rule); border-left:4px solid var(--accent); border-radius:8px; padding:1rem 1.3rem; margin:1.4rem 0}
+  ol.lessons{list-style:none; padding:0; margin:1rem 0}
+  ol.lessons li{background:var(--panel); border:1px solid var(--rule); border-radius:8px; margin:.6rem 0; padding:.9rem 1.1rem; display:flex; gap:.9rem; align-items:baseline}
+  ol.lessons .num{font-family:ui-sans-serif,system-ui,sans-serif; font-size:.72rem; letter-spacing:.06em; color:var(--accent); border:1px solid var(--accent); border-radius:99px; padding:.15rem .5rem; flex:none}
+  ol.lessons a{font-weight:600; text-decoration:none; font-size:1.05rem}
+  ol.lessons a:hover{text-decoration:underline}
+  ol.lessons .desc{display:block; color:var(--soft); font-size:.9rem; font-style:italic; margin-top:.2rem}
+  .refs li{margin:.4rem 0}
+  footer{margin-top:3.5rem; padding-top:1rem; border-top:1px solid var(--rule); font-size:.82rem; color:var(--soft); font-family:ui-sans-serif,system-ui,sans-serif}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="kicker">Caderno de estudo · vivo</p>
+  <h1>Geometria Algébrica Computacional</h1>
+  <p class="sub">Reconstruindo a álgebra abstrata a partir do concreto — polinômios, ideais, variedades — rumo a ler e contribuir com publicações.</p>
+
+  <div class="mission">
+    <strong>A missão.</strong> Cheguei a me formar em matemática travando na álgebra abstrata, uma das áreas que acho mais bonitas. Aqui a reconstruo do jeito certo: cada lição entrega <em>uma</em> vitória concreta e treina a técnica de demonstração, sempre ancorada em objetos calculáveis. Destino: bases de Gröbner, Teorema da Base de Hilbert e o Nullstellensatz.
+  </div>
+
+  <h2>Lições</h2>
+  <ol class="lessons">
+    <li>
+      <span class="num">0001</span>
+      <span>
+        <a href="lessons/0001-i-of-s-e-um-ideal.html">Sua primeira demonstração: I(S) é um ideal</a>
+        <span class="desc">O dicionário álgebra↔geometria e o movimento "definição → checklist → verificar cada cláusula".</span>
+      </span>
+    </li>
+    <li>
+      <span class="num">0002</span>
+      <span>
+        <a href="lessons/0002-v-e-a-inclusao-s-em-v-de-i.html">O operador V e a inclusão S ⊆ V(I(S))</a>
+        <span class="desc">Provar inclusões de conjuntos; a primeira metade da fundação do Nullstellensatz.</span>
+      </span>
+    </li>
+  </ol>
+
+  <h2>Referência rápida</h2>
+  <ul class="refs">
+    <li><a href="reference/proof-templates.html">Anatomia de uma demonstração em álgebra</a> — os modelos "Para mostrar…" (ideal, inclusão A⊆B, subgrupo, homomorfismo). Imprima.</li>
+    <li><a href="MISSION.md">Missão</a> · <a href="RESOURCES.md">Fontes confiáveis</a> (CLO, Hammack, Atiyah–Macdonald, Macaulay2).</li>
+  </ul>
+
+  <footer>
+    Caderno construído lição a lição com um tutor de IA. Atualizado conforme avanço.<br>
+    Melhor lido em ordem: 0001 → 0002 → …
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Referência · Anatomia de uma demonstração em álgebra</title>
+<style>
+  :root{
+    --ink:#1a1a1a; --soft:#5b5b5b; --accent:#7a1f2b; --rule:#d8d2c4; --bg:#fcfbf7; --code:#f0ede3;
+  }
+  *{box-sizing:border-box}
+  html{font-size:18px}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    line-height:1.5; margin:0; padding:3rem 1.2rem 6rem;
+  }
+  .wrap{max-width:46rem; margin:0 auto}
+  .kicker{font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-family:ui-sans-serif,system-ui,sans-serif; margin:0 0 .4rem}
+  h1{font-size:2rem; line-height:1.15; margin:0 0 .3rem; font-weight:600}
+  .sub{color:var(--soft); font-style:italic; margin:0 0 2.2rem}
+  h2{font-size:1.25rem; margin:2.4rem 0 .6rem; border-bottom:1px solid var(--rule); padding-bottom:.3rem}
+  p{margin:.6rem 0}
+  .card{background:#fff; border:1px solid var(--rule); border-radius:8px; padding:1rem 1.2rem; margin:1rem 0; box-shadow:0 1px 0 rgba(0,0,0,.02)}
+  .card h3{margin:0 0 .5rem; font-size:1.05rem; color:var(--accent); font-family:ui-sans-serif,system-ui,sans-serif}
+  code,.mono{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; background:var(--code); padding:.05em .35em; border-radius:4px; font-size:.86em}
+  ol.steps{margin:.4rem 0 .2rem; padding-left:1.3rem}
+  ol.steps li{margin:.35rem 0}
+  .show{font-style:italic; color:var(--soft)}
+  .law{display:flex; gap:.6rem; align-items:baseline; margin:.3rem 0}
+  .law b{font-family:ui-sans-serif,system-ui,sans-serif; font-size:.78rem; letter-spacing:.04em; color:var(--accent); min-width:6.2rem; display:inline-block}
+  blockquote{margin:1.2rem 0; padding:.2rem 0 .2rem 1rem; border-left:3px solid var(--accent); color:var(--soft); font-style:italic}
+  footer{margin-top:3rem; padding-top:1rem; border-top:1px solid var(--rule); font-size:.8rem; color:var(--soft); font-family:ui-sans-serif,system-ui,sans-serif}
+  a{color:var(--accent)}
+  @media print{ body{background:#fff} .card{box-shadow:none} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="kicker">Documento de referência · imprima e mantenha por perto</p>
+  <h1>Anatomia de uma demonstração em álgebra</h1>
+  <p class="sub">Modelos "Para mostrar…": como transformar uma <em>definição</em> em uma <em>prova executável</em>.</p>
+
+  <p>O segredo que quase ninguém ensina explicitamente: em álgebra abstrata, <strong>a definição do objeto é literalmente o roteiro da prova</strong>. Você quase nunca precisa de inspiração. Você precisa <em>desempacotar a definição</em> em uma lista de verificações e checar cada item. Este documento é essa lista, para os objetos que você mais vai encontrar.</p>
+
+  <blockquote>Regra de ouro: ao ver "prove que X é um Y", escreva no papel a <em>definição de Y</em> e transforme cada cláusula em uma linha "Para mostrar…". A prova vira preencher lacunas.</blockquote>
+
+  <h2>O esqueleto universal</h2>
+  <div class="card">
+    <ol class="steps">
+      <li><strong>Nomeie o objetivo.</strong> "Quero mostrar que <span class="mono">S</span> é um [ideal / subgrupo / homomorfismo]."</li>
+      <li><strong>Cite a definição</strong> de [ideal / …]. Cada cláusula vira uma obrigação.</li>
+      <li><strong>Introduza objetos genéricos.</strong> "Sejam <span class="mono">a, b ∈ S</span> e <span class="mono">r ∈ R</span> arbitrários." (Genérico = vale para todos.)</li>
+      <li><strong>Cheque cada cláusula</strong>, uma por vez, manipulando os objetos genéricos até cair de volta em <span class="mono">S</span>.</li>
+      <li><strong>Conclua.</strong> "Logo as três condições valem, então <span class="mono">S</span> é um ideal. ∎"</li>
+    </ol>
+  </div>
+
+  <h2>Modelo: provar que <span class="mono">I</span> é um <strong>ideal</strong> de um anel <span class="mono">R</span></h2>
+  <div class="card">
+    <h3>Definição → checklist</h3>
+    <div class="law"><b>0 ∈ I</b><span class="show">o conjunto não é vazio / contém o zero</span></div>
+    <div class="law"><b>fecho (+)</b><span class="show">se <span class="mono">a, b ∈ I</span> então <span class="mono">a + b ∈ I</span></span></div>
+    <div class="law"><b>absorção</b><span class="show">se <span class="mono">a ∈ I</span> e <span class="mono">r ∈ R</span> então <span class="mono">r·a ∈ I</span></span></div>
+    <p style="margin-top:.7rem"><strong>Cuidado:</strong> a absorção é com <em>qualquer</em> <span class="mono">r</span> do anel inteiro — não só com elementos de <span class="mono">I</span>. É isso que torna ideal mais forte que subanel. Um ideal <em>não</em> precisa ser fechado sob a própria multiplicação como subanel; precisa absorver o anel todo.</p>
+  </div>
+
+  <h2>Modelo: provar uma <strong>inclusão de conjuntos</strong> <span class="mono">A ⊆ B</span></h2>
+  <div class="card">
+    <h3>O movimento</h3>
+    <ol class="steps">
+      <li>"Seja <span class="mono">x ∈ A</span> arbitrário. Quero mostrar <span class="mono">x ∈ B</span>."</li>
+      <li>Desempacote o que "<span class="mono">x ∈ A</span>" <em>significa</em> (a definição de A).</li>
+      <li>Manipule até obter a condição que <em>define</em> "<span class="mono">x ∈ B</span>".</li>
+      <li>"Como <span class="mono">x</span> era arbitrário, <span class="mono">A ⊆ B</span>. ∎"</li>
+    </ol>
+    <p style="margin-top:.6rem"><strong>Para provar igualdade <span class="mono">A = B</span>:</strong> prove as duas inclusões, <span class="mono">A ⊆ B</span> e <span class="mono">B ⊆ A</span>, separadamente. Quando o objetivo é "todo elemento de A está em B", esse é sempre o esqueleto. Aninhe o movimento se a pertinência em B já for ela mesma um "para todo" (ex.: <span class="mono">p ∈ V(I(S))</span> abre num "para todo polinômio f…").</p>
+  </div>
+
+  <h2>Modelo: provar que <span class="mono">H</span> é um <strong>subgrupo</strong> de <span class="mono">G</span></h2>
+  <div class="card">
+    <h3>Definição → checklist (teste do subgrupo)</h3>
+    <div class="law"><b>e ∈ H</b><span class="show">o neutro de <span class="mono">G</span> está em <span class="mono">H</span> (logo não-vazio)</span></div>
+    <div class="law"><b>fecho (·)</b><span class="show">se <span class="mono">a, b ∈ H</span> então <span class="mono">ab ∈ H</span></span></div>
+    <div class="law"><b>inversos</b><span class="show">se <span class="mono">a ∈ H</span> então <span class="mono">a⁻¹ ∈ H</span></span></div>
+    <p style="margin-top:.7rem">Atalho clássico (teste de um passo): <span class="mono">H ≠ ∅</span> e <span class="mono">a, b ∈ H ⇒ ab⁻¹ ∈ H</span>.</p>
+  </div>
+
+  <h2>Modelo: provar que <span class="mono">φ</span> é um <strong>homomorfismo</strong> de anéis</h2>
+  <div class="card">
+    <div class="law"><b>soma</b><span class="show"><span class="mono">φ(a + b) = φ(a) + φ(b)</span></span></div>
+    <div class="law"><b>produto</b><span class="show"><span class="mono">φ(a·b) = φ(a)·φ(b)</span></span></div>
+    <div class="law"><b>unidade</b><span class="show"><span class="mono">φ(1) = 1</span> (na convenção com unidade)</span></div>
+    <p style="margin-top:.7rem">Sempre começa do lado <em>esquerdo</em> e manipula até chegar no <em>direito</em>. Nunca os dois ao mesmo tempo.</p>
+  </div>
+
+  <h2>Frases-cola que sempre cabem</h2>
+  <div class="card">
+    <p>"Seja … arbitrário." · "Por definição de …" · "Por hipótese, …" · "Aplicando … obtemos …" · "Como … pertence a …, segue que …" · "Isso é exatamente a condição de …, logo … ∎"</p>
+  </div>
+
+  <footer>
+    Workspace de aprendizado · referência usada por <a href="../lessons/0001-i-of-s-e-um-ideal.html">Lição 0001 — I(S) é um ideal</a>.<br>
+    Dúvida em qualquer linha? Pergunte ao seu professor (o agente) — é para isso que ele está aqui.
+  </footer>
+</div>
+</body>
+</html>
