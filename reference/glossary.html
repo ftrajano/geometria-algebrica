@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glossário · Geometria Algébrica Computacional</title>
+<style>
+  :root{ --ink:#1a1a1a; --soft:#5b5b5b; --accent:#7a1f2b; --rule:#d8d2c4; --bg:#fcfbf7; --code:#f0ede3; }
+  *{box-sizing:border-box}
+  html{font-size:18px; scroll-behavior:smooth}
+  body{ background:var(--bg); color:var(--ink); font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif; line-height:1.5; margin:0; padding:2.6rem 1.2rem 5rem; }
+  .wrap{max-width:44rem; margin:0 auto}
+  .kicker{font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-family:ui-sans-serif,system-ui,sans-serif; margin:0 0 .4rem}
+  h1{font-size:2rem; margin:0 0 .2rem; font-weight:600}
+  .sub{color:var(--soft); font-style:italic; margin:0 0 1.6rem}
+  .toc{font-family:ui-sans-serif,system-ui,sans-serif; font-size:.82rem; background:#fff; border:1px solid var(--rule); border-radius:8px; padding:.8rem 1rem; margin:0 0 2rem}
+  .toc a{color:var(--accent); text-decoration:none; margin-right:.4rem}
+  .toc a:hover{text-decoration:underline}
+  .entry{background:#fff; border:1px solid var(--rule); border-radius:8px; padding:1rem 1.2rem; margin:1rem 0}
+  .entry.key{border-left:4px solid var(--accent)}
+  .entry h2{margin:0 0 .4rem; font-size:1.12rem}
+  .entry .sym{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; color:var(--accent); font-size:.9em; margin-left:.3rem}
+  code,.mono{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; background:var(--code); padding:.05em .35em; border-radius:4px; font-size:.84em}
+  p{margin:.45rem 0}
+  .note{color:var(--soft); font-size:.88rem}
+  a{color:var(--accent)}
+  footer{margin-top:2.4rem; padding-top:1rem; border-top:1px solid var(--rule); font-size:.8rem; color:var(--soft); font-family:ui-sans-serif,system-ui,sans-serif}
+  @media print{ body{background:#fff} .toc{display:none} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="kicker">Referência · glossário canônico</p>
+  <h1>Glossário</h1>
+  <p class="sub">Os termos do nosso percurso, com a definição que usamos em todas as lições. Quando uma lição usa um símbolo, ele significa isto.</p>
+
+  <nav class="toc">
+    <a href="#corpo">corpo</a> ·
+    <a href="#fechado">corpo algebricamente fechado</a> ·
+    <a href="#anel-pol">k[x₁,…,xₙ]</a> ·
+    <a href="#ideal">ideal</a> ·
+    <a href="#I">I(S)</a> ·
+    <a href="#V">V(F)</a> ·
+    <a href="#variedade">variedade afim</a> ·
+    <a href="#radical">radical √J</a> ·
+    <a href="#ideal-radical">ideal radical</a> ·
+    <a href="#nss">Nullstellensatz</a>
+  </nav>
+
+  <div class="entry" id="corpo">
+    <h2>Corpo <span class="sym">(field)</span></h2>
+    <p>Conjunto com soma e produto onde dá para somar, subtrair, multiplicar e <strong>dividir</strong> (todo elemento não-nulo tem inverso). Exemplos: <span class="mono">ℚ</span>, <span class="mono">ℝ</span>, <span class="mono">ℂ</span>, corpos finitos <span class="mono">𝔽ₚ</span>. É o "terreno" onde vivem os coeficientes dos polinômios.</p>
+  </div>
+
+  <div class="entry key" id="fechado">
+    <h2>Corpo algebricamente fechado</h2>
+    <p>Um corpo <span class="mono">k</span> é <strong>algebricamente fechado</strong> se <strong>todo polinômio não-constante em <span class="mono">k[x]</span> tem pelo menos uma raiz em <span class="mono">k</span></strong>.</p>
+    <p>Equivalências: (1) todo polinômio fatora em fatores <em>lineares</em> sobre <span class="mono">k</span>; (2) os únicos irredutíveis em <span class="mono">k[x]</span> têm grau 1; (3) nenhuma equação polinomial "vaza" para um corpo maior.</p>
+    <p><strong>Sim:</strong> <span class="mono">ℂ</span> (Teorema Fundamental da Álgebra). <strong>Não:</strong> <span class="mono">ℝ</span> (<span class="mono">x²+1</span> sem raiz real), <span class="mono">ℚ</span> (<span class="mono">x²−2</span>), corpos finitos.</p>
+    <p class="note">Por que importa: é a hipótese de todo o <a href="#nss">Nullstellensatz</a>. Sem ela o dicionário álgebra↔geometria vaza — sobre <span class="mono">ℝ</span>, ideais diferentes (<span class="mono">⟨1⟩, ⟨1+x²⟩, …</span>) dão a mesma variedade vazia. Trabalhe em <span class="mono">ℂ</span>. Fonte: CLO Cap. 4 §1, p. 176.</p>
+  </div>
+
+  <div class="entry" id="anel-pol">
+    <h2>Anel de polinômios <span class="sym">k[x₁,…,xₙ]</span></h2>
+    <p>Todos os polinômios em <span class="mono">n</span> variáveis com coeficientes no corpo <span class="mono">k</span>. É um <em>anel comutativo</em>: soma e multiplica como esperado, mas em geral não há divisão. É o universo algébrico da geometria algébrica.</p>
+  </div>
+
+  <div class="entry" id="ideal">
+    <h2>Ideal <span class="sym">I ⊆ R</span></h2>
+    <p>Subconjunto de um anel <span class="mono">R</span> que: (1) contém <span class="mono">0</span>; (2) é fechado sob soma; (3) <strong>absorve</strong> produtos por qualquer elemento do anel (<span class="mono">a∈I, r∈R ⇒ ra∈I</span>). Ver <a href="../lessons/0001-i-of-s-e-um-ideal.html">Lição 0001</a>.</p>
+  </div>
+
+  <div class="entry" id="I">
+    <h2>Ideal de um conjunto <span class="sym">I(S)</span></h2>
+    <p>Dado um conjunto de pontos <span class="mono">S ⊆ kⁿ</span>: <span class="mono">I(S) = { f ∈ k[x₁,…,xₙ] : f(p)=0 para todo p∈S }</span> — os polinômios que se anulam em todo <span class="mono">S</span>. Sempre um ideal. Leva <em>geometria → álgebra</em>.</p>
+  </div>
+
+  <div class="entry" id="V">
+    <h2>Variedade de um conjunto de polinômios <span class="sym">V(F)</span></h2>
+    <p>Dado <span class="mono">F ⊆ k[x₁,…,xₙ]</span>: <span class="mono">V(F) = { p ∈ kⁿ : f(p)=0 para todo f∈F }</span> — os pontos onde todos os polinômios se anulam. Leva <em>álgebra → geometria</em>. Ver <a href="../lessons/0003-nullstellensatz-panorama.html">Lições 0002–0003</a>.</p>
+  </div>
+
+  <div class="entry" id="variedade">
+    <h2>Variedade afim</h2>
+    <p>Um conjunto de pontos da forma <span class="mono">V(F)</span> para algum conjunto de polinômios <span class="mono">F</span> — isto é, o conjunto-solução de um sistema polinomial. São os objetos geométricos centrais da área.</p>
+  </div>
+
+  <div class="entry" id="radical">
+    <h2>Radical de um ideal <span class="sym">√J</span></h2>
+    <p><span class="mono">√J = { a ∈ R : aᵐ ∈ J para algum m ≥ 1 }</span> — os elementos cuja alguma potência cai em <span class="mono">J</span>. É um ideal, e contém <span class="mono">J</span>. "Apaga expoentes": <span class="mono">√⟨x²⟩ = ⟨x⟩</span>. Ver <a href="../lessons/0004-radical-de-um-ideal.html">Lição 0004</a>.</p>
+  </div>
+
+  <div class="entry" id="ideal-radical">
+    <h2>Ideal radical</h2>
+    <p>Ideal que é igual ao próprio radical: <span class="mono">√J = J</span>. Pelo Nullstellensatz, são exatamente os ideais que vêm de variedades (<span class="mono">I(V(J)) = J</span>).</p>
+  </div>
+
+  <div class="entry" id="nss">
+    <h2>Nullstellensatz</h2>
+    <p><strong>Fraco:</strong> sobre <span class="mono">k</span> algebricamente fechado, <span class="mono">V(J)=∅ ⟺ 1∈J</span>. <strong>Forte:</strong> <span class="mono">I(V(J)) = √J</span>. Detalhes no <a href="nullstellensatz.html">cartão do Nullstellensatz</a> e na <a href="../lessons/0003-nullstellensatz-panorama.html">Lição 0003</a>.</p>
+  </div>
+
+  <footer>
+    Glossário canônico · usado por todas as lições. Fonte primária: Cox–Little–O'Shea, 4ª ed.<br>
+    Falta um termo? Peça ao seu professor (o agente) para adicionar.
+  </footer>
+</div>
+</body>
+</html>
