@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lição 0005 · Corpo algebricamente fechado</title>
+<style>
+  :root{
+    --ink:#1a1a1a; --soft:#5b5b5b; --accent:#7a1f2b; --good:#1f6b3b; --bad:#9a2b2b;
+    --rule:#d8d2c4; --bg:#fcfbf7; --code:#f0ede3; --panel:#fff;
+  }
+  *{box-sizing:border-box}
+  html{font-size:18px}
+  body{ background:var(--bg); color:var(--ink); font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif; line-height:1.55; margin:0; padding:3rem 1.2rem 6rem; }
+  .wrap{max-width:44rem; margin:0 auto}
+  .kicker{font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-family:ui-sans-serif,system-ui,sans-serif; margin:0 0 .4rem}
+  .badge{display:inline-block; font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; background:#eef2ea; color:#4a6b4a; border:1px solid #cdd9c9; border-radius:99px; padding:.1rem .5rem; margin-left:.4rem; vertical-align:.12em; font-family:ui-sans-serif,system-ui,sans-serif}
+  h1{font-size:2rem; line-height:1.15; margin:0 0 .35rem; font-weight:600}
+  .sub{color:var(--soft); font-style:italic; margin:0 0 1.6rem}
+  .meta{font-family:ui-sans-serif,system-ui,sans-serif; font-size:.74rem; color:var(--soft); letter-spacing:.03em; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:.55rem 0; margin:0 0 2rem; display:flex; gap:1.4rem; flex-wrap:wrap}
+  h2{font-size:1.3rem; margin:2.6rem 0 .5rem}
+  h2 .n{color:var(--accent); font-family:ui-sans-serif,system-ui,sans-serif; font-size:.8rem; letter-spacing:.1em; display:block; margin-bottom:.1rem}
+  p{margin:.65rem 0}
+  code,.mono{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; background:var(--code); padding:.05em .35em; border-radius:4px; font-size:.84em}
+  .accent{color:var(--accent)}
+  .box{background:var(--panel); border:1px solid var(--rule); border-radius:8px; padding:1.1rem 1.3rem; margin:1.2rem 0}
+  .def{border-left:4px solid var(--accent)}
+  .def h3{margin:0 0 .4rem; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; font-family:ui-sans-serif,system-ui,sans-serif; color:var(--accent)}
+  blockquote{margin:1.3rem 0; padding:.2rem 0 .2rem 1rem; border-left:3px solid var(--rule); color:var(--soft); font-style:italic}
+  table{width:100%; border-collapse:collapse; margin:.6rem 0; font-size:.93rem}
+  td,th{border:1px solid var(--rule); padding:.5rem .7rem; text-align:left; vertical-align:top}
+  th{font-family:ui-sans-serif,system-ui,sans-serif; font-size:.72rem; letter-spacing:.05em; text-transform:uppercase; color:var(--accent)}
+  .quiz{background:var(--panel); border:1px solid var(--rule); border-radius:8px; padding:1.1rem 1.3rem; margin:1.4rem 0}
+  .quiz .q{font-weight:600; margin:0 0 .8rem}
+  .opt{display:block; width:100%; text-align:left; background:#fbfaf5; border:1px solid var(--rule); border-radius:6px; padding:.6rem .8rem; margin:.45rem 0; cursor:pointer; font:inherit; font-size:.92rem; transition:.12s}
+  .opt:hover{border-color:var(--accent)}
+  .opt.correct{border-color:var(--good); background:#eef7f0; color:var(--good)}
+  .opt.wrong{border-color:var(--bad); background:#faeded; color:var(--bad)}
+  .opt:disabled{cursor:default}
+  .fb{margin:.7rem 0 0; font-size:.88rem; min-height:1.2em}
+  .fb.show-good{color:var(--good)} .fb.show-bad{color:var(--bad)}
+  .reveal{margin:.6rem 0}
+  .reveal summary{cursor:pointer; font-family:ui-sans-serif,system-ui,sans-serif; font-size:.82rem; letter-spacing:.04em; color:var(--accent); padding:.5rem 0}
+  .proof{background:#fbfaf5; border:1px solid var(--rule); border-radius:8px; padding:1rem 1.2rem; margin:.6rem 0}
+  footer{margin-top:3.2rem; padding-top:1rem; border-top:1px solid var(--rule); font-size:.82rem; color:var(--soft); font-family:ui-sans-serif,system-ui,sans-serif}
+  a{color:var(--accent)}
+  .src{background:#f4f1e7; border:1px solid var(--rule); border-radius:8px; padding:1rem 1.2rem; font-size:.9rem}
+  .src h3{margin:.1rem 0 .5rem; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; font-family:ui-sans-serif,system-ui,sans-serif; color:var(--accent)}
+  @media print{ body{background:#fff} .opt{display:none} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="kicker">Lição 0005 · Geometria Algébrica Computacional <span class="badge">Fundamentos · revisão</span></p>
+  <h1>Corpo <span class="accent">algebricamente fechado</span></h1>
+  <p class="sub">A hipótese silenciosa que aparece em todo enunciado do Nullstellensatz. Curta, mas decisiva: é o que faz o dicionário álgebra↔geometria ser fiel — e o que te diz por que você calcula sobre ℂ, não ℝ.</p>
+  <div class="meta">
+    <span>⏱ ~15 min</span>
+    <span>🎯 Definir e reconhecer corpos fechados</span>
+    <span>🛠 Skill: exibir testemunha de "não-fechado"</span>
+  </div>
+
+  <h2><span class="n">PASSO 1 · RECALL</span>O que é um corpo, em uma linha</h2>
+  <p>Um <strong>corpo</strong> é um conjunto onde você soma, subtrai, multiplica e <em>divide</em> (todo elemento não-nulo tem inverso). <span class="mono">ℚ</span>, <span class="mono">ℝ</span>, <span class="mono">ℂ</span> e os corpos finitos <span class="mono">𝔽ₚ</span> são exemplos. É o terreno onde vivem os coeficientes dos seus polinômios. <span style="color:var(--soft)">(Verbete completo no <a href="../reference/glossary.html#corpo">glossário</a>.)</span></p>
+
+  <h2><span class="n">PASSO 2 · A DEFINIÇÃO</span>Algebricamente fechado</h2>
+  <div class="box def">
+    <h3>Definição</h3>
+    <p style="margin:.2rem 0">Um corpo <span class="mono">k</span> é <strong>algebricamente fechado</strong> se <strong>todo polinômio não-constante em <span class="mono">k[x]</span> tem pelo menos uma raiz em <span class="mono">k</span></strong>.</p>
+    <p style="margin:.5rem 0 0; color:var(--soft); font-size:.9rem">Fonte: CLO, Cap. 4 §1, p. 176 — <em>"since k is algebraically closed, every nonconstant polynomial in k[x] has a root."</em></p>
+  </div>
+  <p>Três formas equivalentes de dizer o mesmo — cada uma ilumina um ângulo:</p>
+  <table>
+    <tr><th>Forma</th><th>Enunciado</th></tr>
+    <tr><td>Tem raiz</td><td>todo polinômio não-constante de <span class="mono">k[x]</span> tem raiz em <span class="mono">k</span></td></tr>
+    <tr><td>Fatora linear</td><td>todo polinômio se decompõe em fatores de grau 1 sobre <span class="mono">k</span> &nbsp;(ex.: <span class="mono">x²+1 = (x−i)(x+i)</span>)</td></tr>
+    <tr><td>Nada escapa</td><td>os únicos irredutíveis em <span class="mono">k[x]</span> têm grau 1 — nenhuma equação obriga a sair para um corpo maior</td></tr>
+  </table>
+
+  <h2><span class="n">PASSO 3 · A INTUIÇÃO</span>"Nada vaza"</h2>
+  <blockquote>Algebricamente fechado = você <strong>sempre</strong> resolve equações polinomiais <em>dentro</em> do próprio corpo. Não há raiz que te force a inventar números novos.</blockquote>
+  <p>Foi assim que <span class="mono">ℂ</span> nasceu, aliás: <span class="mono">ℝ</span> "vazava" em <span class="mono">x²+1=0</span>, e inventamos <span class="mono">i</span> para tapar o buraco. O Teorema Fundamental da Álgebra diz que, depois de adicionar <span class="mono">i</span>, <strong>não há mais buracos</strong>: <span class="mono">ℂ</span> é algebricamente fechado. Você nunca mais precisa de um corpo maior.</p>
+
+  <h2><span class="n">PASSO 4 · A SKILL</span>Reconhecer (e refutar)</h2>
+  <p>Eis a habilidade concreta. Provar que um corpo <strong>é</strong> fechado costuma ser difícil (o TFA não é trivial). Mas provar que um corpo <strong>não é</strong> fechado é fácil e mecânico:</p>
+  <div class="box def">
+    <h3>Movimento · "não é fechado"</h3>
+    <p style="margin:.2rem 0">Para mostrar que <span class="mono">k</span> <strong>não</strong> é algebricamente fechado, basta <strong>exibir um polinômio não-constante de <span class="mono">k[x]</span> sem raiz em <span class="mono">k</span></strong>. Uma única testemunha encerra o caso.</p>
+  </div>
+  <table>
+    <tr><th>Corpo</th><th>Fechado?</th><th>Testemunha / razão</th></tr>
+    <tr><td><span class="mono">ℂ</span></td><td>✅ Sim</td><td>Teorema Fundamental da Álgebra</td></tr>
+    <tr><td><span class="mono">ℝ</span></td><td>❌ Não</td><td><span class="mono">x²+1</span> (sem raiz real)</td></tr>
+    <tr><td><span class="mono">ℚ</span></td><td>❌ Não</td><td><span class="mono">x²−2</span> (raiz <span class="mono">√2</span> é irracional)</td></tr>
+    <tr><td><span class="mono">𝔽₂</span></td><td>❌ Não</td><td><span class="mono">x²+x+1</span> (nem 0 nem 1 são raiz)</td></tr>
+  </table>
+
+  <div class="quiz" id="q1">
+    <p class="q">Qual destes corpos é algebricamente fechado?</p>
+    <button class="opt" data-ok="0">O corpo dos números racionais</button>
+    <button class="opt" data-ok="1">O corpo dos números complexos</button>
+    <button class="opt" data-ok="0">O corpo dos números reais</button>
+    <p class="fb" id="fb1"></p>
+  </div>
+
+  <div class="quiz" id="q2">
+    <p class="q">Para refutar que <span class="mono">ℝ</span> é fechado, o que basta apresentar?</p>
+    <button class="opt" data-ok="0">Todos os polinômios sem raízes reais</button>
+    <button class="opt" data-ok="1">Um polinômio não-constante sem raiz real</button>
+    <button class="opt" data-ok="0">Uma raiz complexa de algum polinômio</button>
+    <p class="fb" id="fb2"></p>
+  </div>
+
+  <h2><span class="n">PASSO 5 · POR QUE A MISSÃO PRECISA DISSO</span></h2>
+  <p>Aqui está a razão de você ter parado para revisar isto: <strong>todo o Nullstellensatz desmorona sem essa hipótese.</strong> Quando <span class="mono">k</span> não é fechado, o dicionário álgebra↔geometria <em>vaza</em>. O próprio CLO (p. 176) mostra o estrago em <span class="mono">ℝ[x]</span>:</p>
+  <div class="box">
+    <p style="margin:.2rem 0">Os ideais <span class="mono">⟨1⟩</span>, <span class="mono">⟨1+x²⟩</span> e <span class="mono">⟨1+x²+x⁴⟩</span> são <strong>diferentes</strong> em <span class="mono">ℝ[x]</span>, mas os três têm a <strong>mesma</strong> variedade — a vazia (nenhum tem raiz real):</p>
+    <p style="text-align:center; margin:.4rem 0"><span class="mono">V(⟨1⟩) = V(⟨1+x²⟩) = V(⟨1+x²+x⁴⟩) = ∅.</span></p>
+    <p style="margin:.2rem 0">A geometria não consegue distinguir esses ideais — o dicionário perdeu informação. Sobre <span class="mono">ℂ</span>, onde tudo tem raiz, isso não acontece, e a correspondência fica fiel.</p>
+  </div>
+  <p><strong>Consequência prática:</strong> nos seus cálculos de geometria algébrica computacional, o ambiente natural é <span class="mono">ℂ</span> (ou um fecho algébrico). Geometria algébrica <em>real</em> (sobre <span class="mono">ℝ</span>) existe, é importante, mas é um assunto à parte e mais difícil — exatamente porque <span class="mono">ℝ</span> não é fechado.</p>
+
+  <div class="quiz" id="q3">
+    <p class="q">Por que o Nullstellensatz exige corpo algebricamente fechado?</p>
+    <button class="opt" data-ok="0">Para garantir que os ideais sejam finitos</button>
+    <button class="opt" data-ok="1">Senão ideais distintos dão a mesma variedade</button>
+    <button class="opt" data-ok="0">Para que os polinômios tenham grau par</button>
+    <p class="fb" id="fb3"></p>
+  </div>
+
+  <div class="src" style="margin-top:1.8rem">
+    <h3>Leia a seguir (fonte primária)</h3>
+    <p><strong>Cox–Little–O'Shea, 4ª ed., Cap. 4 §1, p. 175–176</strong> — a discussão de por que a correspondência ideal↔variedade precisa de corpo algebricamente fechado, com o exemplo dos ideais que colapsam sobre <span class="mono">ℝ</span>. Conceitos de corpos: <strong>Apêndice A §1</strong> (Fields and Rings). PDF na sua biblioteca. <a href="https://link.springer.com/book/10.1007/978-3-031-91841-4">Springer</a>.</p>
+  </div>
+
+  <blockquote style="margin-top:2rem">
+    <strong>Sou seu professor.</strong> Esta lição nasceu de você pedir para relembrar a definição — e essa é a regra agora: o que você precisar recordar vira lição consultável. Dúvida em qualquer ponto (o que é "fecho algébrico"? por que o TFA é difícil?), me chame.
+  </blockquote>
+
+  <footer>
+    Lição 0005 · Fundamentos · Missão: <a href="../MISSION.md">Álgebra Abstrata → Geometria Algébrica Computacional</a><br>
+    Sustenta: <a href="0003-nullstellensatz-panorama.html">0003 — O Nullstellensatz</a> · Glossário: <a href="../reference/glossary.html#fechado">corpo algebricamente fechado</a>.
+  </footer>
+</div>
+
+<script>
+(function(){
+  function wire(quizId, fbId){
+    var quiz = document.getElementById(quizId);
+    var fb = document.getElementById(fbId);
+    var opts = quiz.querySelectorAll('.opt');
+    opts.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var ok = btn.getAttribute('data-ok') === '1';
+        opts.forEach(function(b){ b.disabled = true; if(b.getAttribute('data-ok')==='1') b.classList.add('correct'); });
+        if(!ok) btn.classList.add('wrong');
+        fb.textContent = ok ? '✓ Isso mesmo.' : '✗ Quase — veja a opção em verde e o porquê.';
+        fb.className = 'fb ' + (ok ? 'show-good' : 'show-bad');
+      });
+    });
+  }
+  wire('q1','fb1'); wire('q2','fb2'); wire('q3','fb3');
+})();
+</script>
+</body>
+</html>
