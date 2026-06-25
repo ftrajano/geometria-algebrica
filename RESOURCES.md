@@ -1,9 +1,18 @@
 # Geometria Algébrica Computacional — Resources
 
+> **Na biblioteca local** (`biblioteca/`, fora do git): CLO 4ª ed. (PDF) e Lang, *Algebra* 3ª ed. rev. (PDF). Posso citar página/seção exatas dos dois.
+
 ## Knowledge
 
-- [Livro: *Ideals, Varieties, and Algorithms* — Cox, Little & O'Shea (CLO), 4ª ed.](https://link.springer.com/book/10.1007/978-3-031-91841-4)
-  O texto-padrão de entrada para geometria algébrica computacional, escrito em nível de graduação e **deliberadamente concreto** (polinômios explícitos, algoritmos). Cobre ideais/variedades, bases de Gröbner, eliminação, Teorema da Base de Hilbert e Nullstellensatz. **Usar para:** a espinha dorsal de toda a trilha. Cap. 1 = dicionário álgebra↔geometria; Cap. 2 = bases de Gröbner.
+- [Livro: *Ideals, Varieties, and Algorithms* — Cox, Little & O'Shea (CLO), 4ª ed. (2015)](https://link.springer.com/book/10.1007/978-3-031-91841-4) · **PDF na biblioteca**
+  O texto-padrão de entrada para geometria algébrica computacional, em nível de graduação e **deliberadamente concreto**. **A espinha dorsal de toda a trilha.** Mapa do nosso caminho (numeração da 4ª ed.):
+  - **Cap. 1** — Geometry, Algebra, and Algorithms: §1 Affine Space (p.1), **§2 Affine Varieties / operador V (p.5)**, §3 Parametrizações (p.14), **§4 Ideals / operador I (p.29)**, §5 Polinômios de uma variável (p.37).
+  - **Cap. 2** — Gröbner Bases: §2 ordens monomiais (p.54), §3 algoritmo da divisão (p.61), §5 Teorema da Base de Hilbert (p.76), §7 algoritmo de Buchberger (p.90).
+  - **Cap. 4** — The Algebra–Geometry Dictionary: **§1 Nullstellensatz (p.175)**, **§2 Radical Ideals & Ideal–Variety Correspondence (p.181)**, §3 somas/produtos/interseções (p.189), §4 Zariski closure / saturações (p.199), §6 decomposição em irredutíveis (p.212).
+  - Cap. 5 (funções em variedades), Cap. 9 (dimensão), Cap. 10 (algoritmos modernos: F4/F5) — mais à frente.
+
+- [Livro: *Algebra* — Serge Lang, 3ª ed. revisada (GTM 211, 2002)](https://link.springer.com/book/10.1007/978-1-4613-0041-0) · **PDF na biblioteca**
+  Referência graduada, enciclopédica e **muito** densa/abstrata. **NÃO usar como texto de aprendizado no nível atual** — é seco e pressupõe fluência em provas; estudá-lo agora recria a frustração que motivou a missão. **Usar para:** consulta pontual de um enunciado mais geral *depois* de entender a versão concreta no CLO, e como meta aspiracional. Útil mais tarde para corpos/Galois e módulos.
 
 - [Livro (grátis, CC): *Book of Proof* — Richard Hammack, 3.4 ed. (2025)](https://richardhammack.github.io/BookOfProof/)
   Introdução limpa e gratuita à **técnica de demonstração** (lógica, conjuntos, métodos de prova, indução). **Usar para:** atacar o gargalo direto — como estruturar e escrever uma prova. Caps. 4–7 e 10 são os mais relevantes agora.
