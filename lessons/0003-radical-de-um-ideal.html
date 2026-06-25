@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lição 0003 · O radical de um ideal</title>
+<style>
+  :root{
+    --ink:#1a1a1a; --soft:#5b5b5b; --accent:#7a1f2b; --good:#1f6b3b; --bad:#9a2b2b;
+    --rule:#d8d2c4; --bg:#fcfbf7; --code:#f0ede3; --panel:#fff;
+  }
+  *{box-sizing:border-box}
+  html{font-size:18px}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    line-height:1.55; margin:0; padding:3rem 1.2rem 6rem;
+  }
+  .wrap{max-width:44rem; margin:0 auto}
+  .kicker{font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-family:ui-sans-serif,system-ui,sans-serif; margin:0 0 .4rem}
+  h1{font-size:2rem; line-height:1.15; margin:0 0 .35rem; font-weight:600}
+  .sub{color:var(--soft); font-style:italic; margin:0 0 1.6rem}
+  .meta{font-family:ui-sans-serif,system-ui,sans-serif; font-size:.74rem; color:var(--soft); letter-spacing:.03em; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:.55rem 0; margin:0 0 2rem; display:flex; gap:1.4rem; flex-wrap:wrap}
+  h2{font-size:1.3rem; margin:2.6rem 0 .5rem}
+  h2 .n{color:var(--accent); font-family:ui-sans-serif,system-ui,sans-serif; font-size:.8rem; letter-spacing:.1em; display:block; margin-bottom:.1rem}
+  p{margin:.65rem 0}
+  code,.mono{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; background:var(--code); padding:.05em .35em; border-radius:4px; font-size:.84em}
+  .accent{color:var(--accent)}
+  .box{background:var(--panel); border:1px solid var(--rule); border-radius:8px; padding:1.1rem 1.3rem; margin:1.2rem 0}
+  .def{border-left:4px solid var(--accent)}
+  .def h3{margin:0 0 .4rem; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; font-family:ui-sans-serif,system-ui,sans-serif; color:var(--accent)}
+  blockquote{margin:1.3rem 0; padding:.2rem 0 .2rem 1rem; border-left:3px solid var(--rule); color:var(--soft); font-style:italic}
+  .quiz{background:var(--panel); border:1px solid var(--rule); border-radius:8px; padding:1.1rem 1.3rem; margin:1.4rem 0}
+  .quiz .q{font-weight:600; margin:0 0 .8rem}
+  .opt{display:block; width:100%; text-align:left; background:#fbfaf5; border:1px solid var(--rule); border-radius:6px;
+       padding:.6rem .8rem; margin:.45rem 0; cursor:pointer; font:inherit; font-size:.92rem; transition:.12s}
+  .opt:hover{border-color:var(--accent)}
+  .opt.correct{border-color:var(--good); background:#eef7f0; color:var(--good)}
+  .opt.wrong{border-color:var(--bad); background:#faeded; color:var(--bad)}
+  .opt:disabled{cursor:default}
+  .fb{margin:.7rem 0 0; font-size:.88rem; min-height:1.2em}
+  .fb.show-good{color:var(--good)} .fb.show-bad{color:var(--bad)}
+  .reveal{margin:.6rem 0}
+  .reveal summary{cursor:pointer; font-family:ui-sans-serif,system-ui,sans-serif; font-size:.82rem; letter-spacing:.04em; color:var(--accent); padding:.5rem 0}
+  .proof{background:#fbfaf5; border:1px solid var(--rule); border-radius:8px; padding:1rem 1.2rem; margin:.6rem 0}
+  .proof .center{text-align:center; margin:.5rem 0}
+  .qed{text-align:right; color:var(--accent)}
+  footer{margin-top:3.2rem; padding-top:1rem; border-top:1px solid var(--rule); font-size:.82rem; color:var(--soft); font-family:ui-sans-serif,system-ui,sans-serif}
+  a{color:var(--accent)}
+  .src{background:#f4f1e7; border:1px solid var(--rule); border-radius:8px; padding:1rem 1.2rem; font-size:.9rem}
+  .src h3{margin:.1rem 0 .5rem; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; font-family:ui-sans-serif,system-ui,sans-serif; color:var(--accent)}
+  .gem{background:#fff8e9; border:1px solid #e7d9a8; border-left:4px solid #b8860b; border-radius:8px; padding:1rem 1.2rem; margin:1.2rem 0}
+  .gem h3{margin:0 0 .4rem; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; font-family:ui-sans-serif,system-ui,sans-serif; color:#8a6608}
+  @media print{ body{background:#fff} .opt{display:none} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="kicker">Lição 0003 · Geometria Algébrica Computacional</p>
+  <h1>O radical de um ideal <span class="accent">√J</span></h1>
+  <p class="sub">O objeto que apareceu no Nullstellensatz. Hoje você o define, ganha a intuição de que ele "apaga expoentes", e prova que ele é um ideal — usando um truque clássico de demonstração que vale ouro: o binômio com casa dos pombos.</p>
+  <div class="meta">
+    <span>⏱ ~35 min</span>
+    <span>🎯 Vitória: provar que √J é um ideal</span>
+    <span>📈 Nova técnica: binômio + pigeonhole</span>
+  </div>
+
+  <h2><span class="n">RETOMADA · SPACING</span>Por que estamos aqui</h2>
+  <p>No Nullstellensatz apareceu a igualdade <span class="mono">I(V(J)) = √J</span>: dar a volta pelo dicionário, partindo de um ideal <span class="mono">J</span>, devolve não <span class="mono">J</span>, mas o seu <em>radical</em> <span class="mono">√J</span>. Vimos o exemplo <span class="mono">√⟨x²⟩ = ⟨x⟩</span> — a geometria "esqueceu" o expoente. Hoje tornamos isso preciso.</p>
+
+  <h2><span class="n">PASSO 1 · DEFINIÇÃO</span>O que é √J</h2>
+  <div class="box def">
+    <h3>Definição · radical</h3>
+    <p style="margin:.2rem 0">Seja <span class="mono">J</span> um ideal de um anel comutativo <span class="mono">R</span>. O <strong>radical</strong> de <span class="mono">J</span> é</p>
+    <p class="center" style="text-align:center"><span class="mono">√J = { a ∈ R : aᵐ ∈ J para algum inteiro m ≥ 1 }.</span></p>
+    <p style="margin:.5rem 0 0; color:var(--soft); font-size:.9rem">Em palavras: <span class="mono">a</span> está no radical se <em>alguma potência</em> de <span class="mono">a</span> cai dentro de <span class="mono">J</span>. O expoente <span class="mono">m</span> pode depender de <span class="mono">a</span>.</p>
+  </div>
+  <p>Note de imediato que <span class="mono">J ⊆ √J</span> sempre: se <span class="mono">a ∈ J</span>, basta <span class="mono">m = 1</span> (<span class="mono">a¹ = a ∈ J</span>). O radical só <em>acrescenta</em> elementos — aqueles cuja potência entra em <span class="mono">J</span> mesmo que eles próprios não estejam.</p>
+
+  <h2><span class="n">PASSO 2 · INTUIÇÃO</span>O radical apaga expoentes</h2>
+  <p>Trabalhe em <span class="mono">ℂ[x]</span> com <span class="mono">J = ⟨x²⟩</span>. Quem está em <span class="mono">√J</span>?</p>
+  <p>O elemento <span class="mono">x</span> não está em <span class="mono">J = ⟨x²⟩</span> (não é múltiplo de <span class="mono">x²</span>). Mas <span class="mono">x² ∈ J</span> — então <span class="mono">x ∈ √J</span> com <span class="mono">m = 2</span>. O radical "promove" <span class="mono">x</span> para dentro. Resultado: <span class="mono">√⟨x²⟩ = ⟨x⟩</span>. O expoente sumiu.</p>
+  <blockquote>Geometricamente: <span class="mono">⟨x²⟩</span> e <span class="mono">⟨x⟩</span> têm a <em>mesma</em> variedade (o ponto <span class="mono">{0}</span>). O radical é a operação algébrica que "esquece a multiplicidade" e enxerga só o conjunto de zeros — exatamente o que o operador geométrico <span class="mono">I(V(·))</span> faz.</blockquote>
+  <p>Um ideal que já é igual ao próprio radical (<span class="mono">√J = J</span>) é chamado <strong>radical</strong>. Pelo Nullstellensatz, esses são precisamente os ideais que vêm de variedades — por isso eles importam tanto na sua missão.</p>
+
+  <div class="quiz" id="q1">
+    <p class="q">Em <span class="mono">ℂ[x]</span>, o elemento <span class="mono">x</span> pertence a <span class="mono">√⟨x³⟩</span>?</p>
+    <button class="opt" data-ok="1">Sim, pois x³ pertence ao ideal</button>
+    <button class="opt" data-ok="0">Não, pois x não é múltiplo</button>
+    <button class="opt" data-ok="0">Não, pois falta o termo x²</button>
+    <p class="fb" id="fb1"></p>
+  </div>
+
+  <h2><span class="n">PASSO 3 · A VITÓRIA</span>Provar que √J é um ideal</h2>
+  <p>Mesmo objetivo da Lição 0001 ("X é um ideal") → mesmo esqueleto: verificar as <strong>três cláusulas</strong>. Duas são fáceis; a terceira esconde a joia.</p>
+
+  <p><strong>Cláusula 1 — </strong><span class="mono">0 ∈ √J</span>:</p>
+  <details class="reveal"><summary>▸ tente, depois revele</summary>
+  <div class="proof"><p><span class="mono">0¹ = 0 ∈ J</span> (todo ideal contém o zero). Logo <span class="mono">0 ∈ √J</span> com <span class="mono">m = 1</span>. ✓</p></div></details>
+
+  <p><strong>Cláusula 3 (absorção) — </strong>se <span class="mono">a ∈ √J</span> e <span class="mono">r ∈ R</span>, então <span class="mono">r·a ∈ √J</span>:</p>
+  <details class="reveal"><summary>▸ tente, depois revele</summary>
+  <div class="proof"><p>Como <span class="mono">a ∈ √J</span>, existe <span class="mono">m</span> com <span class="mono">aᵐ ∈ J</span>. No anel comutativo, <span class="mono">(r·a)ᵐ = rᵐ·aᵐ</span>. Como <span class="mono">aᵐ ∈ J</span> e <span class="mono">J</span> absorve produtos, <span class="mono">rᵐ·aᵐ ∈ J</span>. Logo <span class="mono">(r·a)ᵐ ∈ J</span>, isto é, <span class="mono">r·a ∈ √J</span>. ✓</p></div></details>
+
+  <p><strong>Cláusula 2 (fecho sob soma) — </strong>se <span class="mono">a ∈ √J</span> e <span class="mono">b ∈ √J</span>, então <span class="mono">a + b ∈ √J</span>. Aqui está a parte sofisticada. Pense antes de revelar: você tem <span class="mono">aᵐ ∈ J</span> e <span class="mono">bⁿ ∈ J</span> — que potência de <span class="mono">a + b</span> garante cair em <span class="mono">J</span>?</p>
+
+  <div class="quiz" id="q2">
+    <p class="q">Ao expandir <span class="mono">(a+b)^N</span>, cada termo tem a forma <span class="mono">cₖ·aᵏ·b^(N−k)</span>. Qual escolha de <span class="mono">N</span> força <em>todo</em> termo a ter <span class="mono">aᵏ∈J</span> ou <span class="mono">b^(N−k)∈J</span>?</p>
+    <button class="opt" data-ok="0">N igual ao maior entre m e n</button>
+    <button class="opt" data-ok="1">N igual a m mais n menos um</button>
+    <button class="opt" data-ok="0">N igual ao produto de m e n</button>
+    <p class="fb" id="fb2"></p>
+  </div>
+
+  <div class="gem">
+    <h3>A joia · binômio + casa dos pombos</h3>
+    <p style="margin:.2rem 0">Tome <span class="mono">N = m + n − 1</span>. Em cada termo da expansão, os expoentes <span class="mono">k</span> (de <span class="mono">a</span>) e <span class="mono">N−k</span> (de <span class="mono">b</span>) somam <span class="mono">N = m+n−1</span>. <strong>É impossível</strong> ter <span class="mono">k &lt; m</span> e <span class="mono">N−k &lt; n</span> ao mesmo tempo: isso daria <span class="mono">N ≤ (m−1)+(n−1) = m+n−2</span>, contradizendo <span class="mono">N = m+n−1</span>. Então, para cada termo, <em>ou</em> <span class="mono">k ≥ m</span> <em>ou</em> <span class="mono">N−k ≥ n</span>. É a casa dos pombos aplicada a expoentes.</p>
+  </div>
+
+  <details class="reveal"><summary>▸ revelar a demonstração completa do fecho sob soma</summary>
+  <div class="proof">
+    <p>Sejam <span class="mono">a, b ∈ √J</span>, com <span class="mono">aᵐ ∈ J</span> e <span class="mono">bⁿ ∈ J</span>. Tome <span class="mono">N = m + n − 1</span>. Pela fórmula do binômio (válida em anel comutativo):</p>
+    <p class="center" style="text-align:center"><span class="mono">(a + b)^N = Σₖ C(N,k)·aᵏ·b^(N−k).</span></p>
+    <p>Fixe um termo, com expoentes <span class="mono">k</span> e <span class="mono">N−k</span>. Como <span class="mono">k + (N−k) = N = m+n−1</span>, não pode valer <span class="mono">k ≤ m−1</span> e <span class="mono">N−k ≤ n−1</span> simultaneamente. Logo:</p>
+    <p style="margin:.3rem 0">• se <span class="mono">k ≥ m</span>: então <span class="mono">aᵏ = aᵐ·a^(k−m)</span>, e como <span class="mono">aᵐ ∈ J</span>, a absorção dá <span class="mono">aᵏ ∈ J</span>, logo o termo inteiro <span class="mono">∈ J</span>;</p>
+    <p style="margin:.3rem 0">• se <span class="mono">N−k ≥ n</span>: análogo, <span class="mono">b^(N−k) ∈ J</span>, logo o termo <span class="mono">∈ J</span>.</p>
+    <p>Cada termo está em <span class="mono">J</span>, e <span class="mono">J</span> é fechado sob soma, então <span class="mono">(a+b)^N ∈ J</span>. Portanto <span class="mono">a + b ∈ √J</span>. ✓</p>
+    <p>Verificadas as três cláusulas, <span class="mono">√J</span> é um ideal. <span class="qed">∎</span></p>
+  </div></details>
+
+  <p>Esse argumento — "elevar a soma a uma potência alta o suficiente para que cada termo herde uma das hipóteses" — é um padrão recorrente em álgebra comutativa. Guarde-o: ele já está na sua <a href="../reference/proof-templates.html">folha de referência</a>.</p>
+
+  <h2><span class="n">PASSO 4 · AGORA VOCÊ CONSEGUE LER O TEOREMA</span></h2>
+  <p>Com <span class="mono">√J</span> definido e provado ser um ideal, o <strong>Nullstellensatz forte</strong> agora é uma frase que você entende inteira:</p>
+  <div class="box def">
+    <h3>Nullstellensatz forte (Hilbert)</h3>
+    <p style="margin:.2rem 0">Sobre um corpo algebricamente fechado <span class="mono">k</span>, para todo ideal <span class="mono">J ⊆ k[x₁,…,xₙ]</span>:</p>
+    <p class="center" style="text-align:center"><span class="mono">I(V(J)) = √J.</span></p>
+  </div>
+  <p>Você ainda não o <em>provou</em> (a prova usa o "truque de Rabinowitsch" e a forma fraca — tópicos das próximas lições), mas já tem todas as peças do <em>enunciado</em> na ponta da língua: <span class="mono">I</span>, <span class="mono">V</span>, ideal, e radical. Isso é exatamente como se lê matemática de pesquisa: primeiro você domina cada símbolo do enunciado, depois ataca a prova.</p>
+
+  <h2><span class="n">PASSO 5 · PRATIQUE SOZINHO</span>Sua tarefa</h2>
+  <div class="box def">
+    <h3>Exercício · o radical é "idempotente"</h3>
+    <p style="margin:.2rem 0">Prove que <strong><span class="mono">√(√J) = √J</span></strong> — aplicar o radical duas vezes não acrescenta nada. (Uma inclusão é o caso <span class="mono">m=1</span> que já discutimos; a outra usa "potência de potência é potência".)</p>
+    <p style="margin:.5rem 0 0; color:var(--soft); font-size:.9rem">Dica: para <span class="mono">√(√J) ⊆ √J</span>, tome <span class="mono">a ∈ √(√J)</span>, então <span class="mono">aᵐ ∈ √J</span>, então <span class="mono">(aᵐ)ᵏ ∈ J</span>… e <span class="mono">(aᵐ)ᵏ = a^(mk)</span>. Traga sua prova no chat.</p>
+  </div>
+
+  <div class="src" style="margin-top:1.6rem">
+    <h3>Leia a seguir (fonte primária)</h3>
+    <p><strong>Cox–Little–O'Shea, Cap. 4 §2</strong> ("Radical Ideals and the Ideal–Variety Correspondence") — define <span class="mono">√J</span>, prova que é ideal e enuncia o Nullstellensatz forte. <a href="https://link.springer.com/book/10.1007/978-3-031-91841-4">Springer</a>.</p>
+  </div>
+
+  <blockquote style="margin-top:2rem">
+    <strong>Sou seu professor.</strong> A prova do fecho sob soma é a mais densa até aqui — se algum passo do binômio ou da casa dos pombos não fechou, me chame. E me traga sua prova de <span class="mono">√(√J) = √J</span> para feedback de redação.
+  </blockquote>
+
+  <footer>
+    Lição 0003 · Missão: <a href="../MISSION.md">Álgebra Abstrata → Geometria Algébrica Computacional</a><br>
+    Anterior: <a href="0002-v-e-a-inclusao-s-em-v-de-i.html">0002 — O operador V</a> · Referência: <a href="../reference/proof-templates.html">Anatomia de uma demonstração</a> · Próxima: a forma fraca do Nullstellensatz e por que precisa de corpo algebricamente fechado.
+  </footer>
+</div>
+
+<script>
+(function(){
+  function wire(quizId, fbId){
+    var quiz = document.getElementById(quizId);
+    var fb = document.getElementById(fbId);
+    var opts = quiz.querySelectorAll('.opt');
+    opts.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var ok = btn.getAttribute('data-ok') === '1';
+        opts.forEach(function(b){ b.disabled = true; if(b.getAttribute('data-ok')==='1') b.classList.add('correct'); });
+        if(!ok) btn.classList.add('wrong');
+        fb.textContent = ok ? '✓ Isso mesmo.' : '✗ Quase — veja a opção em verde e o porquê.';
+        fb.className = 'fb ' + (ok ? 'show-good' : 'show-bad');
+      });
+    });
+  }
+  wire('q1','fb1'); wire('q2','fb2');
+})();
+</script>
+</body>
+</html>

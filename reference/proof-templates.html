@@ -94,6 +94,27 @@
     <p style="margin-top:.7rem">Sempre começa do lado <em>esquerdo</em> e manipula até chegar no <em>direito</em>. Nunca os dois ao mesmo tempo.</p>
   </div>
 
+  <h2>Técnica: <strong>binômio + casa dos pombos</strong> nos expoentes</h2>
+  <div class="card">
+    <h3>Quando usar</h3>
+    <p>Quando você tem duas hipóteses do tipo "potência de <span class="mono">a</span> está em <span class="mono">J</span>" e "potência de <span class="mono">b</span> está em <span class="mono">J</span>", e quer concluir algo sobre <span class="mono">a + b</span> (ex.: provar que <span class="mono">√J</span> é fechado sob soma).</p>
+    <h3 style="margin-top:.6rem">O movimento</h3>
+    <ol class="steps">
+      <li>Hipóteses: <span class="mono">aᵐ ∈ J</span> e <span class="mono">bⁿ ∈ J</span>.</li>
+      <li>Eleve a soma à potência <strong><span class="mono">N = m + n − 1</span></strong> e expanda pelo binômio.</li>
+      <li>Em cada termo <span class="mono">aᵏ·b^(N−k)</span>, os expoentes somam <span class="mono">N</span>. Como <span class="mono">N = m+n−1</span>, é impossível <span class="mono">k &lt; m</span> e <span class="mono">N−k &lt; n</span> ao mesmo tempo (casa dos pombos) — logo <span class="mono">k ≥ m</span> ou <span class="mono">N−k ≥ n</span>.</li>
+      <li>Em qualquer caso o termo herda uma hipótese e cai em <span class="mono">J</span>; soma de elementos de <span class="mono">J</span> está em <span class="mono">J</span>.</li>
+    </ol>
+    <p style="margin-top:.5rem; color:var(--soft)">Ideia central reutilizável: <em>escolher o expoente exatamente grande o bastante para que nenhum termo escape de uma das hipóteses.</em></p>
+  </div>
+
+  <h2>Modelo: provar que <span class="mono">√J</span> é um <strong>ideal</strong></h2>
+  <div class="card">
+    <div class="law"><b>0 ∈ √J</b><span class="show"><span class="mono">0¹ = 0 ∈ J</span></span></div>
+    <div class="law"><b>absorção</b><span class="show"><span class="mono">aᵐ∈J ⇒ (ra)ᵐ = rᵐaᵐ ∈ J</span> (anel comutativo)</span></div>
+    <div class="law"><b>fecho (+)</b><span class="show">binômio + casa dos pombos com <span class="mono">N = m+n−1</span> (técnica acima)</span></div>
+  </div>
+
   <h2>Frases-cola que sempre cabem</h2>
   <div class="card">
     <p>"Seja … arbitrário." · "Por definição de …" · "Por hipótese, …" · "Aplicando … obtemos …" · "Como … pertence a …, segue que …" · "Isso é exatamente a condição de …, logo … ∎"</p>
