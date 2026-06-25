@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lição 0006 · Raiz ⟺ fator linear</title>
+<style>
+  :root{
+    --ink:#1a1a1a; --soft:#5b5b5b; --accent:#7a1f2b; --good:#1f6b3b; --bad:#9a2b2b;
+    --rule:#d8d2c4; --bg:#fcfbf7; --code:#f0ede3; --panel:#fff;
+  }
+  *{box-sizing:border-box}
+  html{font-size:18px}
+  body{ background:var(--bg); color:var(--ink); font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif; line-height:1.55; margin:0; padding:3rem 1.2rem 6rem; }
+  .wrap{max-width:44rem; margin:0 auto}
+  .kicker{font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-family:ui-sans-serif,system-ui,sans-serif; margin:0 0 .4rem}
+  .badge{display:inline-block; font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; background:#eef2ea; color:#4a6b4a; border:1px solid #cdd9c9; border-radius:99px; padding:.1rem .5rem; margin-left:.4rem; vertical-align:.12em; font-family:ui-sans-serif,system-ui,sans-serif}
+  h1{font-size:2rem; line-height:1.15; margin:0 0 .35rem; font-weight:600}
+  .sub{color:var(--soft); font-style:italic; margin:0 0 1.6rem}
+  .meta{font-family:ui-sans-serif,system-ui,sans-serif; font-size:.74rem; color:var(--soft); letter-spacing:.03em; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:.55rem 0; margin:0 0 2rem; display:flex; gap:1.4rem; flex-wrap:wrap}
+  h2{font-size:1.3rem; margin:2.6rem 0 .5rem}
+  h2 .n{color:var(--accent); font-family:ui-sans-serif,system-ui,sans-serif; font-size:.8rem; letter-spacing:.1em; display:block; margin-bottom:.1rem}
+  p{margin:.65rem 0}
+  code,.mono{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; background:var(--code); padding:.05em .35em; border-radius:4px; font-size:.84em}
+  .accent{color:var(--accent)}
+  .box{background:var(--panel); border:1px solid var(--rule); border-radius:8px; padding:1.1rem 1.3rem; margin:1.2rem 0}
+  .def{border-left:4px solid var(--accent)}
+  .def h3{margin:0 0 .4rem; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; font-family:ui-sans-serif,system-ui,sans-serif; color:var(--accent)}
+  blockquote{margin:1.3rem 0; padding:.2rem 0 .2rem 1rem; border-left:3px solid var(--rule); color:var(--soft); font-style:italic}
+  .quiz{background:var(--panel); border:1px solid var(--rule); border-radius:8px; padding:1.1rem 1.3rem; margin:1.4rem 0}
+  .quiz .q{font-weight:600; margin:0 0 .8rem}
+  .opt{display:block; width:100%; text-align:left; background:#fbfaf5; border:1px solid var(--rule); border-radius:6px; padding:.6rem .8rem; margin:.45rem 0; cursor:pointer; font:inherit; font-size:.92rem; transition:.12s}
+  .opt:hover{border-color:var(--accent)}
+  .opt.correct{border-color:var(--good); background:#eef7f0; color:var(--good)}
+  .opt.wrong{border-color:var(--bad); background:#faeded; color:var(--bad)}
+  .opt:disabled{cursor:default}
+  .fb{margin:.7rem 0 0; font-size:.88rem; min-height:1.2em}
+  .fb.show-good{color:var(--good)} .fb.show-bad{color:var(--bad)}
+  .reveal{margin:.6rem 0}
+  .reveal summary{cursor:pointer; font-family:ui-sans-serif,system-ui,sans-serif; font-size:.82rem; letter-spacing:.04em; color:var(--accent); padding:.5rem 0}
+  .proof{background:#fbfaf5; border:1px solid var(--rule); border-radius:8px; padding:1rem 1.2rem; margin:.6rem 0}
+  .proof .center{text-align:center; margin:.5rem 0}
+  .qed{text-align:right; color:var(--accent)}
+  .gem{background:#fff8e9; border:1px solid #e7d9a8; border-left:4px solid #b8860b; border-radius:8px; padding:1rem 1.2rem; margin:1.2rem 0}
+  .gem h3{margin:0 0 .4rem; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; font-family:ui-sans-serif,system-ui,sans-serif; color:#8a6608}
+  footer{margin-top:3.2rem; padding-top:1rem; border-top:1px solid var(--rule); font-size:.82rem; color:var(--soft); font-family:ui-sans-serif,system-ui,sans-serif}
+  a{color:var(--accent)}
+  .src{background:#f4f1e7; border:1px solid var(--rule); border-radius:8px; padding:1rem 1.2rem; font-size:.9rem}
+  .src h3{margin:.1rem 0 .5rem; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; font-family:ui-sans-serif,system-ui,sans-serif; color:var(--accent)}
+  @media print{ body{background:#fff} .opt{display:none} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="kicker">Lição 0006 · Geometria Algébrica Computacional <span class="badge">Fundamentos · revisão</span></p>
+  <h1>Raiz <span class="accent">⟺</span> fator linear</h1>
+  <p class="sub">Por que "todo polinômio tem raiz" e "todo polinômio se decompõe em fatores de grau 1" dizem a mesma coisa. Não é óbvio — e a prova usa uma ferramenta linda (o Teorema do Fator) com indução no grau.</p>
+  <div class="meta">
+    <span>⏱ ~20 min</span>
+    <span>🎯 Provar a equivalência das duas formas</span>
+    <span>🛠 Técnica: Teorema do Fator + indução no grau</span>
+  </div>
+
+  <h2><span class="n">PASSO 1 · O QUE QUEREMOS</span>Duas afirmações que parecem diferentes</h2>
+  <p>Na <a href="0005-corpo-algebricamente-fechado.html">Lição 0005</a> listei como "equivalentes" estas duas caracterizações de corpo algebricamente fechado:</p>
+  <div class="box">
+    <p style="margin:.2rem 0"><strong>(A)</strong> todo polinômio não-constante em <span class="mono">k[x]</span> tem uma <strong>raiz</strong> em <span class="mono">k</span>;</p>
+    <p style="margin:.2rem 0"><strong>(B)</strong> todo polinômio não-constante <strong>se decompõe</strong> em fatores de grau 1 sobre <span class="mono">k</span>: <span class="mono">f = c(x−a₁)⋯(x−aₙ)</span>.</p>
+  </div>
+  <p>Você apontou — com razão — que <strong>(A) ⟹ (B) não é óbvio</strong>. Ter <em>uma</em> raiz parece dar pouco; decompor em <em>todos</em> os fatores parece pedir muito. Vamos fechar essa lacuna.</p>
+
+  <h2><span class="n">PASSO 2 · A FERRAMENTA</span>O Teorema do Fator</h2>
+  <p>Tudo gira em torno de um único fato, que conecta "raiz" com "fator":</p>
+  <div class="box def">
+    <h3>Teorema do Fator</h3>
+    <p style="margin:.2rem 0"><span class="mono">a ∈ k</span> é raiz de <span class="mono">f</span> &nbsp;⟺&nbsp; <span class="mono">(x − a)</span> divide <span class="mono">f</span>, ou seja, <span class="mono">f = (x−a)·g</span> com <span class="mono">g ∈ k[x]</span> e <span class="mono">deg g = deg f − 1</span>.</p>
+  </div>
+  <details class="reveal"><summary>▸ por que isso é verdade (tente antes)</summary>
+  <div class="proof">
+    <p>Divida <span class="mono">f</span> por <span class="mono">(x−a)</span> (algoritmo da divisão em <span class="mono">k[x]</span>). O resto tem grau menor que 1, logo é uma <strong>constante</strong> <span class="mono">r</span>:</p>
+    <p class="center"><span class="mono">f(x) = (x − a)·q(x) + r.</span></p>
+    <p>Avalie em <span class="mono">x = a</span>: <span class="mono">f(a) = (a−a)·q(a) + r = r</span>. Portanto <span class="mono">r = f(a)</span>.</p>
+    <p>Então: <span class="mono">a</span> é raiz <span class="mono">⟺ f(a)=0 ⟺ r=0 ⟺ f=(x−a)q</span>. <span class="qed">∎</span></p>
+  </div></details>
+  <p>Leia assim: <strong>ter uma raiz é exatamente o mesmo que conseguir arrancar um fator linear.</strong> Essa é a engrenagem.</p>
+
+  <div class="quiz" id="q1">
+    <p class="q">No algoritmo da divisão por <span class="mono">(x−a)</span>, por que o resto é uma constante?</p>
+    <button class="opt" data-ok="0">Porque o quociente sempre tem grau zero</button>
+    <button class="opt" data-ok="1">Porque o resto tem grau menor que um</button>
+    <button class="opt" data-ok="0">Porque a é raiz do polinômio f</button>
+    <p class="fb" id="fb1"></p>
+  </div>
+
+  <h2><span class="n">PASSO 3 · A DIREÇÃO FÁCIL</span>(B) ⟹ (A)</h2>
+  <p>Se <span class="mono">f = c(x−a₁)(x−a₂)⋯(x−aₙ)</span> com <span class="mono">n ≥ 1</span>, então <span class="mono">a₁</span> zera o primeiro fator, logo <span class="mono">f(a₁) = 0</span>. Pronto: <span class="mono">f</span> tem raiz. Essa direção é quase de graça.</p>
+
+  <h2><span class="n">PASSO 4 · A DIREÇÃO NÃO-ÓBVIA</span>(A) ⟹ (B), por indução no grau</h2>
+  <p>A ideia: use (A) para arrancar <em>um</em> fator linear; o que sobra é um polinômio de grau menor, ao qual (A) <strong>se aplica de novo</strong>. Repita até acabar.</p>
+  <details class="reveal"><summary>▸ revelar a demonstração completa</summary>
+  <div class="proof">
+    <p><strong>Afirmação.</strong> Supondo (A), todo <span class="mono">f ∈ k[x]</span> não-constante fatora como <span class="mono">c(x−a₁)⋯(x−aₙ)</span>.</p>
+    <p><strong>Prova (indução em <span class="mono">n = deg f</span>).</strong></p>
+    <p><em>Base <span class="mono">n = 1</span>:</em> <span class="mono">f = bx + d</span> com <span class="mono">b ≠ 0</span>. Então <span class="mono">f = b(x − (−d/b))</span> — já é um fator linear (vezes a constante <span class="mono">b</span>). ✓</p>
+    <p><em>Passo <span class="mono">n ≥ 2</span>:</em> suponha a afirmação válida para todo grau menor que <span class="mono">n</span>. Como <span class="mono">f</span> é não-constante, (A) garante uma raiz <span class="mono">a ∈ k</span>. Pelo Teorema do Fator, <span class="mono">f = (x−a)·g</span> com <span class="mono">deg g = n−1 ≥ 1</span>.</p>
+    <p>Agora o ponto central: <span class="mono">g</span> é um polinômio não-constante em <span class="mono">k[x]</span> de grau <span class="mono">n−1 &lt; n</span>. Pela hipótese de indução, <span class="mono">g = c(x−a₂)⋯(x−aₙ)</span>. Substituindo:</p>
+    <p class="center"><span class="mono">f = (x−a)·c(x−a₂)⋯(x−aₙ),</span></p>
+    <p>um produto de fatores lineares (vezes a constante <span class="mono">c</span>). ✓ Por indução, vale para todo <span class="mono">n</span>. <span class="qed">∎</span></p>
+  </div></details>
+
+  <div class="gem">
+    <h3>O "aha" que faltava</h3>
+    <p style="margin:.2rem 0">A hipótese (A) <strong>não</strong> diz "<span class="mono">f</span> tem uma raiz". Diz "<strong>todo</strong> polinômio não-constante tem raiz" — então ela se reaplica ao quociente <span class="mono">g</span>, e ao quociente do quociente, e assim por diante. Uma raiz arranca <em>um</em> fator; é a <strong>re-aplicação repetida</strong> (capturada pela indução) que fatora <em>tudo</em>. Era essa a engrenagem que parecia faltar.</p>
+  </div>
+
+  <h2><span class="n">PASSO 5 · NA PRÁTICA</span>Arrancando fator por fator</h2>
+  <p>Em <span class="mono">ℂ</span>, fatore <span class="mono">f = x² + 1</span>:</p>
+  <div class="box">
+    <p style="margin:.2rem 0">Raiz: <span class="mono">i</span> (pois <span class="mono">i²+1 = 0</span>). Arranca o fator: <span class="mono">x²+1 = (x − i)·g</span>. Dividindo, <span class="mono">g = x + i</span> — grau 1, já linear (raiz <span class="mono">−i</span>). Resultado:</p>
+    <p class="center" style="text-align:center"><span class="mono">x² + 1 = (x − i)(x + i).</span></p>
+    <p style="margin:.2rem 0; color:var(--soft); font-size:.9rem">Dois fatores lineares, arrancados um de cada vez — exatamente o que a indução descreve.</p>
+  </div>
+
+  <div class="quiz" id="q2">
+    <p class="q">Na prova de (A)⟹(B), por que a hipótese de indução se aplica a <span class="mono">g</span>?</p>
+    <button class="opt" data-ok="1">Porque g tem grau menor que f</button>
+    <button class="opt" data-ok="0">Porque g tem as mesmas raízes que f</button>
+    <button class="opt" data-ok="0">Porque g já é um fator linear</button>
+    <p class="fb" id="fb2"></p>
+  </div>
+
+  <div class="src" style="margin-top:1.8rem">
+    <h3>Leia a seguir (fonte primária)</h3>
+    <p><strong>Cox–Little–O'Shea, 4ª ed., Cap. 1 §5 "Polynomials of One Variable" (p. 37)</strong> — algoritmo da divisão em <span class="mono">k[x]</span>, fator <span class="mono">(x−a)</span> e raízes. É a base de uma variável sobre a qual tudo isto se apoia. <a href="https://link.springer.com/book/10.1007/978-3-031-91841-4">Springer</a>.</p>
+  </div>
+
+  <blockquote style="margin-top:2rem">
+    <strong>Sou seu professor.</strong> Você levantou que a equivalência não era óbvia — e estava certo, ela exige prova. Se o algoritmo da divisão ou o passo de indução ainda não fecharam, me chame.
+  </blockquote>
+
+  <footer>
+    Lição 0006 · Fundamentos · Missão: <a href="../MISSION.md">Álgebra Abstrata → Geometria Algébrica Computacional</a><br>
+    Sustenta: <a href="0005-corpo-algebricamente-fechado.html">0005 — Corpo algebricamente fechado</a> · Referência: <a href="../reference/proof-templates.html">Anatomia de uma demonstração</a>.
+  </footer>
+</div>
+
+<script>
+(function(){
+  function wire(quizId, fbId){
+    var quiz = document.getElementById(quizId);
+    var fb = document.getElementById(fbId);
+    var opts = quiz.querySelectorAll('.opt');
+    opts.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var ok = btn.getAttribute('data-ok') === '1';
+        opts.forEach(function(b){ b.disabled = true; if(b.getAttribute('data-ok')==='1') b.classList.add('correct'); });
+        if(!ok) btn.classList.add('wrong');
+        fb.textContent = ok ? '✓ Isso mesmo.' : '✗ Quase — veja a opção em verde e o porquê.';
+        fb.className = 'fb ' + (ok ? 'show-good' : 'show-bad');
+      });
+    });
+  }
+  wire('q1','fb1'); wire('q2','fb2');
+})();
+</script>
+</body>
+</html>

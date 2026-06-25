@@ -94,6 +94,21 @@
     <p style="margin-top:.7rem">Sempre começa do lado <em>esquerdo</em> e manipula até chegar no <em>direito</em>. Nunca os dois ao mesmo tempo.</p>
   </div>
 
+  <h2>Técnica: <strong>indução no grau</strong> (+ Teorema do Fator)</h2>
+  <div class="card">
+    <h3>Quando usar</h3>
+    <p>Para provar que <em>todo</em> polinômio (de qualquer grau) tem certa propriedade, ou para fatorá-lo: arranque um pedaço e reduza ao grau menor.</p>
+    <h3 style="margin-top:.6rem">Teorema do Fator (a engrenagem)</h3>
+    <p><span class="mono">a</span> é raiz de <span class="mono">f</span> <span class="mono">⟺ (x−a) | f</span>, i.e. <span class="mono">f=(x−a)g</span> com <span class="mono">deg g = deg f − 1</span>. (Prova: divisão dá <span class="mono">f=(x−a)q+r</span>, <span class="mono">r</span> constante; avaliar em <span class="mono">a</span> dá <span class="mono">r=f(a)</span>.)</p>
+    <h3 style="margin-top:.6rem">O movimento</h3>
+    <ol class="steps">
+      <li>Base: grau 1 (ou 0) — caso trivial direto.</li>
+      <li>Passo: assuma a propriedade para todo grau <span class="mono">&lt; n</span>; arranque um fator (via raiz / Teorema do Fator) deixando um quociente <span class="mono">g</span> de grau <span class="mono">n−1</span>.</li>
+      <li>Aplique a hipótese de indução a <span class="mono">g</span> e recomponha.</li>
+    </ol>
+    <p style="margin-top:.5rem; color:var(--soft)">Chave: uma hipótese "<em>todo</em> polinômio…" se reaplica aos quocientes sucessivos — é isso que transforma "uma raiz" em "fatora tudo".</p>
+  </div>
+
   <h2>Técnica: <strong>binômio + casa dos pombos</strong> nos expoentes</h2>
   <div class="card">
     <h3>Quando usar</h3>
