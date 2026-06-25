@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lição 0004 · O Nullstellensatz — o panorama</title>
+<style>
+  :root{
+    --ink:#1a1a1a; --soft:#5b5b5b; --accent:#7a1f2b; --good:#1f6b3b; --bad:#9a2b2b;
+    --rule:#d8d2c4; --bg:#fcfbf7; --code:#f0ede3; --panel:#fff;
+  }
+  *{box-sizing:border-box}
+  html{font-size:18px}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    line-height:1.55; margin:0; padding:3rem 1.2rem 6rem;
+  }
+  .wrap{max-width:44rem; margin:0 auto}
+  .kicker{font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-family:ui-sans-serif,system-ui,sans-serif; margin:0 0 .4rem}
+  h1{font-size:2rem; line-height:1.15; margin:0 0 .35rem; font-weight:600}
+  .sub{color:var(--soft); font-style:italic; margin:0 0 1.6rem}
+  .meta{font-family:ui-sans-serif,system-ui,sans-serif; font-size:.74rem; color:var(--soft); letter-spacing:.03em; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:.55rem 0; margin:0 0 2rem; display:flex; gap:1.4rem; flex-wrap:wrap}
+  h2{font-size:1.3rem; margin:2.6rem 0 .5rem}
+  h2 .n{color:var(--accent); font-family:ui-sans-serif,system-ui,sans-serif; font-size:.8rem; letter-spacing:.1em; display:block; margin-bottom:.1rem}
+  p{margin:.65rem 0}
+  code,.mono{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; background:var(--code); padding:.05em .35em; border-radius:4px; font-size:.84em}
+  .accent{color:var(--accent)}
+  .box{background:var(--panel); border:1px solid var(--rule); border-radius:8px; padding:1.1rem 1.3rem; margin:1.2rem 0}
+  .def{border-left:4px solid var(--accent)}
+  .def h3{margin:0 0 .4rem; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; font-family:ui-sans-serif,system-ui,sans-serif; color:var(--accent)}
+  blockquote{margin:1.3rem 0; padding:.2rem 0 .2rem 1rem; border-left:3px solid var(--rule); color:var(--soft); font-style:italic}
+  .quiz{background:var(--panel); border:1px solid var(--rule); border-radius:8px; padding:1.1rem 1.3rem; margin:1.4rem 0}
+  .quiz .q{font-weight:600; margin:0 0 .8rem}
+  .opt{display:block; width:100%; text-align:left; background:#fbfaf5; border:1px solid var(--rule); border-radius:6px;
+       padding:.6rem .8rem; margin:.45rem 0; cursor:pointer; font:inherit; font-size:.92rem; transition:.12s}
+  .opt:hover{border-color:var(--accent)}
+  .opt.correct{border-color:var(--good); background:#eef7f0; color:var(--good)}
+  .opt.wrong{border-color:var(--bad); background:#faeded; color:var(--bad)}
+  .opt:disabled{cursor:default}
+  .fb{margin:.7rem 0 0; font-size:.88rem; min-height:1.2em}
+  .fb.show-good{color:var(--good)} .fb.show-bad{color:var(--bad)}
+  .etym{display:flex; gap:.4rem; flex-wrap:wrap; align-items:stretch; margin:1rem 0}
+  .etym .piece{flex:1; min-width:7rem; background:var(--panel); border:1px solid var(--rule); border-radius:8px; padding:.7rem .8rem; text-align:center}
+  .etym .de{font-family:ui-sans-serif,system-ui,sans-serif; font-weight:700; color:var(--accent)}
+  .etym .pt{font-size:.85rem; color:var(--soft); font-style:italic; margin-top:.2rem}
+  .twin{display:grid; grid-template-columns:1fr 1fr; gap:.7rem; margin:1rem 0}
+  .twin .c{background:var(--panel); border:1px solid var(--rule); border-radius:8px; padding:.9rem 1rem}
+  .twin h4{margin:0 0 .3rem; font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; font-family:ui-sans-serif,system-ui,sans-serif; color:var(--accent)}
+  @media(max-width:560px){ .twin{grid-template-columns:1fr} }
+  footer{margin-top:3.2rem; padding-top:1rem; border-top:1px solid var(--rule); font-size:.82rem; color:var(--soft); font-family:ui-sans-serif,system-ui,sans-serif}
+  a{color:var(--accent)}
+  .src{background:#f4f1e7; border:1px solid var(--rule); border-radius:8px; padding:1rem 1.2rem; font-size:.9rem}
+  .src h3{margin:.1rem 0 .5rem; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; font-family:ui-sans-serif,system-ui,sans-serif; color:var(--accent)}
+  .center{text-align:center}
+  @media print{ body{background:#fff} .opt{display:none} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="kicker">Lição 0003 · Geometria Algébrica Computacional</p>
+  <h1>O <span class="accent">Nullstellensatz</span><br>— o panorama</h1>
+  <p class="sub">O teorema central da sua missão, reunido num só lugar. Você já tem I, V e ideais; aqui entra a última peça — o radical — e o quadro completo se forma. Você vê por que este teorema faz a geometria virar cálculo, antes de o construirmos com rigor na próxima lição.</p>
+  <div class="meta">
+    <span>⏱ ~25 min</span>
+    <span>🎯 Entender enunciado, formas e alcance</span>
+    <span>📖 Conhecimento (não é prova ainda)</span>
+  </div>
+
+  <h2><span class="n">PASSO 1 · A PALAVRA</span>Desmontando o nome</h2>
+  <p>O nome assusta, mas é alemão e se quebra em três pedaços transparentes:</p>
+  <div class="etym">
+    <div class="piece"><div class="de">Null</div><div class="pt">zero</div></div>
+    <div class="piece"><div class="de">stellen</div><div class="pt">lugares / posições</div></div>
+    <div class="piece"><div class="de">satz</div><div class="pt">teorema / proposição</div></div>
+  </div>
+  <p><span class="mono">Nullstelle</span> é a palavra alemã para <em>raiz/zero de um polinômio</em> (o lugar onde ele se anula). Então <strong>Nullstellensatz = "teorema dos lugares dos zeros"</strong> — o "teorema dos zeros". É de <strong>David Hilbert</strong> (1893), e é um dos pilares de toda a álgebra/geometria.</p>
+
+  <h2><span class="n">PASSO 2 · A PERGUNTA</span>Fechar o ciclo do dicionário</h2>
+  <p>Você já provou (Lição 0002) que ir <span class="mono">pontos → polinômios → pontos</span> nunca perde: <span class="mono">S ⊆ V(I(S))</span>. O Nullstellensatz responde à <em>volta gêmea</em>, começando de um <strong>ideal</strong> <span class="mono">J</span>:</p>
+  <p class="center"><span class="mono">J &nbsp;→&nbsp; V(J) &nbsp;→&nbsp; I(V(J))</span> &nbsp;&nbsp; <span style="color:var(--soft)">— voltamos a J?</span></p>
+  <p>Resposta: <strong>quase</strong>. E o "quase" tem nome — o <strong>radical</strong> de <span class="mono">J</span>, a peça que você vai construir com rigor na <a href="0004-radical-de-um-ideal.html">próxima lição</a>. Aqui só precisamos da ideia.</p>
+
+  <h2><span class="n">PASSO 3 · FORMA FORTE</span>I(V(J)) = √J</h2>
+  <div class="box def">
+    <h3>Nullstellensatz forte (Hilbert)</h3>
+    <p style="margin:.2rem 0">Sobre um corpo <strong>algebricamente fechado</strong> <span class="mono">k</span>, para todo ideal <span class="mono">J ⊆ k[x₁,…,xₙ]</span>:</p>
+    <p class="center" style="margin:.5rem 0"><span class="mono" style="font-size:1.1em">I(V(J)) = √J.</span></p>
+  </div>
+  <p>O <strong>radical</strong> de <span class="mono">J</span> é <span class="mono">√J = { a : aᵐ ∈ J para algum m ≥ 1 }</span> — os elementos cuja <em>alguma potência</em> cai em <span class="mono">J</span> (a Lição 0004 prova que isso é um ideal). Por que <span class="mono">I(V(J))</span> dá <span class="mono">√J</span> e não <span class="mono">J</span>? Porque a geometria <em>esquece multiplicidade</em>:</p>
+  <div class="box">
+    <p style="margin:.2rem 0">Em <span class="mono">ℂ[x]</span>, tome <span class="mono">J = ⟨x²⟩</span>. Então <span class="mono">V(J) = {0}</span> (só a origem), e <span class="mono">I(V(J)) = I({0}) = ⟨x⟩</span>. Voltamos a <span class="mono">⟨x⟩</span>, não a <span class="mono">⟨x²⟩</span> — e de fato <span class="mono">√⟨x²⟩ = ⟨x⟩</span>. ✓</p>
+  </div>
+  <blockquote>O Nullstellensatz forte garante que <em>a única coisa</em> perdida na volta é o expoente — nada além do radical. Os ideais que sobrevivem intactos (<span class="mono">√J = J</span>, os <strong>radicais</strong>) são precisamente os que vêm de variedades. Esse é o dicionário perfeito entre álgebra e geometria.</blockquote>
+
+  <h2><span class="n">PASSO 4 · FORMA FRACA</span>O motor computacional</h2>
+  <p>Há uma versão mais simples e, na prática, ainda mais poderosa:</p>
+  <div class="box def">
+    <h3>Nullstellensatz fraco</h3>
+    <p style="margin:.2rem 0">Sobre <span class="mono">k</span> algebricamente fechado, um ideal <span class="mono">J ⊆ k[x₁,…,xₙ]</span> satisfaz <span class="mono">V(J) = ∅</span> <strong>se, e somente se,</strong> <span class="mono">1 ∈ J</span> (isto é, <span class="mono">J</span> é o anel todo).</p>
+  </div>
+  <p>Lendo em termos de equações: um sistema de polinômios <strong>não tem solução comum</strong> exatamente quando <strong>o número 1 está no ideal</strong> que eles geram. Isso é enorme — transforma uma pergunta <em>geométrica</em> ("tem solução?") numa pergunta <em>algébrica</em> ("o 1 está aqui?"):</p>
+  <div class="twin">
+    <div class="c"><h4>Pergunta geométrica</h4><p style="margin:.2rem 0; font-size:.92rem">O sistema <span class="mono">f₁ = … = fₛ = 0</span> tem alguma solução em <span class="mono">ℂⁿ</span>?</p></div>
+    <div class="c"><h4>Pergunta algébrica</h4><p style="margin:.2rem 0; font-size:.92rem">O <span class="mono">1</span> pertence ao ideal <span class="mono">⟨f₁,…,fₛ⟩</span>?</p></div>
+  </div>
+  <p>E a pergunta algébrica uma <strong>base de Gröbner responde por algoritmo</strong> (a base é <span class="mono">{1}</span> exatamente quando <span class="mono">1 ∈ J</span>). <em>É literalmente por isso que a geometria algébrica computacional existe:</em> o Nullstellensatz é a ponte que torna a geometria calculável, e Gröbner é a máquina que atravessa a ponte. Esse é o coração da sua missão.</p>
+
+  <div class="quiz" id="q1">
+    <p class="q">Pela forma fraca, "o sistema não tem solução em <span class="mono">ℂⁿ</span>" equivale a:</p>
+    <button class="opt" data-ok="0">O ideal gerado é o ideal nulo</button>
+    <button class="opt" data-ok="1">O número um pertence ao ideal</button>
+    <button class="opt" data-ok="0">O radical do ideal é vazio</button>
+    <p class="fb" id="fb1"></p>
+  </div>
+
+  <h2><span class="n">PASSO 5 · O ALCANCE</span>Generaliza o Teorema Fundamental da Álgebra</h2>
+  <p>O Teorema Fundamental da Álgebra diz: todo polinômio não-constante em <span class="mono">ℂ[x]</span> tem uma raiz. O Nullstellensatz fraco é a versão <em>multivariada</em>: todo sistema próprio de polinômios em <span class="mono">ℂ[x₁,…,xₙ]</span> (qualquer ideal <span class="mono">≠</span> o anel todo) tem uma solução comum. Uma variável vira muitas; um polinômio vira um sistema.</p>
+
+  <h2><span class="n">PASSO 6 · A LETRA MIÚDA</span>Por que "algebricamente fechado"?</h2>
+  <p>Toda forma do teorema exige que <span class="mono">k</span> seja algebricamente fechado (como <span class="mono">ℂ</span>). Não é tecnicismo — sem isso, falha já no caso mais simples:</p>
+  <div class="box">
+    <p style="margin:.2rem 0">Sobre <span class="mono">ℝ</span>, tome <span class="mono">J = ⟨x² + 1⟩</span>. Esse polinômio <strong>não tem raiz real</strong>, então <span class="mono">V(J) = ∅</span>. Mas <span class="mono">⟨x²+1⟩ ≠</span> o anel todo (não contém o <span class="mono">1</span>). Logo a forma fraca <strong>falha</strong> sobre <span class="mono">ℝ</span>: temos <span class="mono">V(J)=∅</span> sem <span class="mono">1 ∈ J</span>.</p>
+  </div>
+  <p>Sobre <span class="mono">ℂ</span>, porém, <span class="mono">x²+1 = (x−i)(x+i)</span> tem raízes, <span class="mono">V(J) = {i, −i} ≠ ∅</span>, e a coerência se restabelece. <strong>Moral:</strong> nos seus cálculos, o ambiente natural é <span class="mono">ℂ</span> (ou outro corpo algebricamente fechado) — sobre <span class="mono">ℝ</span> as coisas "vazam".</p>
+
+  <div class="quiz" id="q2">
+    <p class="q">Por que <span class="mono">⟨x²+1⟩</span> sobre <span class="mono">ℝ</span> quebra a forma fraca?</p>
+    <button class="opt" data-ok="1">Tem variedade vazia mas não contém um</button>
+    <button class="opt" data-ok="0">Contém um mas tem solução real</button>
+    <button class="opt" data-ok="0">Não é um ideal legítimo de polinômios</button>
+    <p class="fb" id="fb2"></p>
+  </div>
+
+  <h2><span class="n">O QUE FICA PARA DEPOIS</span></h2>
+  <p>Você agora <em>entende</em> o enunciado por inteiro — as duas formas, o papel do radical, a exigência de corpo fechado e o porquê computacional. O que ainda <strong>não</strong> fizemos é <em>provar</em>. A prova passa pela forma fraca e por um truque elegante (o "truque de Rabinowitsch", que deduz a forma forte da fraca). Esse é o destino das próximas lições.</p>
+  <blockquote>É exatamente assim que se lê matemática de pesquisa: primeiro você domina cada símbolo e o significado do enunciado (esta lição), depois ataca a demonstração. Você está fazendo na ordem certa.</blockquote>
+
+  <div class="src" style="margin-top:1.6rem">
+    <h3>Leia a seguir (fonte primária)</h3>
+    <p><strong>Cox–Little–O'Shea, 4ª ed., Cap. 4:</strong> §1 <em>Hilbert's Nullstellensatz</em> (forma fraca e forte, <strong>p. 175</strong>) e §2 <em>Radical Ideals and the Ideal–Variety Correspondence</em> (a igualdade <span class="mono">I(V(J)) = √J</span>, <strong>p. 181</strong>). PDF na sua biblioteca local. <a href="https://link.springer.com/book/10.1007/978-3-031-91841-4">Springer</a>.</p>
+  </div>
+
+  <blockquote style="margin-top:2rem">
+    <strong>Sou seu professor.</strong> Esta lição é o registro permanente do que conversamos no chat — agora você consulta quando quiser. Qualquer dúvida (por que o radical exatamente? o que é "algebricamente fechado" precisamente?), me chame.
+  </blockquote>
+
+  <footer>
+    Lição 0003 · Missão: <a href="../MISSION.md">Álgebra Abstrata → Geometria Algébrica Computacional</a><br>
+    Anterior: <a href="0002-v-e-a-inclusao-s-em-v-de-i.html">0002 — O operador V</a> · Referência rápida: <a href="../reference/nullstellensatz.html">Cartão do Nullstellensatz</a> · Próxima: <a href="0004-radical-de-um-ideal.html">0004 — O radical de um ideal</a> (construção rigorosa).
+  </footer>
+</div>
+
+<script>
+(function(){
+  function wire(quizId, fbId){
+    var quiz = document.getElementById(quizId);
+    var fb = document.getElementById(fbId);
+    var opts = quiz.querySelectorAll('.opt');
+    opts.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var ok = btn.getAttribute('data-ok') === '1';
+        opts.forEach(function(b){ b.disabled = true; if(b.getAttribute('data-ok')==='1') b.classList.add('correct'); });
+        if(!ok) btn.classList.add('wrong');
+        fb.textContent = ok ? '✓ Isso mesmo.' : '✗ Quase — veja a opção em verde e o porquê.';
+        fb.className = 'fb ' + (ok ? 'show-good' : 'show-bad');
+      });
+    });
+  }
+  wire('q1','fb1'); wire('q2','fb2');
+})();
+</script>
+</body>
+</html>

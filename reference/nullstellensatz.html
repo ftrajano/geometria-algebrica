@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cartão · Nullstellensatz</title>
+<style>
+  :root{ --ink:#1a1a1a; --soft:#5b5b5b; --accent:#7a1f2b; --rule:#d8d2c4; --bg:#fcfbf7; --code:#f0ede3; }
+  *{box-sizing:border-box}
+  html{font-size:18px}
+  body{ background:var(--bg); color:var(--ink); font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif; line-height:1.5; margin:0; padding:2.6rem 1.2rem 5rem; }
+  .wrap{max-width:42rem; margin:0 auto}
+  .kicker{font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-family:ui-sans-serif,system-ui,sans-serif; margin:0 0 .4rem}
+  h1{font-size:1.9rem; margin:0 0 .2rem; font-weight:600}
+  .sub{color:var(--soft); font-style:italic; margin:0 0 1.8rem}
+  .card{background:#fff; border:1px solid var(--rule); border-radius:8px; padding:1rem 1.2rem; margin:1rem 0}
+  .card.key{border-left:4px solid var(--accent)}
+  .card h3{margin:0 0 .5rem; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; font-family:ui-sans-serif,system-ui,sans-serif; color:var(--accent)}
+  code,.mono{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; background:var(--code); padding:.05em .35em; border-radius:4px; font-size:.86em}
+  .center{text-align:center; margin:.4rem 0}
+  table{width:100%; border-collapse:collapse; margin:.4rem 0; font-size:.92rem}
+  td,th{border:1px solid var(--rule); padding:.45rem .6rem; text-align:left; vertical-align:top}
+  th{font-family:ui-sans-serif,system-ui,sans-serif; font-size:.74rem; letter-spacing:.05em; text-transform:uppercase; color:var(--accent)}
+  p{margin:.5rem 0}
+  a{color:var(--accent)}
+  footer{margin-top:2.4rem; padding-top:1rem; border-top:1px solid var(--rule); font-size:.8rem; color:var(--soft); font-family:ui-sans-serif,system-ui,sans-serif}
+  @media print{ body{background:#fff} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="kicker">Referência · consulta rápida</p>
+  <h1>Nullstellensatz de Hilbert</h1>
+  <p class="sub">"Teorema dos zeros" (Null = zero · stellen = lugares · satz = teorema). Hipótese sempre presente: <span class="mono">k</span> algebricamente fechado (ex.: <span class="mono">ℂ</span>).</p>
+
+  <div class="card key">
+    <h3>Forma fraca</h3>
+    <p class="center"><span class="mono" style="font-size:1.05em">V(J) = ∅ &nbsp;⟺&nbsp; 1 ∈ J &nbsp;(⟺ J = k[x₁,…,xₙ]).</span></p>
+    <p>Leitura: um sistema de polinômios <strong>não tem solução comum</strong> ⟺ o <span class="mono">1</span> está no ideal gerado. Decidível por <strong>base de Gröbner</strong> (base = <span class="mono">{1}</span> ⟺ <span class="mono">1 ∈ J</span>).</p>
+  </div>
+
+  <div class="card key">
+    <h3>Forma forte</h3>
+    <p class="center"><span class="mono" style="font-size:1.05em">I(V(J)) = √J.</span></p>
+    <p>A volta <span class="mono">J → V(J) → I(V(J))</span> devolve o <strong>radical</strong> de <span class="mono">J</span>, não <span class="mono">J</span>. A geometria esquece multiplicidade; o radical é tudo o que se perde.</p>
+  </div>
+
+  <div class="card">
+    <h3>Lembretes</h3>
+    <table>
+      <tr><th>Símbolo</th><th>Significado</th></tr>
+      <tr><td><span class="mono">V(J)</span></td><td>pontos onde todo polinômio de <span class="mono">J</span> se anula (variedade)</td></tr>
+      <tr><td><span class="mono">I(S)</span></td><td>polinômios que se anulam em todo ponto de <span class="mono">S</span> (ideal)</td></tr>
+      <tr><td><span class="mono">√J</span></td><td><span class="mono">{ a : aᵐ ∈ J p/ algum m ≥ 1 }</span> (radical)</td></tr>
+      <tr><td>radical</td><td>ideal com <span class="mono">√J = J</span> — exatamente os que vêm de variedades</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Cuidado · precisa ser algebricamente fechado</h3>
+    <p>Sobre <span class="mono">ℝ</span>: <span class="mono">J = ⟨x²+1⟩</span> tem <span class="mono">V(J) = ∅</span> mas <span class="mono">1 ∉ J</span> → a forma fraca falha. Sobre <span class="mono">ℂ</span>: <span class="mono">V(J) = {i,−i}</span>, tudo coerente. Trabalhe em <span class="mono">ℂ</span>.</p>
+  </div>
+
+  <div class="card">
+    <h3>Contexto</h3>
+    <p>Generaliza o <strong>Teorema Fundamental da Álgebra</strong> (1 polinômio em <span class="mono">ℂ[x]</span> tem raiz → sistemas em <span class="mono">ℂ[x₁,…,xₙ]</span> têm solução). É a ponte que torna a geometria <em>calculável</em>.</p>
+  </div>
+
+  <footer>
+    Fonte: Cox–Little–O'Shea 4ª ed., Cap. 4 §1 (p.175) e §2 (p.181).<br>
+    Lição completa: <a href="../lessons/0003-nullstellensatz-panorama.html">0003 — O Nullstellensatz, panorama</a> · Radical: <a href="../lessons/0004-radical-de-um-ideal.html">Lição 0004</a>.
+  </footer>
+</div>
+</body>
+</html>
