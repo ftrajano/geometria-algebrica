@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Lição 0006 · Raiz ⟺ fator linear</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false});"></script>
 <style>
   :root{
     --ink:#1a1a1a; --soft:#5b5b5b; --accent:#7a1f2b; --good:#1f6b3b; --bad:#9a2b2b;
@@ -21,7 +25,8 @@
   h2{font-size:1.3rem; margin:2.6rem 0 .5rem}
   h2 .n{color:var(--accent); font-family:ui-sans-serif,system-ui,sans-serif; font-size:.8rem; letter-spacing:.1em; display:block; margin-bottom:.1rem}
   p{margin:.65rem 0}
-  code,.mono{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; background:var(--code); padding:.05em .35em; border-radius:4px; font-size:.84em}
+  code{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; background:var(--code); padding:.05em .35em; border-radius:4px; font-size:.84em}
+  .katex{font-size:1.05em}
   .accent{color:var(--accent)}
   .box{background:var(--panel); border:1px solid var(--rule); border-radius:8px; padding:1.1rem 1.3rem; margin:1.2rem 0}
   .def{border-left:4px solid var(--accent)}
@@ -53,7 +58,7 @@
 <body>
 <div class="wrap">
   <p class="kicker">Lição 0006 · Geometria Algébrica Computacional <span class="badge">Fundamentos · revisão</span></p>
-  <h1>Raiz <span class="accent">⟺</span> fator linear</h1>
+  <h1>Raiz <span class="accent">\(\iff\)</span> fator linear</h1>
   <p class="sub">Por que "todo polinômio tem raiz" e "todo polinômio se decompõe em fatores de grau 1" dizem a mesma coisa. Não é óbvio — e a prova usa uma ferramenta linda (o Teorema do Fator) com indução no grau.</p>
   <div class="meta">
     <span>⏱ ~20 min</span>
@@ -64,65 +69,65 @@
   <h2><span class="n">PASSO 1 · O QUE QUEREMOS</span>Duas afirmações que parecem diferentes</h2>
   <p>Na <a href="0005-corpo-algebricamente-fechado.html">Lição 0005</a> listei como "equivalentes" estas duas caracterizações de corpo algebricamente fechado:</p>
   <div class="box">
-    <p style="margin:.2rem 0"><strong>(A)</strong> todo polinômio não-constante em <span class="mono">k[x]</span> tem uma <strong>raiz</strong> em <span class="mono">k</span>;</p>
-    <p style="margin:.2rem 0"><strong>(B)</strong> todo polinômio não-constante <strong>se decompõe</strong> em fatores de grau 1 sobre <span class="mono">k</span>: <span class="mono">f = c(x−a₁)⋯(x−aₙ)</span>.</p>
+    <p style="margin:.2rem 0"><strong>(A)</strong> todo polinômio não-constante em \(k[x]\) tem uma <strong>raiz</strong> em \(k\);</p>
+    <p style="margin:.2rem 0"><strong>(B)</strong> todo polinômio não-constante <strong>se decompõe</strong> em fatores de grau 1 sobre \(k\): \(f = c(x-a_1)\cdots(x-a_n)\).</p>
   </div>
-  <p>Você apontou — com razão — que <strong>(A) ⟹ (B) não é óbvio</strong>. Ter <em>uma</em> raiz parece dar pouco; decompor em <em>todos</em> os fatores parece pedir muito. Vamos fechar essa lacuna.</p>
+  <p>Você apontou — com razão — que <strong>(A) \(\Rightarrow\) (B) não é óbvio</strong>. Ter <em>uma</em> raiz parece dar pouco; decompor em <em>todos</em> os fatores parece pedir muito. Vamos fechar essa lacuna.</p>
 
   <h2><span class="n">PASSO 2 · A FERRAMENTA</span>O Teorema do Fator</h2>
   <p>Tudo gira em torno de um único fato, que conecta "raiz" com "fator":</p>
   <div class="box def">
     <h3>Teorema do Fator</h3>
-    <p style="margin:.2rem 0"><span class="mono">a ∈ k</span> é raiz de <span class="mono">f</span> &nbsp;⟺&nbsp; <span class="mono">(x − a)</span> divide <span class="mono">f</span>, ou seja, <span class="mono">f = (x−a)·g</span> com <span class="mono">g ∈ k[x]</span> e <span class="mono">deg g = deg f − 1</span>.</p>
+    <p style="margin:.2rem 0">\(a \in k\) é raiz de \(f\) &nbsp;\(\iff\)&nbsp; \((x - a)\) divide \(f\), ou seja, \(f = (x-a)\cdot g\) com \(g \in k[x]\) e \(\deg g = \deg f - 1\).</p>
   </div>
   <details class="reveal"><summary>▸ por que isso é verdade (tente antes)</summary>
   <div class="proof">
-    <p>Divida <span class="mono">f</span> por <span class="mono">(x−a)</span> (algoritmo da divisão em <span class="mono">k[x]</span>). O resto tem grau menor que 1, logo é uma <strong>constante</strong> <span class="mono">r</span>:</p>
-    <p class="center"><span class="mono">f(x) = (x − a)·q(x) + r.</span></p>
-    <p>Avalie em <span class="mono">x = a</span>: <span class="mono">f(a) = (a−a)·q(a) + r = r</span>. Portanto <span class="mono">r = f(a)</span>.</p>
-    <p>Então: <span class="mono">a</span> é raiz <span class="mono">⟺ f(a)=0 ⟺ r=0 ⟺ f=(x−a)q</span>. <span class="qed">∎</span></p>
+    <p>Divida \(f\) por \((x-a)\) (algoritmo da divisão em \(k[x]\)). O resto tem grau menor que 1, logo é uma <strong>constante</strong> \(r\):</p>
+    <p class="center">$$f(x) = (x - a)\cdot q(x) + r.$$</p>
+    <p>Avalie em \(x = a\): \(f(a) = (a-a)\cdot q(a) + r = r\). Portanto \(r = f(a)\).</p>
+    <p>Então: \(a\) é raiz \(\iff f(a)=0 \iff r=0 \iff f=(x-a)q\). <span class="qed">∎</span></p>
   </div></details>
   <p>Leia assim: <strong>ter uma raiz é exatamente o mesmo que conseguir arrancar um fator linear.</strong> Essa é a engrenagem.</p>
 
   <div class="quiz" id="q1">
-    <p class="q">No algoritmo da divisão por <span class="mono">(x−a)</span>, por que o resto é uma constante?</p>
+    <p class="q">No algoritmo da divisão por \((x-a)\), por que o resto é uma constante?</p>
     <button class="opt" data-ok="0">Porque o quociente sempre tem grau zero</button>
     <button class="opt" data-ok="1">Porque o resto tem grau menor que um</button>
     <button class="opt" data-ok="0">Porque a é raiz do polinômio f</button>
     <p class="fb" id="fb1"></p>
   </div>
 
-  <h2><span class="n">PASSO 3 · A DIREÇÃO FÁCIL</span>(B) ⟹ (A)</h2>
-  <p>Se <span class="mono">f = c(x−a₁)(x−a₂)⋯(x−aₙ)</span> com <span class="mono">n ≥ 1</span>, então <span class="mono">a₁</span> zera o primeiro fator, logo <span class="mono">f(a₁) = 0</span>. Pronto: <span class="mono">f</span> tem raiz. Essa direção é quase de graça.</p>
+  <h2><span class="n">PASSO 3 · A DIREÇÃO FÁCIL</span>(B) \(\Rightarrow\) (A)</h2>
+  <p>Se \(f = c(x-a_1)(x-a_2)\cdots(x-a_n)\) com \(n \ge 1\), então \(a_1\) zera o primeiro fator, logo \(f(a_1) = 0\). Pronto: \(f\) tem raiz. Essa direção é quase de graça.</p>
 
-  <h2><span class="n">PASSO 4 · A DIREÇÃO NÃO-ÓBVIA</span>(A) ⟹ (B), por indução no grau</h2>
+  <h2><span class="n">PASSO 4 · A DIREÇÃO NÃO-ÓBVIA</span>(A) \(\Rightarrow\) (B), por indução no grau</h2>
   <p>A ideia: use (A) para arrancar <em>um</em> fator linear; o que sobra é um polinômio de grau menor, ao qual (A) <strong>se aplica de novo</strong>. Repita até acabar.</p>
   <details class="reveal"><summary>▸ revelar a demonstração completa</summary>
   <div class="proof">
-    <p><strong>Afirmação.</strong> Supondo (A), todo <span class="mono">f ∈ k[x]</span> não-constante fatora como <span class="mono">c(x−a₁)⋯(x−aₙ)</span>.</p>
-    <p><strong>Prova (indução em <span class="mono">n = deg f</span>).</strong></p>
-    <p><em>Base <span class="mono">n = 1</span>:</em> <span class="mono">f = bx + d</span> com <span class="mono">b ≠ 0</span>. Então <span class="mono">f = b(x − (−d/b))</span> — já é um fator linear (vezes a constante <span class="mono">b</span>). ✓</p>
-    <p><em>Passo <span class="mono">n ≥ 2</span>:</em> suponha a afirmação válida para todo grau menor que <span class="mono">n</span>. Como <span class="mono">f</span> é não-constante, (A) garante uma raiz <span class="mono">a ∈ k</span>. Pelo Teorema do Fator, <span class="mono">f = (x−a)·g</span> com <span class="mono">deg g = n−1 ≥ 1</span>.</p>
-    <p>Agora o ponto central: <span class="mono">g</span> é um polinômio não-constante em <span class="mono">k[x]</span> de grau <span class="mono">n−1 &lt; n</span>. Pela hipótese de indução, <span class="mono">g = c(x−a₂)⋯(x−aₙ)</span>. Substituindo:</p>
-    <p class="center"><span class="mono">f = (x−a)·c(x−a₂)⋯(x−aₙ),</span></p>
-    <p>um produto de fatores lineares (vezes a constante <span class="mono">c</span>). ✓ Por indução, vale para todo <span class="mono">n</span>. <span class="qed">∎</span></p>
+    <p><strong>Afirmação.</strong> Supondo (A), todo \(f \in k[x]\) não-constante fatora como \(c(x-a_1)\cdots(x-a_n)\).</p>
+    <p><strong>Prova (indução em \(n = \deg f\)).</strong></p>
+    <p><em>Base \(n = 1\):</em> \(f = bx + d\) com \(b \neq 0\). Então \(f = b\bigl(x - (-d/b)\bigr)\) — já é um fator linear (vezes a constante \(b\)). ✓</p>
+    <p><em>Passo \(n \ge 2\):</em> suponha a afirmação válida para todo grau menor que \(n\). Como \(f\) é não-constante, (A) garante uma raiz \(a \in k\). Pelo Teorema do Fator, \(f = (x-a)\cdot g\) com \(\deg g = n-1 \ge 1\).</p>
+    <p>Agora o ponto central: \(g\) é um polinômio não-constante em \(k[x]\) de grau \(n-1 < n\). Pela hipótese de indução, \(g = c(x-a_2)\cdots(x-a_n)\). Substituindo:</p>
+    <p class="center">$$f = (x-a)\cdot c(x-a_2)\cdots(x-a_n),$$</p>
+    <p>um produto de fatores lineares (vezes a constante \(c\)). ✓ Por indução, vale para todo \(n\). <span class="qed">∎</span></p>
   </div></details>
 
   <div class="gem">
     <h3>O "aha" que faltava</h3>
-    <p style="margin:.2rem 0">A hipótese (A) <strong>não</strong> diz "<span class="mono">f</span> tem uma raiz". Diz "<strong>todo</strong> polinômio não-constante tem raiz" — então ela se reaplica ao quociente <span class="mono">g</span>, e ao quociente do quociente, e assim por diante. Uma raiz arranca <em>um</em> fator; é a <strong>re-aplicação repetida</strong> (capturada pela indução) que fatora <em>tudo</em>. Era essa a engrenagem que parecia faltar.</p>
+    <p style="margin:.2rem 0">A hipótese (A) <strong>não</strong> diz "\(f\) tem uma raiz". Diz "<strong>todo</strong> polinômio não-constante tem raiz" — então ela se reaplica ao quociente \(g\), e ao quociente do quociente, e assim por diante. Uma raiz arranca <em>um</em> fator; é a <strong>re-aplicação repetida</strong> (capturada pela indução) que fatora <em>tudo</em>. Era essa a engrenagem que parecia faltar.</p>
   </div>
 
   <h2><span class="n">PASSO 5 · NA PRÁTICA</span>Arrancando fator por fator</h2>
-  <p>Em <span class="mono">ℂ</span>, fatore <span class="mono">f = x² + 1</span>:</p>
+  <p>Em \(\mathbb{C}\), fatore \(f = x^2 + 1\):</p>
   <div class="box">
-    <p style="margin:.2rem 0">Raiz: <span class="mono">i</span> (pois <span class="mono">i²+1 = 0</span>). Arranca o fator: <span class="mono">x²+1 = (x − i)·g</span>. Dividindo, <span class="mono">g = x + i</span> — grau 1, já linear (raiz <span class="mono">−i</span>). Resultado:</p>
-    <p class="center" style="text-align:center"><span class="mono">x² + 1 = (x − i)(x + i).</span></p>
+    <p style="margin:.2rem 0">Raiz: \(i\) (pois \(i^2+1 = 0\)). Arranca o fator: \(x^2+1 = (x - i)\cdot g\). Dividindo, \(g = x + i\) — grau 1, já linear (raiz \(-i\)). Resultado:</p>
+    <p class="center" style="text-align:center">$$x^2 + 1 = (x - i)(x + i).$$</p>
     <p style="margin:.2rem 0; color:var(--soft); font-size:.9rem">Dois fatores lineares, arrancados um de cada vez — exatamente o que a indução descreve.</p>
   </div>
 
   <div class="quiz" id="q2">
-    <p class="q">Na prova de (A)⟹(B), por que a hipótese de indução se aplica a <span class="mono">g</span>?</p>
+    <p class="q">Na prova de (A)\(\Rightarrow\)(B), por que a hipótese de indução se aplica a \(g\)?</p>
     <button class="opt" data-ok="1">Porque g tem grau menor que f</button>
     <button class="opt" data-ok="0">Porque g tem as mesmas raízes que f</button>
     <button class="opt" data-ok="0">Porque g já é um fator linear</button>
@@ -131,7 +136,7 @@
 
   <div class="src" style="margin-top:1.8rem">
     <h3>Leia a seguir (fonte primária)</h3>
-    <p><strong>Cox–Little–O'Shea, 4ª ed., Cap. 1 §5 "Polynomials of One Variable" (p. 37)</strong> — algoritmo da divisão em <span class="mono">k[x]</span>, fator <span class="mono">(x−a)</span> e raízes. É a base de uma variável sobre a qual tudo isto se apoia. <a href="https://link.springer.com/book/10.1007/978-3-031-91841-4">Springer</a>.</p>
+    <p><strong>Cox–Little–O'Shea, 4ª ed., Cap. 1 §5 "Polynomials of One Variable" (p. 37)</strong> — algoritmo da divisão em \(k[x]\), fator \((x-a)\) e raízes. É a base de uma variável sobre a qual tudo isto se apoia. <a href="https://link.springer.com/book/10.1007/978-3-031-91841-4">Springer</a>.</p>
   </div>
 
   <blockquote style="margin-top:2rem">

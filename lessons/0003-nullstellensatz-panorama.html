@@ -3,7 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lição 0004 · O Nullstellensatz — o panorama</title>
+<title>Lição 0003 · O Nullstellensatz — o panorama</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false});"></script>
 <style>
   :root{
     --ink:#1a1a1a; --soft:#5b5b5b; --accent:#7a1f2b; --good:#1f6b3b; --bad:#9a2b2b;
@@ -11,11 +15,7 @@
   }
   *{box-sizing:border-box}
   html{font-size:18px}
-  body{
-    background:var(--bg); color:var(--ink);
-    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
-    line-height:1.55; margin:0; padding:3rem 1.2rem 6rem;
-  }
+  body{ background:var(--bg); color:var(--ink); font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif; line-height:1.55; margin:0; padding:3rem 1.2rem 6rem; }
   .wrap{max-width:44rem; margin:0 auto}
   .kicker{font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-family:ui-sans-serif,system-ui,sans-serif; margin:0 0 .4rem}
   h1{font-size:2rem; line-height:1.15; margin:0 0 .35rem; font-weight:600}
@@ -24,7 +24,8 @@
   h2{font-size:1.3rem; margin:2.6rem 0 .5rem}
   h2 .n{color:var(--accent); font-family:ui-sans-serif,system-ui,sans-serif; font-size:.8rem; letter-spacing:.1em; display:block; margin-bottom:.1rem}
   p{margin:.65rem 0}
-  code,.mono{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; background:var(--code); padding:.05em .35em; border-radius:4px; font-size:.84em}
+  code{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; background:var(--code); padding:.05em .35em; border-radius:4px; font-size:.84em}
+  .katex{font-size:1.05em}
   .accent{color:var(--accent)}
   .box{background:var(--panel); border:1px solid var(--rule); border-radius:8px; padding:1.1rem 1.3rem; margin:1.2rem 0}
   .def{border-left:4px solid var(--accent)}
@@ -32,8 +33,7 @@
   blockquote{margin:1.3rem 0; padding:.2rem 0 .2rem 1rem; border-left:3px solid var(--rule); color:var(--soft); font-style:italic}
   .quiz{background:var(--panel); border:1px solid var(--rule); border-radius:8px; padding:1.1rem 1.3rem; margin:1.4rem 0}
   .quiz .q{font-weight:600; margin:0 0 .8rem}
-  .opt{display:block; width:100%; text-align:left; background:#fbfaf5; border:1px solid var(--rule); border-radius:6px;
-       padding:.6rem .8rem; margin:.45rem 0; cursor:pointer; font:inherit; font-size:.92rem; transition:.12s}
+  .opt{display:block; width:100%; text-align:left; background:#fbfaf5; border:1px solid var(--rule); border-radius:6px; padding:.6rem .8rem; margin:.45rem 0; cursor:pointer; font:inherit; font-size:.92rem; transition:.12s}
   .opt:hover{border-color:var(--accent)}
   .opt.correct{border-color:var(--good); background:#eef7f0; color:var(--good)}
   .opt.wrong{border-color:var(--bad); background:#faeded; color:var(--bad)}
@@ -60,7 +60,7 @@
 <div class="wrap">
   <p class="kicker">Lição 0003 · Geometria Algébrica Computacional</p>
   <h1>O <span class="accent">Nullstellensatz</span><br>— o panorama</h1>
-  <p class="sub">O teorema central da sua missão, reunido num só lugar. Você já tem I, V e ideais; aqui entra a última peça — o radical — e o quadro completo se forma. Você vê por que este teorema faz a geometria virar cálculo, antes de o construirmos com rigor na próxima lição.</p>
+  <p class="sub">O teorema central da sua missão, reunido num só lugar. Você já tem \(I\), \(V\) e ideais; aqui entra a última peça — o radical — e o quadro completo se forma. Você vê por que este teorema faz a geometria virar cálculo, antes de o construirmos com rigor na próxima lição.</p>
   <div class="meta">
     <span>⏱ ~25 min</span>
     <span>🎯 Entender enunciado, formas e alcance</span>
@@ -74,40 +74,40 @@
     <div class="piece"><div class="de">stellen</div><div class="pt">lugares / posições</div></div>
     <div class="piece"><div class="de">satz</div><div class="pt">teorema / proposição</div></div>
   </div>
-  <p><span class="mono">Nullstelle</span> é a palavra alemã para <em>raiz/zero de um polinômio</em> (o lugar onde ele se anula). Então <strong>Nullstellensatz = "teorema dos lugares dos zeros"</strong> — o "teorema dos zeros". É de <strong>David Hilbert</strong> (1893), e é um dos pilares de toda a álgebra/geometria.</p>
+  <p><em>Nullstelle</em> é a palavra alemã para <em>raiz/zero de um polinômio</em> (o lugar onde ele se anula). Então <strong>Nullstellensatz = "teorema dos lugares dos zeros"</strong> — o "teorema dos zeros". É de <strong>David Hilbert</strong> (1893), e é um dos pilares de toda a álgebra/geometria.</p>
 
   <h2><span class="n">PASSO 2 · A PERGUNTA</span>Fechar o ciclo do dicionário</h2>
-  <p>Você já provou (Lição 0002) que ir <span class="mono">pontos → polinômios → pontos</span> nunca perde: <span class="mono">S ⊆ V(I(S))</span>. O Nullstellensatz responde à <em>volta gêmea</em>, começando de um <strong>ideal</strong> <span class="mono">J</span>:</p>
-  <p class="center"><span class="mono">J &nbsp;→&nbsp; V(J) &nbsp;→&nbsp; I(V(J))</span> &nbsp;&nbsp; <span style="color:var(--soft)">— voltamos a J?</span></p>
-  <p>Resposta: <strong>quase</strong>. E o "quase" tem nome — o <strong>radical</strong> de <span class="mono">J</span>, a peça que você vai construir com rigor na <a href="0004-radical-de-um-ideal.html">próxima lição</a>. Aqui só precisamos da ideia.</p>
+  <p>Você já provou (Lição 0002) que ir \(\text{pontos} \to \text{polinômios} \to \text{pontos}\) nunca perde: \(S \subseteq V(I(S))\). O Nullstellensatz responde à <em>volta gêmea</em>, começando de um <strong>ideal</strong> \(J\):</p>
+  <p class="center">$$J \;\longrightarrow\; V(J) \;\longrightarrow\; I(V(J)) \qquad \text{— voltamos a } J\text{?}$$</p>
+  <p>Resposta: <strong>quase</strong>. E o "quase" tem nome — o <strong>radical</strong> de \(J\), a peça que você vai construir com rigor na <a href="0004-radical-de-um-ideal.html">próxima lição</a>. Aqui só precisamos da ideia.</p>
 
-  <h2><span class="n">PASSO 3 · FORMA FORTE</span>I(V(J)) = √J</h2>
+  <h2><span class="n">PASSO 3 · FORMA FORTE</span>\(I(V(J)) = \sqrt{J}\)</h2>
   <div class="box def">
     <h3>Nullstellensatz forte (Hilbert)</h3>
-    <p style="margin:.2rem 0">Sobre um corpo <strong>algebricamente fechado</strong> <span class="mono">k</span>, para todo ideal <span class="mono">J ⊆ k[x₁,…,xₙ]</span>:</p>
-    <p class="center" style="margin:.5rem 0"><span class="mono" style="font-size:1.1em">I(V(J)) = √J.</span></p>
+    <p style="margin:.2rem 0">Sobre um corpo <strong>algebricamente fechado</strong> \(k\), para todo ideal \(J \subseteq k[x_1,\dots,x_n]\):</p>
+    <p class="center" style="margin:.5rem 0">$$I(V(J)) = \sqrt{J}.$$</p>
   </div>
-  <p>O <strong>radical</strong> de <span class="mono">J</span> é <span class="mono">√J = { a : aᵐ ∈ J para algum m ≥ 1 }</span> — os elementos cuja <em>alguma potência</em> cai em <span class="mono">J</span> (a Lição 0004 prova que isso é um ideal). Por que <span class="mono">I(V(J))</span> dá <span class="mono">√J</span> e não <span class="mono">J</span>? Porque a geometria <em>esquece multiplicidade</em>:</p>
+  <p>O <strong>radical</strong> de \(J\) é \(\sqrt{J} = \{\, a : a^m \in J \text{ para algum } m \ge 1 \,\}\) — os elementos cuja <em>alguma potência</em> cai em \(J\) (a Lição 0004 prova que isso é um ideal). Por que \(I(V(J))\) dá \(\sqrt{J}\) e não \(J\)? Porque a geometria <em>esquece multiplicidade</em>:</p>
   <div class="box">
-    <p style="margin:.2rem 0">Em <span class="mono">ℂ[x]</span>, tome <span class="mono">J = ⟨x²⟩</span>. Então <span class="mono">V(J) = {0}</span> (só a origem), e <span class="mono">I(V(J)) = I({0}) = ⟨x⟩</span>. Voltamos a <span class="mono">⟨x⟩</span>, não a <span class="mono">⟨x²⟩</span> — e de fato <span class="mono">√⟨x²⟩ = ⟨x⟩</span>. ✓</p>
+    <p style="margin:.2rem 0">Em \(\mathbb{C}[x]\), tome \(J = \langle x^2 \rangle\). Então \(V(J) = \{0\}\) (só a origem), e \(I(V(J)) = I(\{0\}) = \langle x \rangle\). Voltamos a \(\langle x \rangle\), não a \(\langle x^2 \rangle\) — e de fato \(\sqrt{\langle x^2 \rangle} = \langle x \rangle\). ✓</p>
   </div>
-  <blockquote>O Nullstellensatz forte garante que <em>a única coisa</em> perdida na volta é o expoente — nada além do radical. Os ideais que sobrevivem intactos (<span class="mono">√J = J</span>, os <strong>radicais</strong>) são precisamente os que vêm de variedades. Esse é o dicionário perfeito entre álgebra e geometria.</blockquote>
+  <blockquote>O Nullstellensatz forte garante que <em>a única coisa</em> perdida na volta é o expoente — nada além do radical. Os ideais que sobrevivem intactos (\(\sqrt{J} = J\), os <strong>radicais</strong>) são precisamente os que vêm de variedades. Esse é o dicionário perfeito entre álgebra e geometria.</blockquote>
 
   <h2><span class="n">PASSO 4 · FORMA FRACA</span>O motor computacional</h2>
   <p>Há uma versão mais simples e, na prática, ainda mais poderosa:</p>
   <div class="box def">
     <h3>Nullstellensatz fraco</h3>
-    <p style="margin:.2rem 0">Sobre <span class="mono">k</span> algebricamente fechado, um ideal <span class="mono">J ⊆ k[x₁,…,xₙ]</span> satisfaz <span class="mono">V(J) = ∅</span> <strong>se, e somente se,</strong> <span class="mono">1 ∈ J</span> (isto é, <span class="mono">J</span> é o anel todo).</p>
+    <p style="margin:.2rem 0">Sobre \(k\) algebricamente fechado, um ideal \(J \subseteq k[x_1,\dots,x_n]\) satisfaz \(V(J) = \varnothing\) <strong>se, e somente se,</strong> \(1 \in J\) (isto é, \(J\) é o anel todo).</p>
   </div>
-  <p>Lendo em termos de equações: um sistema de polinômios <strong>não tem solução comum</strong> exatamente quando <strong>o número 1 está no ideal</strong> que eles geram. Isso é enorme — transforma uma pergunta <em>geométrica</em> ("tem solução?") numa pergunta <em>algébrica</em> ("o 1 está aqui?"):</p>
+  <p>Lendo em termos de equações: um sistema de polinômios <strong>não tem solução comum</strong> exatamente quando <strong>o número \(1\) está no ideal</strong> que eles geram. Isso é enorme — transforma uma pergunta <em>geométrica</em> ("tem solução?") numa pergunta <em>algébrica</em> ("o \(1\) está aqui?"):</p>
   <div class="twin">
-    <div class="c"><h4>Pergunta geométrica</h4><p style="margin:.2rem 0; font-size:.92rem">O sistema <span class="mono">f₁ = … = fₛ = 0</span> tem alguma solução em <span class="mono">ℂⁿ</span>?</p></div>
-    <div class="c"><h4>Pergunta algébrica</h4><p style="margin:.2rem 0; font-size:.92rem">O <span class="mono">1</span> pertence ao ideal <span class="mono">⟨f₁,…,fₛ⟩</span>?</p></div>
+    <div class="c"><h4>Pergunta geométrica</h4><p style="margin:.2rem 0; font-size:.92rem">O sistema \(f_1 = \dots = f_s = 0\) tem alguma solução em \(\mathbb{C}^n\)?</p></div>
+    <div class="c"><h4>Pergunta algébrica</h4><p style="margin:.2rem 0; font-size:.92rem">O \(1\) pertence ao ideal \(\langle f_1,\dots,f_s \rangle\)?</p></div>
   </div>
-  <p>E a pergunta algébrica uma <strong>base de Gröbner responde por algoritmo</strong> (a base é <span class="mono">{1}</span> exatamente quando <span class="mono">1 ∈ J</span>). <em>É literalmente por isso que a geometria algébrica computacional existe:</em> o Nullstellensatz é a ponte que torna a geometria calculável, e Gröbner é a máquina que atravessa a ponte. Esse é o coração da sua missão.</p>
+  <p>E a pergunta algébrica uma <strong>base de Gröbner responde por algoritmo</strong> (a base é \(\{1\}\) exatamente quando \(1 \in J\)). <em>É literalmente por isso que a geometria algébrica computacional existe:</em> o Nullstellensatz é a ponte que torna a geometria calculável, e Gröbner é a máquina que atravessa a ponte. Esse é o coração da sua missão.</p>
 
   <div class="quiz" id="q1">
-    <p class="q">Pela forma fraca, "o sistema não tem solução em <span class="mono">ℂⁿ</span>" equivale a:</p>
+    <p class="q">Pela forma fraca, "o sistema não tem solução em \(\mathbb{C}^n\)" equivale a:</p>
     <button class="opt" data-ok="0">O ideal gerado é o ideal nulo</button>
     <button class="opt" data-ok="1">O número um pertence ao ideal</button>
     <button class="opt" data-ok="0">O radical do ideal é vazio</button>
@@ -115,17 +115,17 @@
   </div>
 
   <h2><span class="n">PASSO 5 · O ALCANCE</span>Generaliza o Teorema Fundamental da Álgebra</h2>
-  <p>O Teorema Fundamental da Álgebra diz: todo polinômio não-constante em <span class="mono">ℂ[x]</span> tem uma raiz. O Nullstellensatz fraco é a versão <em>multivariada</em>: todo sistema próprio de polinômios em <span class="mono">ℂ[x₁,…,xₙ]</span> (qualquer ideal <span class="mono">≠</span> o anel todo) tem uma solução comum. Uma variável vira muitas; um polinômio vira um sistema.</p>
+  <p>O Teorema Fundamental da Álgebra diz: todo polinômio não-constante em \(\mathbb{C}[x]\) tem uma raiz. O Nullstellensatz fraco é a versão <em>multivariada</em>: todo sistema próprio de polinômios em \(\mathbb{C}[x_1,\dots,x_n]\) (qualquer ideal \(\neq\) o anel todo) tem uma solução comum. Uma variável vira muitas; um polinômio vira um sistema.</p>
 
   <h2><span class="n">PASSO 6 · A LETRA MIÚDA</span>Por que "algebricamente fechado"?</h2>
-  <p>Toda forma do teorema exige que <span class="mono">k</span> seja algebricamente fechado (como <span class="mono">ℂ</span>). Não é tecnicismo — sem isso, falha já no caso mais simples:</p>
+  <p>Toda forma do teorema exige que \(k\) seja algebricamente fechado (como \(\mathbb{C}\)). Não é tecnicismo — sem isso, falha já no caso mais simples:</p>
   <div class="box">
-    <p style="margin:.2rem 0">Sobre <span class="mono">ℝ</span>, tome <span class="mono">J = ⟨x² + 1⟩</span>. Esse polinômio <strong>não tem raiz real</strong>, então <span class="mono">V(J) = ∅</span>. Mas <span class="mono">⟨x²+1⟩ ≠</span> o anel todo (não contém o <span class="mono">1</span>). Logo a forma fraca <strong>falha</strong> sobre <span class="mono">ℝ</span>: temos <span class="mono">V(J)=∅</span> sem <span class="mono">1 ∈ J</span>.</p>
+    <p style="margin:.2rem 0">Sobre \(\mathbb{R}\), tome \(J = \langle x^2 + 1 \rangle\). Esse polinômio <strong>não tem raiz real</strong>, então \(V(J) = \varnothing\). Mas \(\langle x^2+1 \rangle \neq\) o anel todo (não contém o \(1\)). Logo a forma fraca <strong>falha</strong> sobre \(\mathbb{R}\): temos \(V(J)=\varnothing\) sem \(1 \in J\).</p>
   </div>
-  <p>Sobre <span class="mono">ℂ</span>, porém, <span class="mono">x²+1 = (x−i)(x+i)</span> tem raízes, <span class="mono">V(J) = {i, −i} ≠ ∅</span>, e a coerência se restabelece. <strong>Moral:</strong> nos seus cálculos, o ambiente natural é <span class="mono">ℂ</span> (ou outro corpo algebricamente fechado) — sobre <span class="mono">ℝ</span> as coisas "vazam".</p>
+  <p>Sobre \(\mathbb{C}\), porém, \(x^2+1 = (x-i)(x+i)\) tem raízes, \(V(J) = \{i, -i\} \neq \varnothing\), e a coerência se restabelece. <strong>Moral:</strong> nos seus cálculos, o ambiente natural é \(\mathbb{C}\) (ou outro corpo algebricamente fechado) — sobre \(\mathbb{R}\) as coisas "vazam".</p>
 
   <div class="quiz" id="q2">
-    <p class="q">Por que <span class="mono">⟨x²+1⟩</span> sobre <span class="mono">ℝ</span> quebra a forma fraca?</p>
+    <p class="q">Por que \(\langle x^2+1 \rangle\) sobre \(\mathbb{R}\) quebra a forma fraca?</p>
     <button class="opt" data-ok="1">Tem variedade vazia mas não contém um</button>
     <button class="opt" data-ok="0">Contém um mas tem solução real</button>
     <button class="opt" data-ok="0">Não é um ideal legítimo de polinômios</button>
@@ -138,7 +138,7 @@
 
   <div class="src" style="margin-top:1.6rem">
     <h3>Leia a seguir (fonte primária)</h3>
-    <p><strong>Cox–Little–O'Shea, 4ª ed., Cap. 4:</strong> §1 <em>Hilbert's Nullstellensatz</em> (forma fraca e forte, <strong>p. 175</strong>) e §2 <em>Radical Ideals and the Ideal–Variety Correspondence</em> (a igualdade <span class="mono">I(V(J)) = √J</span>, <strong>p. 181</strong>). PDF na sua biblioteca local. <a href="https://link.springer.com/book/10.1007/978-3-031-91841-4">Springer</a>.</p>
+    <p><strong>Cox–Little–O'Shea, 4ª ed., Cap. 4:</strong> §1 <em>Hilbert's Nullstellensatz</em> (forma fraca e forte, <strong>p. 175</strong>) e §2 <em>Radical Ideals and the Ideal–Variety Correspondence</em> (a igualdade \(I(V(J)) = \sqrt{J}\), <strong>p. 181</strong>). PDF na sua biblioteca local. <a href="https://link.springer.com/book/10.1007/978-3-031-91841-4">Springer</a>.</p>
   </div>
 
   <blockquote style="margin-top:2rem">

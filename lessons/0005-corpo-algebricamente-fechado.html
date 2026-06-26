@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Lição 0005 · Corpo algebricamente fechado</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false});"></script>
 <style>
   :root{
     --ink:#1a1a1a; --soft:#5b5b5b; --accent:#7a1f2b; --good:#1f6b3b; --bad:#9a2b2b;
@@ -21,7 +25,8 @@
   h2{font-size:1.3rem; margin:2.6rem 0 .5rem}
   h2 .n{color:var(--accent); font-family:ui-sans-serif,system-ui,sans-serif; font-size:.8rem; letter-spacing:.1em; display:block; margin-bottom:.1rem}
   p{margin:.65rem 0}
-  code,.mono{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; background:var(--code); padding:.05em .35em; border-radius:4px; font-size:.84em}
+  code{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; background:var(--code); padding:.05em .35em; border-radius:4px; font-size:.84em}
+  .katex{font-size:1.05em}
   .accent{color:var(--accent)}
   .box{background:var(--panel); border:1px solid var(--rule); border-radius:8px; padding:1.1rem 1.3rem; margin:1.2rem 0}
   .def{border-left:4px solid var(--accent)}
@@ -39,9 +44,6 @@
   .opt:disabled{cursor:default}
   .fb{margin:.7rem 0 0; font-size:.88rem; min-height:1.2em}
   .fb.show-good{color:var(--good)} .fb.show-bad{color:var(--bad)}
-  .reveal{margin:.6rem 0}
-  .reveal summary{cursor:pointer; font-family:ui-sans-serif,system-ui,sans-serif; font-size:.82rem; letter-spacing:.04em; color:var(--accent); padding:.5rem 0}
-  .proof{background:#fbfaf5; border:1px solid var(--rule); border-radius:8px; padding:1rem 1.2rem; margin:.6rem 0}
   footer{margin-top:3.2rem; padding-top:1rem; border-top:1px solid var(--rule); font-size:.82rem; color:var(--soft); font-family:ui-sans-serif,system-ui,sans-serif}
   a{color:var(--accent)}
   .src{background:#f4f1e7; border:1px solid var(--rule); border-radius:8px; padding:1rem 1.2rem; font-size:.9rem}
@@ -53,7 +55,7 @@
 <div class="wrap">
   <p class="kicker">Lição 0005 · Geometria Algébrica Computacional <span class="badge">Fundamentos · revisão</span></p>
   <h1>Corpo <span class="accent">algebricamente fechado</span></h1>
-  <p class="sub">A hipótese silenciosa que aparece em todo enunciado do Nullstellensatz. Curta, mas decisiva: é o que faz o dicionário álgebra↔geometria ser fiel — e o que te diz por que você calcula sobre ℂ, não ℝ.</p>
+  <p class="sub">A hipótese silenciosa que aparece em todo enunciado do Nullstellensatz. Curta, mas decisiva: é o que faz o dicionário álgebra↔geometria ser fiel — e o que te diz por que você calcula sobre \(\mathbb{C}\), não \(\mathbb{R}\).</p>
   <div class="meta">
     <span>⏱ ~15 min</span>
     <span>🎯 Definir e reconhecer corpos fechados</span>
@@ -61,38 +63,39 @@
   </div>
 
   <h2><span class="n">PASSO 1 · RECALL</span>O que é um corpo, em uma linha</h2>
-  <p>Um <strong>corpo</strong> é um conjunto onde você soma, subtrai, multiplica e <em>divide</em> (todo elemento não-nulo tem inverso). <span class="mono">ℚ</span>, <span class="mono">ℝ</span>, <span class="mono">ℂ</span> e os corpos finitos <span class="mono">𝔽ₚ</span> são exemplos. É o terreno onde vivem os coeficientes dos seus polinômios. <span style="color:var(--soft)">(Verbete completo no <a href="../reference/glossary.html#corpo">glossário</a>.)</span></p>
+  <p>Um <strong>corpo</strong> é um conjunto onde você soma, subtrai, multiplica e <em>divide</em> (todo elemento não-nulo tem inverso). \(\mathbb{Q}\), \(\mathbb{R}\), \(\mathbb{C}\) e os corpos finitos \(\mathbb{F}_p\) são exemplos. É o terreno onde vivem os coeficientes dos seus polinômios. <span style="color:var(--soft)">(Verbete completo no <a href="../reference/glossary.html#corpo">glossário</a>.)</span></p>
 
   <h2><span class="n">PASSO 2 · A DEFINIÇÃO</span>Algebricamente fechado</h2>
   <div class="box def">
     <h3>Definição</h3>
-    <p style="margin:.2rem 0">Um corpo <span class="mono">k</span> é <strong>algebricamente fechado</strong> se <strong>todo polinômio não-constante em <span class="mono">k[x]</span> tem pelo menos uma raiz em <span class="mono">k</span></strong>.</p>
+    <p style="margin:.2rem 0">Um corpo \(k\) é <strong>algebricamente fechado</strong> se <strong>todo polinômio não-constante em \(k[x]\) tem pelo menos uma raiz em \(k\)</strong>.</p>
     <p style="margin:.5rem 0 0; color:var(--soft); font-size:.9rem">Fonte: CLO, Cap. 4 §1, p. 176 — <em>"since k is algebraically closed, every nonconstant polynomial in k[x] has a root."</em></p>
   </div>
   <p>Três formas equivalentes de dizer o mesmo — cada uma ilumina um ângulo:</p>
   <table>
     <tr><th>Forma</th><th>Enunciado</th></tr>
-    <tr><td>Tem raiz</td><td>todo polinômio não-constante de <span class="mono">k[x]</span> tem raiz em <span class="mono">k</span></td></tr>
-    <tr><td>Fatora linear</td><td>todo polinômio se decompõe em fatores de grau 1 sobre <span class="mono">k</span> &nbsp;(ex.: <span class="mono">x²+1 = (x−i)(x+i)</span>)</td></tr>
-    <tr><td>Nada escapa</td><td>os únicos irredutíveis em <span class="mono">k[x]</span> têm grau 1 — nenhuma equação obriga a sair para um corpo maior</td></tr>
+    <tr><td>Tem raiz</td><td>todo polinômio não-constante de \(k[x]\) tem raiz em \(k\)</td></tr>
+    <tr><td>Fatora linear</td><td>todo polinômio se decompõe em fatores de grau 1 sobre \(k\) &nbsp;(ex.: \(x^2+1 = (x-i)(x+i)\))</td></tr>
+    <tr><td>Nada escapa</td><td>os únicos irredutíveis em \(k[x]\) têm grau 1 — nenhuma equação obriga a sair para um corpo maior</td></tr>
   </table>
+  <p style="color:var(--soft); font-size:.9rem">Por que "tem raiz" e "fatora em grau 1" são a mesma coisa não é óbvio — está provado na <a href="0006-raiz-equivale-fator-linear.html">Lição 0006</a>.</p>
 
   <h2><span class="n">PASSO 3 · A INTUIÇÃO</span>"Nada vaza"</h2>
   <blockquote>Algebricamente fechado = você <strong>sempre</strong> resolve equações polinomiais <em>dentro</em> do próprio corpo. Não há raiz que te force a inventar números novos.</blockquote>
-  <p>Foi assim que <span class="mono">ℂ</span> nasceu, aliás: <span class="mono">ℝ</span> "vazava" em <span class="mono">x²+1=0</span>, e inventamos <span class="mono">i</span> para tapar o buraco. O Teorema Fundamental da Álgebra diz que, depois de adicionar <span class="mono">i</span>, <strong>não há mais buracos</strong>: <span class="mono">ℂ</span> é algebricamente fechado. Você nunca mais precisa de um corpo maior.</p>
+  <p>Foi assim que \(\mathbb{C}\) nasceu, aliás: \(\mathbb{R}\) "vazava" em \(x^2+1=0\), e inventamos \(i\) para tapar o buraco. O Teorema Fundamental da Álgebra diz que, depois de adicionar \(i\), <strong>não há mais buracos</strong>: \(\mathbb{C}\) é algebricamente fechado. Você nunca mais precisa de um corpo maior.</p>
 
   <h2><span class="n">PASSO 4 · A SKILL</span>Reconhecer (e refutar)</h2>
   <p>Eis a habilidade concreta. Provar que um corpo <strong>é</strong> fechado costuma ser difícil (o TFA não é trivial). Mas provar que um corpo <strong>não é</strong> fechado é fácil e mecânico:</p>
   <div class="box def">
     <h3>Movimento · "não é fechado"</h3>
-    <p style="margin:.2rem 0">Para mostrar que <span class="mono">k</span> <strong>não</strong> é algebricamente fechado, basta <strong>exibir um polinômio não-constante de <span class="mono">k[x]</span> sem raiz em <span class="mono">k</span></strong>. Uma única testemunha encerra o caso.</p>
+    <p style="margin:.2rem 0">Para mostrar que \(k\) <strong>não</strong> é algebricamente fechado, basta <strong>exibir um polinômio não-constante de \(k[x]\) sem raiz em \(k\)</strong>. Uma única testemunha encerra o caso.</p>
   </div>
   <table>
     <tr><th>Corpo</th><th>Fechado?</th><th>Testemunha / razão</th></tr>
-    <tr><td><span class="mono">ℂ</span></td><td>✅ Sim</td><td>Teorema Fundamental da Álgebra</td></tr>
-    <tr><td><span class="mono">ℝ</span></td><td>❌ Não</td><td><span class="mono">x²+1</span> (sem raiz real)</td></tr>
-    <tr><td><span class="mono">ℚ</span></td><td>❌ Não</td><td><span class="mono">x²−2</span> (raiz <span class="mono">√2</span> é irracional)</td></tr>
-    <tr><td><span class="mono">𝔽₂</span></td><td>❌ Não</td><td><span class="mono">x²+x+1</span> (nem 0 nem 1 são raiz)</td></tr>
+    <tr><td>\(\mathbb{C}\)</td><td>✅ Sim</td><td>Teorema Fundamental da Álgebra</td></tr>
+    <tr><td>\(\mathbb{R}\)</td><td>❌ Não</td><td>\(x^2+1\) (sem raiz real)</td></tr>
+    <tr><td>\(\mathbb{Q}\)</td><td>❌ Não</td><td>\(x^2-2\) (raiz \(\sqrt{2}\) é irracional)</td></tr>
+    <tr><td>\(\mathbb{F}_2\)</td><td>❌ Não</td><td>\(x^2+x+1\) (nem 0 nem 1 são raiz)</td></tr>
   </table>
 
   <div class="quiz" id="q1">
@@ -104,7 +107,7 @@
   </div>
 
   <div class="quiz" id="q2">
-    <p class="q">Para refutar que <span class="mono">ℝ</span> é fechado, o que basta apresentar?</p>
+    <p class="q">Para refutar que \(\mathbb{R}\) é fechado, o que basta apresentar?</p>
     <button class="opt" data-ok="0">Todos os polinômios sem raízes reais</button>
     <button class="opt" data-ok="1">Um polinômio não-constante sem raiz real</button>
     <button class="opt" data-ok="0">Uma raiz complexa de algum polinômio</button>
@@ -112,13 +115,13 @@
   </div>
 
   <h2><span class="n">PASSO 5 · POR QUE A MISSÃO PRECISA DISSO</span></h2>
-  <p>Aqui está a razão de você ter parado para revisar isto: <strong>todo o Nullstellensatz desmorona sem essa hipótese.</strong> Quando <span class="mono">k</span> não é fechado, o dicionário álgebra↔geometria <em>vaza</em>. O próprio CLO (p. 176) mostra o estrago em <span class="mono">ℝ[x]</span>:</p>
+  <p>Aqui está a razão de você ter parado para revisar isto: <strong>todo o Nullstellensatz desmorona sem essa hipótese.</strong> Quando \(k\) não é fechado, o dicionário álgebra↔geometria <em>vaza</em>. O próprio CLO (p. 176) mostra o estrago em \(\mathbb{R}[x]\):</p>
   <div class="box">
-    <p style="margin:.2rem 0">Os ideais <span class="mono">⟨1⟩</span>, <span class="mono">⟨1+x²⟩</span> e <span class="mono">⟨1+x²+x⁴⟩</span> são <strong>diferentes</strong> em <span class="mono">ℝ[x]</span>, mas os três têm a <strong>mesma</strong> variedade — a vazia (nenhum tem raiz real):</p>
-    <p style="text-align:center; margin:.4rem 0"><span class="mono">V(⟨1⟩) = V(⟨1+x²⟩) = V(⟨1+x²+x⁴⟩) = ∅.</span></p>
-    <p style="margin:.2rem 0">A geometria não consegue distinguir esses ideais — o dicionário perdeu informação. Sobre <span class="mono">ℂ</span>, onde tudo tem raiz, isso não acontece, e a correspondência fica fiel.</p>
+    <p style="margin:.2rem 0">Os ideais \(\langle 1 \rangle\), \(\langle 1+x^2 \rangle\) e \(\langle 1+x^2+x^4 \rangle\) são <strong>diferentes</strong> em \(\mathbb{R}[x]\), mas os três têm a <strong>mesma</strong> variedade — a vazia (nenhum tem raiz real):</p>
+    <p style="text-align:center; margin:.4rem 0">$$V(\langle 1 \rangle) = V(\langle 1+x^2 \rangle) = V(\langle 1+x^2+x^4 \rangle) = \varnothing.$$</p>
+    <p style="margin:.2rem 0">A geometria não consegue distinguir esses ideais — o dicionário perdeu informação. Sobre \(\mathbb{C}\), onde tudo tem raiz, isso não acontece, e a correspondência fica fiel.</p>
   </div>
-  <p><strong>Consequência prática:</strong> nos seus cálculos de geometria algébrica computacional, o ambiente natural é <span class="mono">ℂ</span> (ou um fecho algébrico). Geometria algébrica <em>real</em> (sobre <span class="mono">ℝ</span>) existe, é importante, mas é um assunto à parte e mais difícil — exatamente porque <span class="mono">ℝ</span> não é fechado.</p>
+  <p><strong>Consequência prática:</strong> nos seus cálculos de geometria algébrica computacional, o ambiente natural é \(\mathbb{C}\) (ou um fecho algébrico). Geometria algébrica <em>real</em> (sobre \(\mathbb{R}\)) existe, é importante, mas é um assunto à parte e mais difícil — exatamente porque \(\mathbb{R}\) não é fechado.</p>
 
   <div class="quiz" id="q3">
     <p class="q">Por que o Nullstellensatz exige corpo algebricamente fechado?</p>
@@ -130,7 +133,7 @@
 
   <div class="src" style="margin-top:1.8rem">
     <h3>Leia a seguir (fonte primária)</h3>
-    <p><strong>Cox–Little–O'Shea, 4ª ed., Cap. 4 §1, p. 175–176</strong> — a discussão de por que a correspondência ideal↔variedade precisa de corpo algebricamente fechado, com o exemplo dos ideais que colapsam sobre <span class="mono">ℝ</span>. Conceitos de corpos: <strong>Apêndice A §1</strong> (Fields and Rings). PDF na sua biblioteca. <a href="https://link.springer.com/book/10.1007/978-3-031-91841-4">Springer</a>.</p>
+    <p><strong>Cox–Little–O'Shea, 4ª ed., Cap. 4 §1, p. 175–176</strong> — a discussão de por que a correspondência ideal↔variedade precisa de corpo algebricamente fechado, com o exemplo dos ideais que colapsam sobre \(\mathbb{R}\). Conceitos de corpos: <strong>Apêndice A §1</strong> (Fields and Rings). PDF na sua biblioteca. <a href="https://link.springer.com/book/10.1007/978-3-031-91841-4">Springer</a>.</p>
   </div>
 
   <blockquote style="margin-top:2rem">
@@ -139,7 +142,7 @@
 
   <footer>
     Lição 0005 · Fundamentos · Missão: <a href="../MISSION.md">Álgebra Abstrata → Geometria Algébrica Computacional</a><br>
-    Sustenta: <a href="0003-nullstellensatz-panorama.html">0003 — O Nullstellensatz</a> · Glossário: <a href="../reference/glossary.html#fechado">corpo algebricamente fechado</a>.
+    Sustenta: <a href="0003-nullstellensatz-panorama.html">0003 — O Nullstellensatz</a> · Relacionada: <a href="0006-raiz-equivale-fator-linear.html">0006 — Raiz ⟺ fator linear</a> · Glossário: <a href="../reference/glossary.html#fechado">corpo algebricamente fechado</a>.
   </footer>
 </div>
 
