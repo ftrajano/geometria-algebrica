@@ -1,6 +1,6 @@
 # Geometria Algébrica Computacional — Resources
 
-> **Na biblioteca local** (`biblioteca/`, fora do git): CLO 4ª ed. (PDF) e Lang, *Algebra* 3ª ed. rev. (PDF). Posso citar página/seção exatas dos dois.
+> **Na biblioteca local** (`biblioteca/`, fora do git): CLO 4ª ed., Lang *Algebra* 3ª ed. rev., e Gonçalves *Introdução à Álgebra* (PT) — todos em PDF. Posso citar página/seção exatas.
 
 ## Knowledge
 
@@ -16,6 +16,9 @@
 
 - [Livro (grátis, CC): *Book of Proof* — Richard Hammack, 3.4 ed. (2025)](https://richardhammack.github.io/BookOfProof/)
   Introdução limpa e gratuita à **técnica de demonstração** (lógica, conjuntos, métodos de prova, indução). **Usar para:** atacar o gargalo direto — como estruturar e escrever uma prova. Caps. 4–7 e 10 são os mais relevantes agora.
+
+- [Livro: *Introdução à Álgebra* — Adilson Gonçalves (Projeto Euclides / IMPA)](https://impa.br/) · **PDF na biblioteca** · **em português**
+  Clássico brasileiro de graduação, didático e de dificuldade crescente — nível bem adequado ao usuário (oposto do Lang). **Companheiro de fundamentos em português.** Mapa de apoio às lições: Cap. III (anéis, ideais, homomorfismos) ↔ Lição 0001; Cap. IV (polinômios de uma variável, algoritmo da divisão, fatoração única) ↔ Lição 0006; Cap. V (extensões algébricas, corpo de decomposição) ↔ Lição 0005. **Limitação:** é de UMA variável e mira Teoria de Galois — **não** tem várias variáveis, variedades, Gröbner, Nullstellensatz nem Base de Hilbert. **Não substitui o CLO**; usar para reforçar pré-requisitos na língua, não para o destino geométrico/computacional.
 
 - [Livro: *Introduction to Commutative Algebra* — Atiyah & Macdonald](https://archive.org/details/introductiontoco0000atiy)
   O clássico enxuto de álgebra comutativa. **Usar para:** mais à frente, quando CLO já estiver confortável e quisermos densidade de pós-graduação. Não começar por aqui.
@@ -33,4 +36,5 @@
   **Usar para:** dúvidas computacionais reais, ponte direta para a prática de pesquisa.
 
 ## Gaps
-- Falta ainda uma fonte em **português** de qualidade comparável a CLO — investigar notas de cursos de pós brasileiros (IMPA, USP) se o idioma virar barreira.
+- Fundamentos em português: **coberto** por Gonçalves (anéis, ideais, polinômios de uma variável, corpos). ✓
+- Ainda falta uma fonte em **português** para a parte *computacional/geométrica* (várias variáveis, variedades, Gröbner, Nullstellensatz) — Gonçalves não chega lá. Investigar notas de cursos (IMPA/USP) ou aceitar que essa parte fica em inglês via CLO.
