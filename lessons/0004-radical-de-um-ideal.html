@@ -77,6 +77,18 @@
   </div>
   <p>Note de imediato que \(J \subseteq \sqrt{J}\) sempre: se \(a \in J\), basta \(m = 1\) (\(a^1 = a \in J\)). O radical só <em>acrescenta</em> elementos — aqueles cuja potência entra em \(J\) mesmo que eles próprios não estejam.</p>
 
+  <h2><span class="n">PASSO 1½ · EXEMPLOS</span>Testando a condição com a mão</h2>
+  <p>A confusão típica: como \(a\) pode estar em \(\sqrt{J}\) <em>sem</em> estar em \(J\)? Porque só precisamos de <strong>alguma</strong> potência \(a^m\) dentro de \(J\). Os inteiros \(\mathbb{Z}\) deixam isso palpável. Tome \(J = \langle 4 \rangle\) (os múltiplos de \(4\)):</p>
+  <div class="box">
+    <p style="margin:.2rem 0"><strong>\(a = 2\):</strong> \(2 \in \langle 4 \rangle\)? Não. Mas \(2^2 = 4 \in \langle 4 \rangle\) ✓ → logo \(2 \in \sqrt{\langle 4 \rangle}\) (com \(m=2\)).</p>
+    <p style="margin:.2rem 0"><strong>\(a = 6\):</strong> \(6 \in \langle 4 \rangle\)? Não. Mas \(6^2 = 36 = 4\cdot 9 \in \langle 4 \rangle\) ✓ → \(6 \in \sqrt{\langle 4 \rangle}\).</p>
+    <p style="margin:.2rem 0"><strong>\(a = 3\):</strong> \(3, 9, 27, 81, \dots\) — nenhuma potência é múltipla de \(4\) → \(3 \notin \sqrt{\langle 4 \rangle}\). ✗</p>
+    <p style="margin:.5rem 0 0; color:var(--soft); font-size:.9rem">Conclusão: \(\sqrt{\langle 4 \rangle} = \langle 2 \rangle\) (os pares). Note que \(2\) entrou no radical mesmo não estando em \(\langle 4 \rangle\).</p>
+  </div>
+  <p>E a intuição que amarra tudo aparece em \(J = \langle 12 \rangle\). Como \(12 = 2^2\cdot 3\), para \(a^m\) ser múltiplo de \(12\) o número \(a\) precisa ter os fatores \(2\) e \(3\):</p>
+  <p style="text-align:center">$$\sqrt{\langle 12 \rangle} = \langle 6 \rangle, \qquad 12 = 2^2\cdot 3 \;\longrightarrow\; 6 = 2\cdot 3.$$</p>
+  <p>O radical <strong>apagou os expoentes</strong> da fatoração em primos. Guarde essa imagem — é literalmente o que acontece também com polinômios no próximo passo.</p>
+
   <h2><span class="n">PASSO 2 · INTUIÇÃO</span>O radical apaga expoentes</h2>
   <p>Trabalhe em \(\mathbb{C}[x]\) com \(J = \langle x^2 \rangle\). Quem está em \(\sqrt{J}\)?</p>
   <p>O elemento \(x\) não está em \(J = \langle x^2 \rangle\) (não é múltiplo de \(x^2\)). Mas \(x^2 \in J\) — então \(x \in \sqrt{J}\) com \(m = 2\). O radical "promove" \(x\) para dentro. Resultado: \(\sqrt{\langle x^2 \rangle} = \langle x \rangle\). O expoente sumiu.</p>
