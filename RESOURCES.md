@@ -26,6 +26,12 @@
 - [Tutorial: *Introduction to Macaulay2* — Diane Maclagan (PDF)](https://people.maths.ox.ac.uk/agp/M2Tutorial.pdf)
   Tutorial curto e prático para começar a calcular com Macaulay2. **Usar para:** transformar teoria em cálculo verificável (bases de Gröbner, dimensão, ideais).
 
+## Roadmap de livros (a escada)
+1. **CLO — *Ideals, Varieties, and Algorithms*** ← atual (fundamentos: variedades, Gröbner, Nullstellensatz).
+2. **CLO — *Using Algebraic Geometry* (Springer GTM 185, 2ª ed.)** ← **próximo**. Sequência direta dos mesmos autores: módulos, sizígias, resoluções livres, Gröbner para módulos, resultantes, geometria tórica, aplicações. Mantém o terreno computacional rumo a nível de pesquisa, sem saltar para esquemas.
+3. Em paralelo, para rigor de álgebra comutativa: **Atiyah–Macdonald** (enxuto) e/ou **Eisenbud, *Commutative Algebra with a View Toward Algebraic Geometry*** (a ponte feita sob medida álgebra comutativa → geometria algébrica).
+4. Mais à frente, geometria algébrica "pura": **Vakil, *The Rising Sea*** (grátis, moderno) ou **Hartshorne**.
+
 ## Wisdom (Communities)
 
 - [Mathematics Stack Exchange](https://math.stackexchange.com/) — tags `abstract-algebra`, `commutative-algebra`, `algebraic-geometry`.
