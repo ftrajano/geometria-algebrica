@@ -51,6 +51,11 @@
   .src h3{margin:.1rem 0 .5rem; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; font-family:ui-sans-serif,system-ui,sans-serif; color:var(--accent)}
   .gem{background:#fff8e9; border:1px solid #e7d9a8; border-left:4px solid #b8860b; border-radius:8px; padding:1rem 1.2rem; margin:1.2rem 0}
   .gem h3{margin:0 0 .4rem; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; font-family:ui-sans-serif,system-ui,sans-serif; color:#8a6608}
+  table{border-collapse:collapse; margin:1rem 0; width:100%; font-size:.92rem}
+  th,td{border:1px solid var(--rule); padding:.4rem .6rem; text-align:center}
+  th{background:var(--code); font-family:ui-sans-serif,system-ui,sans-serif; font-size:.78rem; letter-spacing:.03em; font-weight:600}
+  td.byA{color:var(--accent); font-weight:600} td.byB{color:var(--good); font-weight:600}
+  .step{font-weight:600; font-family:ui-sans-serif,system-ui,sans-serif; font-size:.82rem; letter-spacing:.04em; color:var(--accent); margin:1.6rem 0 .3rem}
   @media print{ body{background:#fff} .opt{display:none} }
 </style>
 </head>
@@ -126,8 +131,48 @@
 
   <div class="gem">
     <h3>A joia · binômio + casa dos pombos</h3>
-    <p style="margin:.2rem 0">Tome \(N = m + n - 1\). Em cada termo da expansão, os expoentes \(k\) (de \(a\)) e \(N-k\) (de \(b\)) somam \(N = m+n-1\). <strong>É impossível</strong> ter \(k < m\) e \(N-k < n\) ao mesmo tempo: isso daria \(N \le (m-1)+(n-1) = m+n-2\), contradizendo \(N = m+n-1\). Então, para cada termo, <em>ou</em> \(k \ge m\) <em>ou</em> \(N-k \ge n\). É a casa dos pombos aplicada a expoentes.</p>
+    <p style="margin:.2rem 0">Tome \(N = m + n - 1\). Aí <strong>todo</strong> termo da expansão de \((a+b)^N\) cai em \(J\) — uns porque \(a\) já ficou forte (\(k \ge m\)), outros porque \(b\) já ficou forte (\(N-k \ge n\)); nunca os dois falham ao mesmo tempo. Os quatro passos abaixo destrincham <em>de onde</em> sai esse \(N\), por que ele não pode ser menor, e onde mora — de verdade — a casa dos pombos.</p>
   </div>
+
+  <p class="step">1 · DE ONDE SAI O \(m+n-1\)</p>
+  <p>Você expande \((a+b)^N\) e cada termo é \(c_k\, a^k\, b^{\,N-k}\). Você quer que <strong>todo</strong> termo caia em \(J\), e suas únicas armas são:</p>
+  <p style="margin:.3rem 0">• \(a^m \in J\) → um termo está salvo se \(k \ge m\) (pois \(a^k = a^m\cdot a^{\,k-m} \in J\));</p>
+  <p style="margin:.3rem 0">• \(b^n \in J\) → um termo está salvo se \(N-k \ge n\).</p>
+  <p>Um termo só é <strong>perigoso</strong> (pode escapar de \(J\)) quando as duas armas falham juntas: \(k \le m-1\) <em>e</em> \(N-k \le n-1\). Mas se isso acontecesse, somando as duas desigualdades:</p>
+  <p style="text-align:center">$$N = k + (N-k) \;\le\; (m-1)+(n-1) = m+n-2.$$</p>
+  <p>Ou seja: um termo perigoso <strong>só existe se \(N \le m+n-2\)</strong>. Para matar todos de uma vez, basta exigir \(N \ge m+n-1\). O menor que serve é exatamente \(N = m+n-1\).</p>
+
+  <p class="step">2 · TESTANDO COM NÚMEROS (\(m=2,\ n=3\))</p>
+  <p>Suponha \(a^2 \in J\) e \(b^3 \in J\). A tentação é usar \(N=\max(m,n)=3\). Veja por que <strong>falha</strong>:</p>
+  <p style="text-align:center">$$(a+b)^3 = a^3 + 3\,a^2b + 3\,a b^2 + b^3.$$</p>
+  <p>O termo do meio \(3\,ab^2\) tem \(k=1 < 2\) (arma de \(a\) falha) <em>e</em> \(N-k=2 < 3\) (arma de \(b\) falha). Ele <strong>escapa</strong>. Agora use \(N=m+n-1=4\):</p>
+  <p style="text-align:center">$$(a+b)^4 = a^4 + 4a^3b + 6a^2b^2 + 4ab^3 + b^4.$$</p>
+  <table>
+    <thead><tr><th>termo</th><th>\(k\) (exp. de \(a\))</th><th>\(N-k\) (exp. de \(b\))</th><th>salvo por</th></tr></thead>
+    <tbody>
+      <tr><td>\(a^4\)</td><td>\(4 \ge 2\)</td><td>\(0\)</td><td class="byA">\(a\)</td></tr>
+      <tr><td>\(4a^3b\)</td><td>\(3 \ge 2\)</td><td>\(1\)</td><td class="byA">\(a\)</td></tr>
+      <tr><td>\(6a^2b^2\)</td><td>\(2 \ge 2\)</td><td>\(2\)</td><td class="byA">\(a\)</td></tr>
+      <tr><td>\(4ab^3\)</td><td>\(1\)</td><td>\(3 \ge 3\)</td><td class="byB">\(b\)</td></tr>
+      <tr><td>\(b^4\)</td><td>\(0\)</td><td>\(4 \ge 3\)</td><td class="byB">\(b\)</td></tr>
+    </tbody>
+  </table>
+  <p>Todo termo em \(J\). Repare no padrão: a arma de \(a\) cobre o começo (expoente de \(a\) alto) e a de \(b\) cobre o fim (expoente de \(b\) alto). As duas coberturas precisam <strong>se encontrar no meio sem deixar buraco</strong> — com \(N=3\) sobrava o buraco \(3ab^2\); com \(N=4\) elas se encostam.</p>
+
+  <p class="step">3 · PODERIA SER \(m+n\)?</p>
+  <p>Sim. <strong>Qualquer \(N \ge m+n-1\) funciona</strong> — inclusive \(m+n\), \(m+n+1\), etc. A conta do Passo 1 só dá um <em>piso</em>: a partir de \(m+n-1\) não há mais termo perigoso, e subir além disso só deixa cada termo com expoentes ainda mais altos (mais folga, nunca menos). Os livros escrevem \(m+n-1\) por pura economia — é a hipótese mais enxuta que já basta. Se um dia você esquecer o \(-1\), chute \(N=m+n\) e a prova fecha igual. O que você <em>não</em> pode é descer abaixo de \(m+n-1\): aí reabre o buraco do meio.</p>
+
+  <p class="step">4 · ONDE ESTÁ, DE VERDADE, A CASA DOS POMBOS</p>
+  <p>O nome "casa dos pombos" costuma ser usado aqui como apelido — mas dá para exibir os pombos e as casas de fato. Pense em \(N = m+n-1\) como <strong>\(m+n-1\) unidades de expoente</strong> a distribuir entre \(a\) e \(b\) (cada termo é uma distribuição: \(k\) unidades para \(a\), \(N-k\) para \(b\)). Monte duas casas de capacidade limitada:</p>
+  <div class="box def">
+    <h3>Os pombos e as casas</h3>
+    <p style="margin:.2rem 0">• <strong>Casa A</strong> ("\(a\) ainda fraco"): segura no máximo \(m-1\) unidades. A \(m\)-ésima a faz transbordar → \(k \ge m\) → \(a^k \in J\).</p>
+    <p style="margin:.2rem 0">• <strong>Casa B</strong> ("\(b\) ainda fraco"): segura no máximo \(n-1\) unidades. Transbordar → \(N-k \ge n\) → \(b^{\,N-k} \in J\).</p>
+    <p style="margin:.5rem 0 .2rem">Capacidade total das duas casas: \((m-1)+(n-1) = m+n-2\). Mas você tem \(m+n-1\) pombos a acomodar. Como</p>
+    <p style="text-align:center">$$\underbrace{m+n-1}_{\text{pombos}} \;>\; \underbrace{m+n-2}_{\text{capacidade total}},$$</p>
+    <p style="margin:.2rem 0">é <strong>impossível</strong> que as duas casas absorvam todos sem transbordar. Pelo menos uma transborda — e qualquer das duas que transborde coloca o termo dentro de \(J\). <span class="qed">∎</span></p>
+  </div>
+  <p>É <em>esse</em> o princípio da casa dos pombos: mais pombos do que vagas força ao menos uma casa a estourar. As "vagas" são as zonas seguras onde nenhuma hipótese ainda valeu (\(k\le m-1\), \(N-k\le n-1\)), e o \(-1\) em \(m+n-1\) é justamente o pombo a mais que garante o estouro. Isso reexplica os Passos 2–3: \(m+n\) dá ainda mais pombos (estouro mais garantido); \(m+n-2\) iguala pombos e vagas (dá para encaixar todos — foi o \(3ab^2\) que escapou).</p>
 
   <details class="reveal"><summary>▸ revelar a demonstração completa do fecho sob soma</summary>
   <div class="proof">
