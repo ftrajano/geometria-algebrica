@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lição 0007 · O Nullstellensatz fraco (uma variável)</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false});"></script>
+<style>
+  :root{
+    --ink:#1a1a1a; --soft:#5b5b5b; --accent:#7a1f2b; --good:#1f6b3b; --bad:#9a2b2b;
+    --rule:#d8d2c4; --bg:#fcfbf7; --code:#f0ede3; --panel:#fff;
+  }
+  *{box-sizing:border-box}
+  html{font-size:18px}
+  body{ background:var(--bg); color:var(--ink); font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif; line-height:1.55; margin:0; padding:3rem 1.2rem 6rem; }
+  .wrap{max-width:44rem; margin:0 auto}
+  .kicker{font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-family:ui-sans-serif,system-ui,sans-serif; margin:0 0 .4rem}
+  h1{font-size:2rem; line-height:1.15; margin:0 0 .35rem; font-weight:600}
+  .sub{color:var(--soft); font-style:italic; margin:0 0 1.6rem}
+  .meta{font-family:ui-sans-serif,system-ui,sans-serif; font-size:.74rem; color:var(--soft); letter-spacing:.03em; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:.55rem 0; margin:0 0 2rem; display:flex; gap:1.4rem; flex-wrap:wrap}
+  h2{font-size:1.3rem; margin:2.6rem 0 .5rem}
+  h2 .n{color:var(--accent); font-family:ui-sans-serif,system-ui,sans-serif; font-size:.8rem; letter-spacing:.1em; display:block; margin-bottom:.1rem}
+  p{margin:.65rem 0}
+  code{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; background:var(--code); padding:.05em .35em; border-radius:4px; font-size:.84em}
+  .katex{font-size:1.05em}
+  .accent{color:var(--accent)}
+  .box{background:var(--panel); border:1px solid var(--rule); border-radius:8px; padding:1.1rem 1.3rem; margin:1.2rem 0}
+  .def{border-left:4px solid var(--accent)}
+  .def h3{margin:0 0 .4rem; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; font-family:ui-sans-serif,system-ui,sans-serif; color:var(--accent)}
+  blockquote{margin:1.3rem 0; padding:.2rem 0 .2rem 1rem; border-left:3px solid var(--rule); color:var(--soft); font-style:italic}
+  .quiz{background:var(--panel); border:1px solid var(--rule); border-radius:8px; padding:1.1rem 1.3rem; margin:1.4rem 0}
+  .quiz .q{font-weight:600; margin:0 0 .8rem}
+  .opt{display:block; width:100%; text-align:left; background:#fbfaf5; border:1px solid var(--rule); border-radius:6px; padding:.6rem .8rem; margin:.45rem 0; cursor:pointer; font:inherit; font-size:.92rem; transition:.12s}
+  .opt:hover{border-color:var(--accent)}
+  .opt.correct{border-color:var(--good); background:#eef7f0; color:var(--good)}
+  .opt.wrong{border-color:var(--bad); background:#faeded; color:var(--bad)}
+  .opt:disabled{cursor:default}
+  .fb{margin:.7rem 0 0; font-size:.88rem; min-height:1.2em}
+  .fb.show-good{color:var(--good)} .fb.show-bad{color:var(--bad)}
+  .reveal{margin:.6rem 0}
+  .reveal summary{cursor:pointer; font-family:ui-sans-serif,system-ui,sans-serif; font-size:.82rem; letter-spacing:.04em; color:var(--accent); padding:.5rem 0}
+  .proof{background:#fbfaf5; border:1px solid var(--rule); border-radius:8px; padding:1rem 1.2rem; margin:.6rem 0}
+  .proof .center{text-align:center; margin:.5rem 0}
+  .qed{text-align:right; color:var(--accent)}
+  .gem{background:#fff8e9; border:1px solid #e7d9a8; border-left:4px solid #b8860b; border-radius:8px; padding:1rem 1.2rem; margin:1.2rem 0}
+  .gem h3{margin:0 0 .4rem; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; font-family:ui-sans-serif,system-ui,sans-serif; color:#8a6608}
+  .warn{background:#faeded; border:1px solid #e3b9b9; border-left:4px solid var(--bad); border-radius:8px; padding:1rem 1.2rem; margin:1.2rem 0}
+  .warn h3{margin:0 0 .4rem; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; font-family:ui-sans-serif,system-ui,sans-serif; color:var(--bad)}
+  .step{font-weight:600; font-family:ui-sans-serif,system-ui,sans-serif; font-size:.82rem; letter-spacing:.04em; color:var(--accent); margin:1.6rem 0 .3rem}
+  footer{margin-top:3.2rem; padding-top:1rem; border-top:1px solid var(--rule); font-size:.82rem; color:var(--soft); font-family:ui-sans-serif,system-ui,sans-serif}
+  a{color:var(--accent)}
+  .src{background:#f4f1e7; border:1px solid var(--rule); border-radius:8px; padding:1rem 1.2rem; font-size:.9rem}
+  .src h3{margin:.1rem 0 .5rem; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; font-family:ui-sans-serif,system-ui,sans-serif; color:var(--accent)}
+  @media print{ body{background:#fff} .opt{display:none} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="kicker">Lição 0007 · Geometria Algébrica Computacional</p>
+  <h1>O Nullstellensatz <span class="accent">fraco</span> — sua primeira prova de verdade</h1>
+  <p class="sub">No panorama (Lição 0003) o teorema apareceu como enunciado. Agora você <em>prova</em> a forma fraca — completa e rigorosa — no caso de uma variável, usando exatamente as peças de 0005 e 0006. E vê, com honestidade, por que o caso de várias variáveis precisa de máquina que ainda vamos construir.</p>
+  <div class="meta">
+    <span>⏱ ~30 min</span>
+    <span>🎯 Vitória: provar \(V(I)=\varnothing \Rightarrow 1\in I\) em \(k[x]\)</span>
+    <span>🛠 Reúne: corpo fechado + raiz⟺fator + ideal principal</span>
+  </div>
+
+  <h2><span class="n">RETOMADA · SPACING</span>De onde viemos</h2>
+  <p>Três peças que você já tem na mão se encontram aqui:</p>
+  <p style="margin:.3rem 0">• <a href="0003-nullstellensatz-panorama.html">Lição 0003</a> — o <strong>enunciado</strong> da forma fraca: se um sistema de polinômios não tem zero comum, é porque o ideal que eles geram é <em>todo</em> o anel (contém o \(1\)).</p>
+  <p style="margin:.3rem 0">• <a href="0005-corpo-algebricamente-fechado.html">Lição 0005</a> — <strong>corpo algebricamente fechado</strong>: todo polinômio não constante tem raiz em \(k\).</p>
+  <p style="margin:.3rem 0">• <a href="0006-raiz-equivale-fator-linear.html">Lição 0006</a> — <strong>raiz \(\iff\) fator linear</strong>, via Teorema do Fator.</p>
+  <p>A forma fraca, em uma variável, é literalmente essas três peças se encaixando. Vamos montar.</p>
+
+  <h2><span class="n">PASSO 1 · O ENUNCIADO PRECISO</span>O que "fraco" afirma</h2>
+  <div class="box def">
+    <h3>Nullstellensatz fraco</h3>
+    <p style="margin:.2rem 0">Seja \(k\) um corpo <strong>algebricamente fechado</strong> e \(I \subseteq k[x_1,\dots,x_n]\) um ideal. Então</p>
+    <p class="center" style="text-align:center">$$V(I) = \varnothing \quad\Longleftrightarrow\quad 1 \in I \quad(\text{isto é, } I = k[x_1,\dots,x_n]).$$</p>
+  </div>
+  <p>Leia em português: <em>a única maneira de um sistema de equações polinomiais não ter solução é o ideal "denunciar" isso contendo o \(1\)</em> — uma combinação \(1 = \sum h_i\, f_i\) dos próprios polinômios. Sem solução geométrica \(\Rightarrow\) testemunha algébrica. É isso que torna "tem solução?" uma pergunta <strong>decidível por cálculo</strong> (mais tarde: bases de Gröbner respondem se \(1 \in I\)).</p>
+  <p>A equivalência tem dois lados. Um é quase de graça; o outro é o coração.</p>
+
+  <h2><span class="n">PASSO 2 · O LADO FÁCIL</span>\(1 \in I \Rightarrow V(I) = \varnothing\)</h2>
+  <p>Se \(1 \in I\), então qualquer ponto \(p \in V(I)\) teria que anular <em>todo</em> elemento de \(I\) — em particular o polinômio constante \(1\). Mas o polinômio \(1\) vale \(1\) em todo ponto, nunca \(0\). Contradição. Logo \(V(I) = \varnothing\). Esse lado <strong>não usa</strong> que \(k\) é fechado — vale sempre. ✓</p>
+  <blockquote>É o mesmo movimento da Lição 0002: "para um ponto estar em \(V\), ele anula cada polinômio do ideal". Aqui o polinômio \(1\) é o delator: ele nunca zera, então ninguém entra em \(V\).</blockquote>
+
+  <h2><span class="n">PASSO 3 · O CORAÇÃO, EM UMA VARIÁVEL</span>\(V(I) = \varnothing \Rightarrow 1 \in I\) em \(k[x]\)</h2>
+  <p>Aqui está a vitória da lição. Trabalhamos em \(k[x]\) — <strong>uma</strong> variável — onde temos uma vantagem decisiva: <em>todo ideal é principal</em>. Vamos usar três fatos, todos seus:</p>
+  <p style="margin:.3rem 0">(i) \(k[x]\) é um <strong>domínio de ideais principais</strong> (PID): pelo algoritmo da divisão, todo ideal \(I\) se escreve \(I = \langle f \rangle\) para um único \(f\) (mônico, se não nulo). <span style="color:var(--soft)">— Gonçalves Cap. IV; CLO Cap. 1 §5.</span></p>
+  <p style="margin:.3rem 0">(ii) \(k\) algebricamente fechado: todo \(f\) com \(\deg f \ge 1\) tem raiz em \(k\) (Lição 0005).</p>
+  <p style="margin:.3rem 0">(iii) Em \(k[x]\), \(V(\langle f \rangle) = \{\,a \in k : f(a) = 0\,\}\) — a variedade de um ideal principal é o conjunto de raízes do gerador.</p>
+
+  <div class="quiz" id="q1">
+    <p class="q">Escreva \(I = \langle f \rangle\) com \(f \ne 0\). Se \(V(I) = \varnothing\), o que isso diz sobre \(f\)?</p>
+    <button class="opt" data-ok="0">Que \(f\) tem grau par</button>
+    <button class="opt" data-ok="1">Que \(f\) não tem nenhuma raiz em \(k\)</button>
+    <button class="opt" data-ok="0">Que \(f\) é o polinômio nulo</button>
+    <p class="fb" id="fb1"></p>
+  </div>
+
+  <div class="gem">
+    <h3>A ideia central</h3>
+    <p style="margin:.2rem 0">Num corpo <em>fechado</em>, "não ter raiz" é uma condição rara: só os <strong>constantes não nulos</strong> conseguem. Porque qualquer polinômio de grau \(\ge 1\) é obrigado a ter raiz. Então "\(V(\langle f\rangle)=\varnothing\)" empurra \(f\) para ser uma constante \(\ne 0\) — e constante não nula é <strong>unidade</strong>, o que faz o ideal inteiro colapsar em \(k[x]\) e capturar o \(1\).</p>
+  </div>
+
+  <details class="reveal" open><summary>▸ a demonstração completa</summary>
+  <div class="proof">
+    <p>Seja \(I \subseteq k[x]\) com \(V(I) = \varnothing\). Como \(k[x]\) é PID, \(I = \langle f \rangle\) para algum \(f\).</p>
+    <p><strong>Primeiro, \(f \ne 0.\)</strong> Se fosse \(f = 0\), então \(I = \langle 0 \rangle = \{0\}\) e \(V(I) = V(0) = k\) (o polinômio nulo zera em todo ponto). Como \(k \ne \varnothing\), isso contradiz \(V(I) = \varnothing\). Logo \(f \ne 0\).</p>
+    <p><strong>Agora, \(f\) não tem raiz.</strong> Por (iii), \(V(\langle f\rangle) = \{a \in k : f(a)=0\}\), e por hipótese esse conjunto é vazio. Ou seja, \(f(a) \ne 0\) para todo \(a \in k\).</p>
+    <p><strong>Logo \(\deg f = 0\).</strong> Se fosse \(\deg f \ge 1\), o fato (ii) — \(k\) algebricamente fechado — daria uma raiz de \(f\) em \(k\), contradizendo o passo anterior. Então \(f\) é um polinômio constante, \(f = c\) com \(c \in k\); e como \(f \ne 0\), temos \(c \ne 0\).</p>
+    <p><strong>Constante não nula é unidade.</strong> Existe \(c^{-1} \in k\), e \(c^{-1} \cdot f = 1\). Como \(f \in I\) e \(I\) absorve produtos, \(1 = c^{-1} f \in I\). Portanto \(1 \in I\), isto é, \(I = k[x]\). <span class="qed">∎</span></p>
+  </div></details>
+
+  <p>Repare como cada peça entrou exatamente uma vez: o <strong>PID</strong> deu o gerador único \(f\); o <strong>corpo fechado</strong> matou a possibilidade \(\deg f \ge 1\); a <strong>estrutura de corpo</strong> transformou a constante não nula em unidade. Tirar qualquer uma derruba a prova — e o próximo passo mostra o que acontece quando você tira "fechado".</p>
+
+  <h2><span class="n">PASSO 4 · POR QUE "FECHADO" É OBRIGATÓRIO</span>O contraexemplo sobre \(\mathbb{R}\)</h2>
+  <p>O fato (ii) foi o único lugar que exigiu \(k\) algebricamente fechado. Se você trocar \(k\) por um corpo não fechado, o teorema <strong>falha</strong> — e dá pra ver o buraco a olho nu. Tome \(k = \mathbb{R}\) e</p>
+  <p style="text-align:center">$$I = \langle x^2 + 1 \rangle \subseteq \mathbb{R}[x].$$</p>
+  <div class="warn">
+    <h3>O Nullstellensatz fraco é falso sobre \(\mathbb{R}\)</h3>
+    <p style="margin:.2rem 0"><strong>\(V(I) = \varnothing\):</strong> não existe \(a \in \mathbb{R}\) com \(a^2 + 1 = 0\) (sempre \(a^2 + 1 \ge 1\)). Geometricamente, sem zeros.</p>
+    <p style="margin:.2rem 0"><strong>Mas \(1 \notin I\):</strong> \(x^2+1\) tem grau \(2\), então \(\langle x^2+1\rangle\) só contém múltiplos de grau \(\ge 2\) (afora o \(0\)) — nenhuma constante não nula entra. O ideal <em>não</em> é \(\mathbb{R}[x]\).</p>
+    <p style="margin:.5rem 0 0; color:var(--soft); font-size:.9rem">Sem solução geométrica, mas sem testemunha algébrica. A ponte álgebra↔geometria <strong>quebra</strong>. O culpado é exatamente o passo (ii): sobre \(\mathbb{R}\), o polinômio \(x^2+1\) tem grau \(\ge 1\) e mesmo assim não tem raiz.</p>
+  </div>
+  <p>É a mesma "fuga" da Lição 0005 (o vazamento de \(\mathbb{R}\)): sobre \(\mathbb{C}\), \(x^2+1 = (x-i)(x+i)\) tem raízes, \(V(I) \ne \varnothing\), e nada disso acontece. <strong>Por isso a missão calcula sobre corpos fechados</strong> — é a condição que mantém a geometria fiel à álgebra.</p>
+
+  <div class="quiz" id="q2">
+    <p class="q">Sobre \(\mathbb{C}\), por que o contraexemplo \(\langle x^2+1\rangle\) deixa de ser contraexemplo?</p>
+    <button class="opt" data-ok="1">Porque \(x^2+1\) passa a ter raízes (\(\pm i\)), então \(V(I) \ne \varnothing\)</button>
+    <button class="opt" data-ok="0">Porque \(x^2+1\) vira constante sobre \(\mathbb{C}\)</button>
+    <button class="opt" data-ok="0">Porque \(\mathbb{C}[x]\) não é um PID</button>
+    <p class="fb" id="fb2"></p>
+  </div>
+
+  <h2><span class="n">PASSO 5 · O QUE MUDA EM \(n \ge 2\)</span>Honestidade sobre o caso geral</h2>
+  <p>A prova acima é <em>completa</em> — mas só vale em uma variável, e por um motivo específico: ela depende de \(I = \langle f\rangle\). Em \(k[x_1,\dots,x_n]\) com \(n \ge 2\), <strong>isso desaba</strong>: o anel não é PID. Por exemplo, \(\langle x, y\rangle \subseteq k[x,y]\) não é gerado por um único polinômio. Sem gerador único, "olhar as raízes do gerador" deixa de fazer sentido.</p>
+  <p>O enunciado continua <em>verdadeiro</em> para todo \(n\) — só a <em>prova</em> precisa de ferramentas mais pesadas, que vamos construir nas próximas lições:</p>
+  <p style="margin:.3rem 0">• <strong>Teorema da Base de Hilbert</strong> (CLO Cap. 2 §5): garante que todo ideal é <em>finitamente</em> gerado — o substituto honesto do "gerador único".</p>
+  <p style="margin:.3rem 0">• <strong>Lema de Zariski / Normalização de Noether</strong>: o coração algébrico do caso geral — se um corpo é finitamente gerado como \(k\)-álgebra, ele é extensão algébrica de \(k\). Sobre \(k\) fechado, isso força a existência de um zero comum sempre que o ideal é próprio.</p>
+  <blockquote>Padrão de pesquisa que você está praticando: <strong>provar primeiro o caso concreto que está ao alcance</strong> (aqui, \(n=1\)), entender exatamente qual peça quebra no caso geral (o PID), e usar isso como bússola para a máquina que falta. Não é "não sei provar" — é "sei provar até aqui, e sei nomear o que falta".</blockquote>
+
+  <h2><span class="n">PASSO 6 · PRATIQUE SOZINHO</span>Sua tarefa</h2>
+  <div class="box def">
+    <h3>Exercício · a forma "muitos polinômios"</h3>
+    <p style="margin:.2rem 0">Em \(k[x]\) com \(k\) fechado, suponha \(f_1, \dots, f_s \in k[x]\) <strong>sem raiz comum</strong> (não existe \(a\in k\) anulando todos). Prove que \(\langle f_1,\dots,f_s\rangle = k[x]\), ou seja, existem \(h_1,\dots,h_s\) com</p>
+    <p class="center" style="text-align:center">$$h_1 f_1 + \cdots + h_s f_s = 1.$$</p>
+    <p style="margin:.5rem 0 0; color:var(--soft); font-size:.9rem">Dica: \(I = \langle f_1,\dots,f_s\rangle\) ainda é principal, \(I = \langle d\rangle\). Quem é \(d\) em termos dos \(f_i\)? (pense em \(\gcd\)) E o que "sem raiz comum" diz sobre as raízes de \(d\)? Traga sua prova no chat.</p>
+  </div>
+
+  <div class="src" style="margin-top:1.6rem">
+    <h3>Leia a seguir (fonte primária)</h3>
+    <p><strong>Cox–Little–O'Shea, Cap. 4 §1</strong> ("Hilbert's Nullstellensatz") — enuncia as formas fraca e forte e discute a hipótese de corpo fechado. O caso de uma variável é o aquecimento; o caso geral aparece com a máquina do Cap. 2. <a href="https://link.springer.com/book/10.1007/978-3-031-91841-4">Springer</a>.</p>
+  </div>
+
+  <blockquote style="margin-top:2rem">
+    <strong>Sou seu professor.</strong> Esta foi sua primeira prova de um teorema com nome próprio — e ela fechou de ponta a ponta com peças que você mesmo construiu. Quando trouxer o exercício dos \(f_i\) sem raiz comum, partimos para o <strong>truque de Rabinowitsch</strong> (Lição 0008): como o fraco, sozinho, produz o forte \(I(V(J))=\sqrt{J}\).
+  </blockquote>
+
+  <footer>
+    Lição 0007 · Missão: <a href="../MISSION.md">Álgebra Abstrata → Geometria Algébrica Computacional</a><br>
+    Anterior: <a href="0004-radical-de-um-ideal.html">0004 — O radical de um ideal</a> · Apoio: <a href="0005-corpo-algebricamente-fechado.html">0005</a>, <a href="0006-raiz-equivale-fator-linear.html">0006</a> · Próxima: 0008 — o truque de Rabinowitsch (fraco ⟹ forte).
+  </footer>
+</div>
+
+<script>
+(function(){
+  function wire(quizId, fbId){
+    var quiz = document.getElementById(quizId);
+    var fb = document.getElementById(fbId);
+    var opts = quiz.querySelectorAll('.opt');
+    opts.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var ok = btn.getAttribute('data-ok') === '1';
+        opts.forEach(function(b){ b.disabled = true; if(b.getAttribute('data-ok')==='1') b.classList.add('correct'); });
+        if(!ok) btn.classList.add('wrong');
+        fb.textContent = ok ? '✓ Isso mesmo.' : '✗ Quase — veja a opção em verde e o porquê.';
+        fb.className = 'fb ' + (ok ? 'show-good' : 'show-bad');
+      });
+    });
+  }
+  wire('q1','fb1'); wire('q2','fb2');
+})();
+</script>
+</body>
+</html>
