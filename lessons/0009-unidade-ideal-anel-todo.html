@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lição 0009 · Unidade ⟹ o ideal vira o anel todo</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false});"></script>
+<style>
+  :root{
+    --ink:#1a1a1a; --soft:#5b5b5b; --accent:#7a1f2b; --good:#1f6b3b; --bad:#9a2b2b;
+    --rule:#d8d2c4; --bg:#fcfbf7; --code:#f0ede3; --panel:#fff;
+  }
+  *{box-sizing:border-box}
+  html{font-size:18px}
+  body{ background:var(--bg); color:var(--ink); font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif; line-height:1.55; margin:0; padding:3rem 1.2rem 6rem; }
+  .wrap{max-width:44rem; margin:0 auto}
+  .kicker{font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-family:ui-sans-serif,system-ui,sans-serif; margin:0 0 .4rem}
+  .badge{display:inline-block; font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; background:#eef2ea; color:#4a6b4a; border:1px solid #cdd9c9; border-radius:99px; padding:.1rem .5rem; margin-left:.4rem; vertical-align:.12em; font-family:ui-sans-serif,system-ui,sans-serif}
+  h1{font-size:2rem; line-height:1.15; margin:0 0 .35rem; font-weight:600}
+  .sub{color:var(--soft); font-style:italic; margin:0 0 1.6rem}
+  .meta{font-family:ui-sans-serif,system-ui,sans-serif; font-size:.74rem; color:var(--soft); letter-spacing:.03em; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:.55rem 0; margin:0 0 2rem; display:flex; gap:1.4rem; flex-wrap:wrap}
+  h2{font-size:1.3rem; margin:2.6rem 0 .5rem}
+  h2 .n{color:var(--accent); font-family:ui-sans-serif,system-ui,sans-serif; font-size:.8rem; letter-spacing:.1em; display:block; margin-bottom:.1rem}
+  p{margin:.65rem 0}
+  code{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; background:var(--code); padding:.05em .35em; border-radius:4px; font-size:.84em}
+  .katex{font-size:1.05em}
+  .accent{color:var(--accent)}
+  .box{background:var(--panel); border:1px solid var(--rule); border-radius:8px; padding:1.1rem 1.3rem; margin:1.2rem 0}
+  .def{border-left:4px solid var(--accent)}
+  .def h3{margin:0 0 .4rem; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; font-family:ui-sans-serif,system-ui,sans-serif; color:var(--accent)}
+  blockquote{margin:1.3rem 0; padding:.2rem 0 .2rem 1rem; border-left:3px solid var(--rule); color:var(--soft); font-style:italic}
+  .quiz{background:var(--panel); border:1px solid var(--rule); border-radius:8px; padding:1.1rem 1.3rem; margin:1.4rem 0}
+  .quiz .q{font-weight:600; margin:0 0 .8rem}
+  .opt{display:block; width:100%; text-align:left; background:#fbfaf5; border:1px solid var(--rule); border-radius:6px; padding:.6rem .8rem; margin:.45rem 0; cursor:pointer; font:inherit; font-size:.92rem; transition:.12s}
+  .opt:hover{border-color:var(--accent)}
+  .opt.correct{border-color:var(--good); background:#eef7f0; color:var(--good)}
+  .opt.wrong{border-color:var(--bad); background:#faeded; color:var(--bad)}
+  .opt:disabled{cursor:default}
+  .fb{margin:.7rem 0 0; font-size:.88rem; min-height:1.2em}
+  .fb.show-good{color:var(--good)} .fb.show-bad{color:var(--bad)}
+  .reveal{margin:.6rem 0}
+  .reveal summary{cursor:pointer; font-family:ui-sans-serif,system-ui,sans-serif; font-size:.82rem; letter-spacing:.04em; color:var(--accent); padding:.5rem 0}
+  .proof{background:#fbfaf5; border:1px solid var(--rule); border-radius:8px; padding:1rem 1.2rem; margin:.6rem 0}
+  .proof .center{text-align:center; margin:.5rem 0}
+  .qed{text-align:right; color:var(--accent)}
+  .gem{background:#fff8e9; border:1px solid #e7d9a8; border-left:4px solid #b8860b; border-radius:8px; padding:1rem 1.2rem; margin:1.2rem 0}
+  .gem h3{margin:0 0 .4rem; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; font-family:ui-sans-serif,system-ui,sans-serif; color:#8a6608}
+  table{border-collapse:collapse; margin:1rem 0; width:100%; font-size:.92rem}
+  th,td{border:1px solid var(--rule); padding:.4rem .6rem; text-align:left}
+  th{background:var(--code); font-family:ui-sans-serif,system-ui,sans-serif; font-size:.78rem; letter-spacing:.03em; font-weight:600; text-align:center}
+  td.c{text-align:center}
+  footer{margin-top:3.2rem; padding-top:1rem; border-top:1px solid var(--rule); font-size:.82rem; color:var(--soft); font-family:ui-sans-serif,system-ui,sans-serif}
+  a{color:var(--accent)}
+  .src{background:#f4f1e7; border:1px solid var(--rule); border-radius:8px; padding:1rem 1.2rem; font-size:.9rem}
+  .src h3{margin:.1rem 0 .5rem; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; font-family:ui-sans-serif,system-ui,sans-serif; color:var(--accent)}
+  @media print{ body{background:#fff} .opt{display:none} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="kicker">Lição 0009 · Geometria Algébrica Computacional <span class="badge">Fundamentos · revisão</span></p>
+  <h1>Unidade <span class="accent">⟹</span> o ideal vira o anel todo</h1>
+  <p class="sub">Um fato pequeno que você já usou sem destrinchar: por que conter uma constante não nula faz um ideal "colapsar" e capturar o \(1\). Isolando o micro-argumento, ele vira uma ferramenta que reaparece o tempo todo.</p>
+  <div class="meta">
+    <span>⏱ ~15 min</span>
+    <span>🎯 Provar: ideal com unidade \(=\) anel inteiro</span>
+    <span>🛠 Técnica: absorção, de novo</span>
+  </div>
+
+  <h2><span class="n">POR QUE ESTAMOS AQUI</span>De onde a dúvida veio</h2>
+  <p>No fim da prova do Nullstellensatz fraco (<a href="0007-nullstellensatz-fraco-uma-variavel.html">Lição 0007</a>) apareceu o passo: "o gerador é uma constante não nula \(c\); <em>constante não nula é unidade, o que faz o ideal colapsar em \(k[x]\) e capturar o \(1\)</em>". Essa frase empacota três coisas — o que é <strong>unidade</strong>, por que isso <strong>colapsa</strong> o ideal, e por que <strong>capturar o \(1\)</strong> encerra a prova. Vamos abrir as três.</p>
+
+  <h2><span class="n">PASSO 1 · DEFINIÇÃO</span>O que é uma unidade</h2>
+  <div class="box def">
+    <h3>Definição · unidade</h3>
+    <p style="margin:.2rem 0">Num anel comutativo com \(1\), um elemento \(u\) é uma <strong>unidade</strong> se tem inverso multiplicativo: existe \(u^{-1}\) no anel com</p>
+    <p class="center" style="text-align:center">$$u \cdot u^{-1} = 1.$$</p>
+  </div>
+  <p>Unidade é o que você "pode dividir". Quem são elas depende do anel:</p>
+  <table>
+    <thead><tr><th>Anel</th><th>Unidades</th><th>Não-unidades (exemplos)</th></tr></thead>
+    <tbody>
+      <tr><td class="c">corpo \(k\)</td><td>todo \(c \ne 0\) (é corpo!)</td><td class="c">só o \(0\)</td></tr>
+      <tr><td class="c">\(k[x]\)</td><td>as constantes \(c \ne 0\)</td><td>\(x,\; x+1,\; x^2,\dots\) (grau \(\ge 1\))</td></tr>
+      <tr><td class="c">\(\mathbb{Z}\)</td><td>só \(+1\) e \(-1\)</td><td>\(2,\; 3,\; -5,\dots\)</td></tr>
+    </tbody>
+  </table>
+  <p>O caso que nos importa é \(k[x]\): por que as constantes não nulas são unidades, e os polinômios de grau \(\ge 1\) não? Porque \(k\) é um <strong>corpo</strong> — toda constante \(c \ne 0\) tem inverso \(c^{-1}\) dentro de \(k \subseteq k[x]\). Já \(x\) não tem: nenhum polinômio vezes \(x\) dá \(1\) (o produto teria grau \(\ge 1\)). <strong>É aqui, e só aqui, que "\(k\) é corpo" entra.</strong></p>
+
+  <div class="quiz" id="q1">
+    <p class="q">Em \(k[x]\), qual destes é uma unidade?</p>
+    <button class="opt" data-ok="0">\(x\)</button>
+    <button class="opt" data-ok="1">A constante \(7\) (com \(k=\mathbb{Q}\))</button>
+    <button class="opt" data-ok="0">\(x^2 + 1\)</button>
+    <p class="fb" id="fb1"></p>
+  </div>
+
+  <h2><span class="n">PASSO 2 · A VITÓRIA</span>Ideal com unidade \(=\) anel inteiro</h2>
+  <div class="box def">
+    <h3>Lema</h3>
+    <p style="margin:.2rem 0">Seja \(R\) anel comutativo com \(1\) e \(I \subseteq R\) um ideal. Se \(I\) <strong>contém alguma unidade</strong> \(u\), então \(I = R\).</p>
+  </div>
+  <p>A prova é curtíssima e usa só a <strong>absorção</strong> (cláusula 3 da definição de ideal, que você provou lá na Lição 0001): \(r \in R,\ a \in I \Rightarrow r\cdot a \in I\).</p>
+
+  <details class="reveal" open><summary>▸ a demonstração</summary>
+  <div class="proof">
+    <p>Suponha \(u \in I\) unidade, com inverso \(u^{-1} \in R\).</p>
+    <p><strong>Primeiro, \(1 \in I\).</strong> Como \(u \in I\) e \(I\) absorve produtos, multiplicar por \(u^{-1} \in R\) mantém em \(I\):</p>
+    <p class="center" style="text-align:center">$$u^{-1} \cdot u = 1 \in I.$$</p>
+    <p><strong>Agora, todo elemento está em \(I\).</strong> Tome \(r \in R\) qualquer. De novo por absorção (multiplicando \(1 \in I\) por \(r\)):</p>
+    <p class="center" style="text-align:center">$$r = r \cdot 1 \in I.$$</p>
+    <p>Logo \(R \subseteq I\). Como \(I \subseteq R\) sempre, \(I = R\). <span class="qed">∎</span></p>
+  </div></details>
+
+  <p>Repare na engrenagem: a unidade serve de <strong>alavanca</strong> — multiplicando-a pelo inverso, a absorção entrega o \(1\); e o \(1\) é a chave-mestra, porque \(r = r\cdot 1\) abre todo o anel. <em>Conter uma unidade é incompatível com ser um ideal "pequeno".</em></p>
+
+  <h2><span class="n">PASSO 3 · AS TRÊS FORMAS DE DIZER O MESMO</span></h2>
+  <p>Juntando com a volta óbvia (se \(I = R\), então \(1 \in I\), e \(1\) é unidade), as três condições abaixo são <strong>equivalentes</strong> para um ideal \(I\):</p>
+  <div class="box">
+    <p class="center" style="text-align:center">$$I = R \quad\Longleftrightarrow\quad 1 \in I \quad\Longleftrightarrow\quad I \text{ contém uma unidade}.$$</p>
+  </div>
+  <p>A negação dá o vocabulário oposto: um ideal \(I \ne R\) chama-se <strong>próprio</strong>, e é exatamente aquele que <em>não</em> contém o \(1\) (logo, nenhuma unidade). É por isso que checar "\(1 \in I\)?" é a maneira canônica de perguntar "\(I\) é o anel todo?".</p>
+
+  <div class="gem">
+    <h3>Corolário que vale guardar</h3>
+    <p style="margin:.2rem 0">Num <strong>corpo</strong> \(k\), os únicos ideais são \(\{0\}\) e \(k\). Motivo: se um ideal tem algum elemento \(\ne 0\), esse elemento já é unidade (corpo!), e pelo Lema o ideal colapsa em \(k\). Corpos quase não têm ideais — e é justamente essa pobreza que torna corpos tão "rígidos".</p>
+  </div>
+
+  <h2><span class="n">PASSO 4 · ONDE VOCÊ JÁ USOU (E VAI USAR)</span></h2>
+  <p>Esse lema não é um enfeite — ele já trabalhou para você duas vezes:</p>
+  <p style="margin:.3rem 0">• <strong>Lição 0007</strong> (Nullstellensatz fraco): o gerador virou uma constante \(c \ne 0\); pelo Lema, \(\langle c\rangle = k[x]\), ou seja \(1 \in I\) — que é <em>exatamente</em> a conclusão do teorema. "Capturar o \(1\)" = bater no alvo.</p>
+  <p style="margin:.3rem 0">• <strong>Lição 0008</strong> (Gröbner): "a base de Gröbner reduzida de \(I\) é \(\{1\}\)" é só a forma computável de "\(1 \in I\)", isto é, "\(I = k[x]\)". O teste algorítmico de "tem solução?" é este lema disfarçado.</p>
+  <blockquote>O contraste com \(\mathbb{Z}\) fecha a intuição: \(\langle 2\rangle \subsetneq \mathbb{Z}\) <em>não</em> colapsa, porque \(2\) não é unidade em \(\mathbb{Z}\) (\(1/2 \notin \mathbb{Z}\)). O colapso em \(k[x]\) acontece precisamente porque \(k\) é corpo. Mesmo lema, resultado oposto — e a diferença é só "quem é unidade aqui".</blockquote>
+
+  <div class="box def">
+    <h3>Exercício relâmpago</h3>
+    <p style="margin:.2rem 0">Em \(k[x]\), seja \(I = \langle x^2 - 1,\; x - 1\rangle\). Mostre que, na verdade, \(I = \langle x-1\rangle\) — e decida se \(I\) é próprio ou é o anel todo. <span style="color:var(--soft)">(Dica: \(x^2-1 = (x-1)(x+1)\); o gerador \(x-1\) tem grau \(1\), não é unidade.)</span></p>
+  </div>
+
+  <div class="src" style="margin-top:1.6rem">
+    <h3>Fonte</h3>
+    <p>Conceito básico de anéis/ideais: <strong>Gonçalves, <em>Introdução à Álgebra</em>, Cap. III</strong> (anéis, ideais, unidades) — em português; e <strong>CLO Cap. 1 §4</strong> (ideais). O uso direto está em CLO Cap. 4 §1 (prova do Nullstellensatz fraco).</p>
+  </div>
+
+  <footer>
+    Lição 0009 · Missão: <a href="../MISSION.md">Álgebra Abstrata → Geometria Algébrica Computacional</a><br>
+    Apareceu em: <a href="0007-nullstellensatz-fraco-uma-variavel.html">0007</a> e <a href="0008-divisao-varias-variaveis-o-problema.html">0008</a> · Glossário: <a href="../reference/glossary.html">termos canônicos</a>
+  </footer>
+</div>
+
+<script>
+(function(){
+  function wire(quizId, fbId){
+    var quiz = document.getElementById(quizId);
+    var fb = document.getElementById(fbId);
+    var opts = quiz.querySelectorAll('.opt');
+    opts.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var ok = btn.getAttribute('data-ok') === '1';
+        opts.forEach(function(b){ b.disabled = true; if(b.getAttribute('data-ok')==='1') b.classList.add('correct'); });
+        if(!ok) btn.classList.add('wrong');
+        fb.textContent = ok ? '✓ Isso mesmo.' : '✗ Quase — veja a opção em verde e o porquê.';
+        fb.className = 'fb ' + (ok ? 'show-good' : 'show-bad');
+      });
+    });
+  }
+  wire('q1','fb1');
+})();
+</script>
+</body>
+</html>
