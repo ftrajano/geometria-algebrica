@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lição 0008 · O problema que as bases de Gröbner resolvem</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false});"></script>
+<style>
+  :root{
+    --ink:#1a1a1a; --soft:#5b5b5b; --accent:#7a1f2b; --good:#1f6b3b; --bad:#9a2b2b;
+    --rule:#d8d2c4; --bg:#fcfbf7; --code:#f0ede3; --panel:#fff;
+  }
+  *{box-sizing:border-box}
+  html{font-size:18px}
+  body{ background:var(--bg); color:var(--ink); font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif; line-height:1.55; margin:0; padding:3rem 1.2rem 6rem; }
+  .wrap{max-width:44rem; margin:0 auto}
+  .kicker{font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-family:ui-sans-serif,system-ui,sans-serif; margin:0 0 .4rem}
+  .badge{display:inline-block; font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; background:#eaf0f2; color:#3a5a6b; border:1px solid #c9d4d9; border-radius:99px; padding:.1rem .5rem; margin-left:.4rem; vertical-align:.12em; font-family:ui-sans-serif,system-ui,sans-serif}
+  h1{font-size:2rem; line-height:1.15; margin:0 0 .35rem; font-weight:600}
+  .sub{color:var(--soft); font-style:italic; margin:0 0 1.6rem}
+  .meta{font-family:ui-sans-serif,system-ui,sans-serif; font-size:.74rem; color:var(--soft); letter-spacing:.03em; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:.55rem 0; margin:0 0 2rem; display:flex; gap:1.4rem; flex-wrap:wrap}
+  h2{font-size:1.3rem; margin:2.6rem 0 .5rem}
+  h2 .n{color:var(--accent); font-family:ui-sans-serif,system-ui,sans-serif; font-size:.8rem; letter-spacing:.1em; display:block; margin-bottom:.1rem}
+  p{margin:.65rem 0}
+  code{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; background:var(--code); padding:.05em .35em; border-radius:4px; font-size:.84em}
+  .katex{font-size:1.05em}
+  .accent{color:var(--accent)}
+  .box{background:var(--panel); border:1px solid var(--rule); border-radius:8px; padding:1.1rem 1.3rem; margin:1.2rem 0}
+  .def{border-left:4px solid var(--accent)}
+  .def h3{margin:0 0 .4rem; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; font-family:ui-sans-serif,system-ui,sans-serif; color:var(--accent)}
+  blockquote{margin:1.3rem 0; padding:.2rem 0 .2rem 1rem; border-left:3px solid var(--rule); color:var(--soft); font-style:italic}
+  .quiz{background:var(--panel); border:1px solid var(--rule); border-radius:8px; padding:1.1rem 1.3rem; margin:1.4rem 0}
+  .quiz .q{font-weight:600; margin:0 0 .8rem}
+  .opt{display:block; width:100%; text-align:left; background:#fbfaf5; border:1px solid var(--rule); border-radius:6px; padding:.6rem .8rem; margin:.45rem 0; cursor:pointer; font:inherit; font-size:.92rem; transition:.12s}
+  .opt:hover{border-color:var(--accent)}
+  .opt.correct{border-color:var(--good); background:#eef7f0; color:var(--good)}
+  .opt.wrong{border-color:var(--bad); background:#faeded; color:var(--bad)}
+  .opt:disabled{cursor:default}
+  .fb{margin:.7rem 0 0; font-size:.88rem; min-height:1.2em}
+  .fb.show-good{color:var(--good)} .fb.show-bad{color:var(--bad)}
+  .reveal{margin:.6rem 0}
+  .reveal summary{cursor:pointer; font-family:ui-sans-serif,system-ui,sans-serif; font-size:.82rem; letter-spacing:.04em; color:var(--accent); padding:.5rem 0}
+  .proof{background:#fbfaf5; border:1px solid var(--rule); border-radius:8px; padding:1rem 1.2rem; margin:.6rem 0}
+  .proof .center{text-align:center; margin:.5rem 0}
+  .qed{text-align:right; color:var(--accent)}
+  .gem{background:#fff8e9; border:1px solid #e7d9a8; border-left:4px solid #b8860b; border-radius:8px; padding:1rem 1.2rem; margin:1.2rem 0}
+  .gem h3{margin:0 0 .4rem; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; font-family:ui-sans-serif,system-ui,sans-serif; color:#8a6608}
+  .warn{background:#faeded; border:1px solid #e3b9b9; border-left:4px solid var(--bad); border-radius:8px; padding:1rem 1.2rem; margin:1.2rem 0}
+  .warn h3{margin:0 0 .4rem; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; font-family:ui-sans-serif,system-ui,sans-serif; color:var(--bad)}
+  .calc{background:#f4f6f4; border:1px solid var(--rule); border-radius:8px; padding:1rem 1.2rem; margin:.6rem 0; font-size:.95rem}
+  table{border-collapse:collapse; margin:1rem 0; width:100%; font-size:.92rem}
+  th,td{border:1px solid var(--rule); padding:.4rem .6rem; text-align:center}
+  th{background:var(--code); font-family:ui-sans-serif,system-ui,sans-serif; font-size:.78rem; letter-spacing:.03em; font-weight:600}
+  footer{margin-top:3.2rem; padding-top:1rem; border-top:1px solid var(--rule); font-size:.82rem; color:var(--soft); font-family:ui-sans-serif,system-ui,sans-serif}
+  a{color:var(--accent)}
+  .src{background:#f4f1e7; border:1px solid var(--rule); border-radius:8px; padding:1rem 1.2rem; font-size:.9rem}
+  .src h3{margin:.1rem 0 .5rem; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; font-family:ui-sans-serif,system-ui,sans-serif; color:var(--accent)}
+  @media print{ body{background:#fff} .opt{display:none} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="kicker">Lição 0008 · Geometria Algébrica Computacional <span class="badge">Início · Bases de Gröbner</span></p>
+  <h1>O problema que as bases de <span class="accent">Gröbner</span> resolvem</h1>
+  <p class="sub">Começa aqui o motor computacional. Antes de aprender a calcular uma base de Gröbner, você precisa sentir na mão o problema que ela conserta — e ele é exatamente o cliffhanger que ficou pendurado no fim da Lição 0007.</p>
+  <div class="meta">
+    <span>⏱ ~30 min</span>
+    <span>🎯 Ver por que a divisão em várias variáveis falha</span>
+    <span>🛠 Primeiro ingrediente: ordem monomial</span>
+  </div>
+
+  <h2><span class="n">RETOMADA · O CLIFFHANGER DA 0007</span>O que funcionava em uma variável</h2>
+  <p>Na <a href="0007-nullstellensatz-fraco-uma-variavel.html">Lição 0007</a> a prova inteira girou em torno de um fato: \(k[x]\) é um <strong>PID</strong> — todo ideal é \(\langle g \rangle\), um gerador só. E isso tem uma consequência <em>computacional</em> que usamos sem dar nome: em uma variável, decidir se \(f\) pertence a um ideal é <strong>trivial</strong>.</p>
+  <div class="box">
+    <p style="margin:.2rem 0"><strong>Teste de pertinência em \(k[x]\):</strong> para saber se \(f \in \langle g \rangle\), divida \(f\) por \(g\) (algoritmo da divisão) e olhe o resto \(r\):</p>
+    <p class="center" style="text-align:center">$$f \in \langle g \rangle \iff r = 0.$$</p>
+    <p style="margin:.2rem 0; color:var(--soft); font-size:.9rem">O resto é <em>único</em>, então o teste é inequívoco. Foi isso que tornou "\(V(I)=\varnothing\)" decidível lá atrás.</p>
+  </div>
+  <p>E eu avisei: em \(k[x_1,\dots,x_n]\) com \(n \ge 2\), isso <strong>desaba</strong> — o anel não é PID. Esta lição mostra <em>como</em> desaba, e a próxima mostra o conserto. O conserto tem nome: <strong>base de Gröbner</strong>.</p>
+
+  <h2><span class="n">PASSO 1 · A PERGUNTA</span>O problema da pertinência a um ideal</h2>
+  <p>Esta é, sem exagero, <em>a</em> pergunta computacional da área:</p>
+  <div class="box def">
+    <h3>Problema da pertinência (ideal membership)</h3>
+    <p style="margin:.2rem 0">Dados \(f, f_1, \dots, f_s \in k[x_1,\dots,x_n]\), decidir — por um algoritmo que sempre termina — se</p>
+    <p class="center" style="text-align:center">$$f \in \langle f_1, \dots, f_s \rangle, \quad\text{isto é, se } f = h_1 f_1 + \cdots + h_s f_s \text{ para alguns } h_i.$$</p>
+  </div>
+  <p>Por que importa? Porque quase tudo se reduz a ela. "Esse sistema tem solução?" é "\(1 \in I\)?" (o Nullstellensatz fraco da 0007!). "Essas duas variedades são iguais?", "esse polinômio se anula onde aqueles se anulam?" — tudo vira pertinência. Se a gente resolve isso por algoritmo, a geometria vira **cálculo**.</p>
+  <p>Em uma variável já resolvemos: divida e veja o resto. A tentação óbvia é repetir a receita em várias variáveis. Vamos tentar — e ver onde ela trai.</p>
+
+  <h2><span class="n">PASSO 2 · O PRIMEIRO INGREDIENTE</span>Quem é o "termo líder"? — ordens monomiais</h2>
+  <p>Para dividir, você precisa, a cada passo, olhar o <strong>termo líder</strong> do que sobrou e tentar cancelá-lo. Em \(k[x]\) "líder" é claro: o de maior grau. Mas em \(k[x,y]\), quem é maior — \(x^2\) ou \(xy^2\) ou \(y^3\)? Não há resposta natural. Você precisa <strong>escolher uma convenção</strong> de ordenação dos monômios. Essa convenção é uma <em>ordem monomial</em>.</p>
+  <div class="box def">
+    <h3>Ordem lexicográfica (lex), com \(x > y\)</h3>
+    <p style="margin:.2rem 0">Compare dois monômios pelo expoente de \(x\) primeiro; só em caso de empate, desempate pelo de \(y\). Como num dicionário:</p>
+    <p class="center" style="text-align:center">$$x^2 \;>\; xy^5 \;>\; xy \;>\; x \;>\; y^3 \;>\; y \;>\; 1.$$</p>
+    <p style="margin:.2rem 0; color:var(--soft); font-size:.9rem">(\(x^2 > xy^5\) porque, embora \(xy^5\) tenha grau total maior, o que manda primeiro é o expoente de \(x\) — e aí empatam em \(1\), então… na verdade desempata em \(y\): \(x^2=x^2y^0\) vs \(x^1y^5\); o expoente de \(x\) é \(2>1\), então \(x^2\) vence. A regra "\(x\) primeiro" é absoluta.)</p>
+  </div>
+  <p>Existem outras ordens (grlex, grevlex — veremos), e a <strong>escolha muda o resultado dos cálculos</strong>. Por ora fique com lex e guarde a ideia central: <em>fixar uma ordem é o pré-requisito para sequer falar em "termo líder" e, portanto, em "dividir".</em></p>
+
+  <div class="quiz" id="q1">
+    <p class="q">Em lex com \(x > y\), qual é o termo líder de \(f = 3xy^2 + x^2 - 5y^4\)?</p>
+    <button class="opt" data-ok="0">\(-5y^4\) (maior grau total)</button>
+    <button class="opt" data-ok="1">\(x^2\) (maior expoente de \(x\))</button>
+    <button class="opt" data-ok="0">\(3xy^2\) (mais termos)</button>
+    <p class="fb" id="fb1"></p>
+  </div>
+
+  <h2><span class="n">PASSO 3 · A TRAIÇÃO</span>O resto depende da ordem dos divisores</h2>
+  <p>Com uma ordem fixada, dá pra estender o algoritmo da divisão para várias variáveis: a cada passo, se o termo líder do que sobrou for divisível pelo termo líder de <em>algum</em> divisor \(f_i\), cancele; senão, jogue esse termo no resto e siga. Funciona e sempre termina. <strong>Mas o resto deixa de ser único.</strong></p>
+  <p>Veja com as próprias mãos. Trabalhe em \(k[x,y]\), lex com \(x>y\), e tome</p>
+  <p class="center" style="text-align:center">$$f = xy^2 - x, \qquad f_1 = xy + 1, \qquad f_2 = y^2 - 1.$$</p>
+  <p>Repare antes de dividir: \(f = x(y^2 - 1) = x \cdot f_2\). Ou seja, <strong>\(f\) está claramente no ideal</strong> \(\langle f_1, f_2\rangle\). Um teste de pertinência honesto <em>tem</em> que devolver resto \(0\). Será?</p>
+
+  <div class="calc">
+    <p style="margin:.2rem 0"><strong>Dividindo na ordem \((f_1, f_2)\)</strong> — tenta \(f_1\) primeiro:</p>
+    <p style="margin:.2rem 0">\(\mathrm{LT}(f)=xy^2\) é divisível por \(\mathrm{LT}(f_1)=xy\): quociente \(y\). Subtraia \(y\cdot f_1 = xy^2 + y\):</p>
+    <p class="center" style="text-align:center">$$f - y\,f_1 = (xy^2 - x) - (xy^2 + y) = -x - y.$$</p>
+    <p style="margin:.2rem 0">Agora \(\mathrm{LT} = -x\). Não é divisível por \(\mathrm{LT}(f_1)=xy\) nem por \(\mathrm{LT}(f_2)=y^2\). Jogue \(-x\) no resto. Sobra \(-y\): idem, vai pro resto.</p>
+    <p style="margin:.4rem 0 0"><strong>Resto \(= -x - y \ne 0\).</strong></p>
+  </div>
+
+  <div class="calc">
+    <p style="margin:.2rem 0"><strong>Dividindo na ordem \((f_2, f_1)\)</strong> — tenta \(f_2\) primeiro:</p>
+    <p style="margin:.2rem 0">\(\mathrm{LT}(f)=xy^2\) é divisível por \(\mathrm{LT}(f_2)=y^2\): quociente \(x\). Subtraia \(x\cdot f_2 = xy^2 - x\):</p>
+    <p class="center" style="text-align:center">$$f - x\,f_2 = (xy^2 - x) - (xy^2 - x) = 0.$$</p>
+    <p style="margin:.4rem 0 0"><strong>Resto \(= 0\).</strong></p>
+  </div>
+
+  <div class="warn">
+    <h3>O teste de pertinência quebrou</h3>
+    <p style="margin:.2rem 0">Mesmo \(f\), mesmos divisores, mesma ordem monomial — só mudou a <em>ordem em que listei os divisores</em>, e o resto pulou de \(-x-y\) para \(0\). Como \(f\) está mesmo no ideal, a divisão \((f_1,f_2)\) deu um resto não nulo <strong>enganoso</strong>: "resto \(\ne 0\)" deixou de significar "não pertence". A receita de uma variável <strong>não serve</strong> como teste em várias.</p>
+  </div>
+
+  <div class="quiz" id="q2">
+    <p class="q">Por que esse exemplo mostra que "resto \(\ne 0\)" não decide pertinência em \(k[x,y]\)?</p>
+    <button class="opt" data-ok="0">Porque \(f\) não pertence ao ideal</button>
+    <button class="opt" data-ok="1">Porque \(f\) pertence (\(f = x f_2\)), mas uma das divisões deu resto não nulo</button>
+    <button class="opt" data-ok="0">Porque a ordem lex foi escolhida errada</button>
+    <p class="fb" id="fb2"></p>
+  </div>
+
+  <h2><span class="n">PASSO 4 · O CONSERTO (PRÓXIMA LIÇÃO)</span>O que é uma base de Gröbner</h2>
+  <p>A culpa não é da divisão — é do <strong>conjunto gerador</strong>. \(\{f_1, f_2\}\) gera o ideal certo, mas é um gerador "ruim" para dividir: os termos líderes \(xy\) e \(y^2\) não capturam todos os termos líderes do ideal (falta o \(\mathrm{LT}\) de \(f_2 \cdot x - f_1 \cdot y = \ldots\), uma combinação que produz um líder novo). Uma <strong>base de Gröbner</strong> é precisamente um gerador <em>consertado</em> para essa falha:</p>
+  <div class="box def">
+    <h3>Base de Gröbner — a ideia (formalizamos na 0009)</h3>
+    <p style="margin:.2rem 0">É um conjunto gerador \(G = \{g_1,\dots,g_t\}\) do ideal tal que os termos líderes de \(G\) geram <em>todos</em> os termos líderes do ideal. Com ele, a divisão volta a se comportar:</p>
+    <p style="margin:.2rem 0">• o <strong>resto é único</strong>, não importa a ordem dos divisores;</p>
+    <p style="margin:.2rem 0">• e <strong>\(f \in I \iff\) resto da divisão por \(G\) é \(0\)</strong> — o teste de pertinência de uma variável, recuperado.</p>
+  </div>
+  <div class="gem">
+    <h3>Por que isso fecha o laço com o Nullstellensatz</h3>
+    <p style="margin:.2rem 0">Lembra que "o sistema tem solução?" virou "\(1 \in I\)?" na 0007? Com uma base de Gröbner \(G\) de \(I\), isso vira algo <strong>mecânico</strong>: \(1 \in I\) se e só se \(G\) contém uma constante não nula — equivalentemente, a base de Gröbner <em>reduzida</em> de \(I\) é \(\{1\}\). O teorema de Hilbert que provamos vira um <strong>comando que um computador executa</strong>. É aqui que "geometria algébrica" ganha o sobrenome "computacional".</p>
+  </div>
+  <p>Na <strong>Lição 0009</strong> vem o <em>algoritmo de Buchberger</em>: a receita que pega um gerador qualquer \(\{f_1,\dots,f_s\}\) e o conserta numa base de Gröbner — fabricando, um a um, os termos líderes que faltavam (os tais "\(S\)-polinômios").</p>
+
+  <h2><span class="n">PASSO 5 · PRATIQUE SOZINHO</span>Sua tarefa</h2>
+  <div class="box def">
+    <h3>Exercício · sinta a falha com a mão</h3>
+    <p style="margin:.2rem 0">Em \(k[x,y]\), lex com \(x>y\), tome \(f = x^2 y + 1\), \(f_1 = xy + 1\), \(f_2 = x + 1\).</p>
+    <p style="margin:.2rem 0">(a) Divida \(f\) pela lista \((f_1, f_2)\) e anote o resto.</p>
+    <p style="margin:.2rem 0">(b) Divida \(f\) pela lista \((f_2, f_1)\) e anote o resto.</p>
+    <p style="margin:.2rem 0">(c) Os restos coincidem? O que isso sugere sobre \(\{f_1,f_2\}\) ser ou não uma base de Gröbner?</p>
+    <p style="margin:.5rem 0 0; color:var(--soft); font-size:.9rem">Traga os dois cálculos no chat — quero ver os passos, não só o resto. (E se quiser conferir por conta própria, é exatamente o tipo de coisa que o <a href="https://macaulay2.com/">Macaulay2</a> calcula em uma linha; podemos instalar quando você quiser computar de verdade.)</p>
+  </div>
+
+  <div class="src" style="margin-top:1.6rem">
+    <h3>Leia a seguir (fonte primária)</h3>
+    <p><strong>Cox–Little–O'Shea, Cap. 2 §2–§3</strong> — ordens monomiais (§2, p.54) e o algoritmo da divisão em várias variáveis (§3, p.61), de onde tirei o exemplo \(f=xy^2-x\). O conceito de base de Gröbner vem no §5 (Teorema da Base de Hilbert, p.76) e o algoritmo de Buchberger no §7 (p.90). <a href="https://link.springer.com/book/10.1007/978-3-031-91841-4">Springer</a>.</p>
+  </div>
+
+  <blockquote style="margin-top:2rem">
+    <strong>Sou seu professor.</strong> Mudamos de marcha: das provas para o cálculo. Você acabou de ver, com a mão, <em>por que</em> as bases de Gröbner precisam existir — e isso vale mais do que decorar a definição delas. Faça o exercício dos dois restos; quando trouxer, montamos o algoritmo de Buchberger e, logo depois, instalamos o Macaulay2 para você computar de verdade.
+  </blockquote>
+
+  <footer>
+    Lição 0008 · Missão: <a href="../MISSION.md">Álgebra Abstrata → Geometria Algébrica Computacional</a><br>
+    Anterior: <a href="0007-nullstellensatz-fraco-uma-variavel.html">0007 — O Nullstellensatz fraco</a> · Próxima: 0009 — o algoritmo de Buchberger (consertando o gerador). Em pausa: o truque de Rabinowitsch (fraco ⟹ forte), para quando fecharmos o laço do Nullstellensatz.
+  </footer>
+</div>
+
+<script>
+(function(){
+  function wire(quizId, fbId){
+    var quiz = document.getElementById(quizId);
+    var fb = document.getElementById(fbId);
+    var opts = quiz.querySelectorAll('.opt');
+    opts.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var ok = btn.getAttribute('data-ok') === '1';
+        opts.forEach(function(b){ b.disabled = true; if(b.getAttribute('data-ok')==='1') b.classList.add('correct'); });
+        if(!ok) btn.classList.add('wrong');
+        fb.textContent = ok ? '✓ Isso mesmo.' : '✗ Quase — veja a opção em verde e o porquê.';
+        fb.className = 'fb ' + (ok ? 'show-good' : 'show-bad');
+      });
+    });
+  }
+  wire('q1','fb1'); wire('q2','fb2');
+})();
+</script>
+</body>
+</html>
